@@ -1,7 +1,6 @@
 import os
 import pickle
-import Playlists
-
+from .apis.Playlists import Playlist
 import google_auth_oauthlib.flow
 import googleapiclient.discovery
 from googleapiclient.discovery import Resource
@@ -13,7 +12,7 @@ class Client:
         self.client: Resource = ...
         
     def init_resources(self):
-        self.playlist = Playlists.Playlist(self.client)
+        self.playlist = Playlist(self.client)
         
     def _fetch_new_creds(self, client_secrets_file: str, scopes: list[str], token_store: str):
         """Fetches new credentials"""
@@ -74,6 +73,3 @@ class Client:
         inst.init_resources()
         return inst
     
-if __name__ == '__main__':
-    yt = Client.from_client_secrets("client_secrets.json", ["https://www.googleapis.com/auth/youtube"])
-    req = yt.playlist.list(part=["snippet","content_details"], id="PLjgIcMBGNp1cHfSM65iO2uUOU_lmxxPHs")

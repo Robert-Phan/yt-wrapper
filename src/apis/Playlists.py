@@ -1,25 +1,22 @@
-from dataclasses import dataclass as dtcls
-from typing import Literal, Union, Any
-from PlaylistResource import PlaylistListReponse
+from typing import Literal
+from ..resources.PlaylistResource import PlaylistListReponse
 from googleapiclient.discovery import Resource
 
-PlaylistPartType = Union[Literal["content_details", "id", "localizations",
-                                "player", "snippet", "status"], 
-                    list[Literal["content_details", "id", "localizations",
-                                "player", "snippet", "status"]]]
+PlaylistPartType = Literal["content_details", "id", "localizations", 
+            "player", "snippet", "status"] | list[
+                Literal["content_details", "id", "localizations", 
+                        "player", "snippet", "status"]]
         
-
 class Playlist:
     def __init__(self, client: Resource) -> None:
         self.client = client
     
     def list(self, *, part: PlaylistPartType,
-             channel_id : str = None, id: Union[list[str], str] = None, mine: bool = None,
+             channel_id : str = None, id: list[str] | str = None, mine: bool = None,
              max_results: int = 5, page_token: str = ""
              ):
         """
         Returns a collection of playlists. 
-        More at the [official documentation](https://developers.google.com/youtube/v3/docs/playlists/list).
         """
         if len([x for x in (channel_id, id, mine) if x != None]) != 1: 
             raise Exception("No/too many filters specified.")
@@ -35,4 +32,7 @@ class Playlist:
                                      pageToken=page_token).execute()
         
         return PlaylistListReponse(response)
+    
+    def insert(self, body):
+        ...
     

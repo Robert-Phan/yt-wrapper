@@ -43,6 +43,7 @@ class Player:
     embed_html: str
 
 class PlaylistResource:
+    """Represents a Playlist resource."""
     def __init__(self, resource: dict) -> None:
         self.id: str = resource["id"]
         self.etag: Any = resource["etag"]
