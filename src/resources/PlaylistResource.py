@@ -2,45 +2,47 @@ from dataclasses import dataclass as dtcls
 from typing import  Any
 
 @dtcls
-class Key:
-    url: str
-    width: int
-    height: int
-    
+class ThumbnailKey:
+    url: str = None
+    width: int = None
+    height: int = None
+
+@dtcls
 class Thumbnails:
-    def __init__(self, thumbnails: dict[str, Key]) -> None:
-        self.__thumbnails = thumbnails
-    
-    def __getitem__(self, index: str):
-        return self.__thumbnails[index]
+    default : ThumbnailKey = None
+    medium : ThumbnailKey = None
+    high : ThumbnailKey = None
+    standard : ThumbnailKey = None
+    maxres : ThumbnailKey = None
 
 @dtcls
 class Localized:
-    title: str
-    string: str
+    title: str = None
+    description: str = None
     
 @dtcls
 class Snippet:
-    published_at: str
-    channel_id: str
-    title: str
-    description: str
-    thumbnails: Thumbnails
-    channel_title: str
-    default_language: str
-    localized: Localized
+    published_at: str = None
+    channel_id: str = None
+    title: str = None
+    description: str = None
+    thumbnails: Thumbnails = None
+    channel_title: str = None
+    default_language: str = None
+    localized: Localized = None
     
 @dtcls
 class Status:
-    privacy_status: str
+    privacy_status: str = None
     
 @dtcls
 class ContentDetails:
-    item_count: str
+    item_count: int = 0
     
 @dtcls
 class Player:
-    embed_html: str
+    embed_html: str = None
+
 
 class PlaylistResource:
     """Represents a Playlist resource."""
@@ -49,27 +51,30 @@ class PlaylistResource:
         self.etag: Any = resource["etag"]
         self.kind = "youtube#playlist"
         
+        thumbnails = Thumbnails()
+        for x in ['default', 'medium', 'high', 'standard', 'maxres']:
+            key = ThumbnailKey()
+            key.url = resource["snippet"]["thumbnails"].get(x, {}).get("url")
+            key.height = resource["snippet"]["thumbnails"].get(x, {}).get("height")
+            key.width = resource["snippet"]["thumbnails"].get(x, {}).get("width")
+            thumbnails.__setattr__(x, key)
         
-        thumbnails = Thumbnails({k: Key(v["url"], v["width"], v["height"]) 
-                                 for (k, v) in resource["snippet"]["thumbnails"].items()})
+        self.snippet = Snippet()
+        self.snippet.published_at =  resource["snippet"]["channelId"]
+        self.snippet.title =  resource["snippet"]["title"]
+        self.snippet.description =  resource["snippet"]["description"]
+        self.snippet.thumbnails =  thumbnails
+        self.snippet.channel_title =  resource["snippet"]["channelTitle"]
+        self.snippet.default_language =  resource["snippet"].get("defaultLanguage")
+
+        local = Localized()
+        local.title = resource["snippet"]["localized"]["title"]; 
+        local.description = resource["snippet"]["localized"]["description"]
+        self.snippet.localized = Localized()
         
-        self.snippet = Snippet(resource["snippet"]["publishedAt"], 
-                               resource["snippet"]["channelId"],
-                               resource["snippet"]["title"], 
-                               resource["snippet"]["description"],
-                               thumbnails, 
-                               resource["snippet"]["channelTitle"], 
-                               resource["snippet"]["defaultLanguage"] 
-                               if "defaultLanguage" in resource["snippet"] else None,
-                               Localized(
-                                   resource["snippet"]["localized"]["title"],
-                                   resource["snippet"]["localized"]["description"]
-                               ))
-        self.status = Status(resource["status"]["privacy_status"] 
-                             if "status" in resource else None)
+        self.status = Status(resource.get("status", {}).get("privacy_status"))
         self.content_details = ContentDetails(resource["contentDetails"]["itemCount"])
-        self.player = Player(resource["player"]["embedHtml"]
-                             if "player" in resource else None)
+        self.player = Player(resource.get("player", {}).get("embedHtml"))
 
 @dtcls
 class PageInfo:
@@ -87,6 +92,4 @@ class PlaylistListReponse:
         self.page_info = PageInfo(response["pageInfo"]["totalResults"],
                                   response["pageInfo"]["resultsPerPage"])
         self.items = [PlaylistResource(x) for x in response["items"]]
-        pass
-    
 

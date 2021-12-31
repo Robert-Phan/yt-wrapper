@@ -43,7 +43,7 @@ class Client:
         
         inst = cls()
         
-        credentials: Credentials = ...
+        credentials: Credentials = None
         # * Fetches stored credentials
         if os.path.exists(token_store):
             print("Loading credentials from file...")
@@ -63,7 +63,7 @@ class Client:
                 #     credentials = fetch_new_creds(client_secrets_file, scopes)
             else:
                 print("Fetching new credentials...")
-                credentials = inst._fetch_new_creds(client_secrets_file, scopes)
+                credentials = inst._fetch_new_creds(client_secrets_file, scopes, token_store)
                 print("New credentails fetched!")
         
         youtube = googleapiclient.discovery.build(
