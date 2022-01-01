@@ -1,5 +1,5 @@
 from typing import Literal
-from ..resources.PlaylistResource import PlaylistListReponse
+from ..resources.PlaylistResource import PlaylistListReponse, PlaylistResource
 from googleapiclient.discovery import Resource
 
 PlaylistPartType = Literal["content_details", "id", "localizations", 
@@ -30,9 +30,24 @@ class Playlist:
                                      mine=mine,
                                      maxResults=max_results,
                                      pageToken=page_token).execute()
-        
         return PlaylistListReponse(response)
     
-    def insert(self, body):
+    def insert(self, body: PlaylistResource, *, part: PlaylistPartType):
+        if not body.snippet.title: raise Exception("Playlist title not provided")
+        request_body = {
+            "snippet": {
+                "title": body.snippet.title,
+                "description": body.snippet.description
+            }
+        }
+        
+        if type(part) == list:
+            part = ",".join(part)
+        
+        req = self.client.playlists().insert(body=request_body, part=part)
+        res = PlaylistResource()
+        res._from_resource_dict(req.execute())
+        
+        return res
         ...
     

@@ -43,10 +43,31 @@ class ContentDetails:
 class Player:
     embed_html: str = None
 
-
 class PlaylistResource:
     """Represents a Playlist resource."""
-    def __init__(self, resource: dict) -> None:
+    def __init__(self) -> None:
+        self.id: str = ""
+        self.etag: Any = None
+        self.kind = "youtube#playlist"
+
+        
+        self.snippet = Snippet()
+        self.snippet.published_at = None 
+        self.snippet.channel_id = None 
+        self.snippet.title = None
+        self.snippet.description = None
+        self.snippet.thumbnails =  ThumbnailKey()
+        self.snippet.channel_title = None
+        self.snippet.default_language = None
+
+        self.snippet.localized = Localized()
+        
+        self.status = Status()
+        self.content_details = ContentDetails()
+        self.player = Player()
+        pass
+    
+    def _from_resource_dict(self, resource: dict) -> None:
         self.id: str = resource["id"]
         self.etag: Any = resource["etag"]
         self.kind = "youtube#playlist"
@@ -58,22 +79,23 @@ class PlaylistResource:
             key.height = resource["snippet"]["thumbnails"].get(x, {}).get("height")
             key.width = resource["snippet"]["thumbnails"].get(x, {}).get("width")
             thumbnails.__setattr__(x, key)
+        self.snippet.thumbnails =  thumbnails
         
         self.snippet = Snippet()
-        self.snippet.published_at =  resource["snippet"]["channelId"]
+        self.snippet.published_at =  resource["snippet"]["publishedAt"]
+        self.snippet.channel_id =  resource["snippet"]["channelId"]
         self.snippet.title =  resource["snippet"]["title"]
         self.snippet.description =  resource["snippet"]["description"]
-        self.snippet.thumbnails =  thumbnails
         self.snippet.channel_title =  resource["snippet"]["channelTitle"]
         self.snippet.default_language =  resource["snippet"].get("defaultLanguage")
 
         local = Localized()
         local.title = resource["snippet"]["localized"]["title"]; 
         local.description = resource["snippet"]["localized"]["description"]
-        self.snippet.localized = Localized()
+        self.snippet.localized = local
         
         self.status = Status(resource.get("status", {}).get("privacy_status"))
-        self.content_details = ContentDetails(resource["contentDetails"]["itemCount"])
+        self.content_details = ContentDetails(resource.get("contentDetails", {}).get("itemCount"))
         self.player = Player(resource.get("player", {}).get("embedHtml"))
 
 @dtcls
@@ -91,5 +113,12 @@ class PlaylistListReponse:
         
         self.page_info = PageInfo(response["pageInfo"]["totalResults"],
                                   response["pageInfo"]["resultsPerPage"])
-        self.items = [PlaylistResource(x) for x in response["items"]]
+        
+        self.items: list[PlaylistResource] = []
+        for x in response["items"]:
+            g = PlaylistResource()
+            g._from_resource_dict(x)
+            self.items.append(g)
+            
+
 
