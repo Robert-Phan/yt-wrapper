@@ -46,57 +46,54 @@ class Player:
 class PlaylistResource:
     """Represents a Playlist resource."""
     def __init__(self) -> None:
-        self.id: str = ""
+        self.id: str = None
         self.etag: Any = None
         self.kind = "youtube#playlist"
 
-        
         self.snippet = Snippet()
-        self.snippet.published_at = None 
-        self.snippet.channel_id = None 
-        self.snippet.title = None
-        self.snippet.description = None
-        self.snippet.thumbnails =  ThumbnailKey()
-        self.snippet.channel_title = None
-        self.snippet.default_language = None
-
-        self.snippet.localized = Localized()
         
         self.status = Status()
         self.content_details = ContentDetails()
         self.player = Player()
         pass
     
-    def _from_resource_dict(self, resource: dict) -> None:
-        self.id: str = resource["id"]
-        self.etag: Any = resource["etag"]
-        self.kind = "youtube#playlist"
+    @classmethod
+    def _from_resource_dict(cls, resource: dict):
+        inst = cls()
+        inst.id = resource["id"]
+        inst.etag = resource["etag"]
+        inst.kind = "youtube#playlist"
         
-        thumbnails = Thumbnails()
-        for x in ['default', 'medium', 'high', 'standard', 'maxres']:
-            key = ThumbnailKey()
-            key.url = resource["snippet"]["thumbnails"].get(x, {}).get("url")
-            key.height = resource["snippet"]["thumbnails"].get(x, {}).get("height")
-            key.width = resource["snippet"]["thumbnails"].get(x, {}).get("width")
-            thumbnails.__setattr__(x, key)
-        self.snippet.thumbnails =  thumbnails
-        
-        self.snippet = Snippet()
-        self.snippet.published_at =  resource["snippet"]["publishedAt"]
-        self.snippet.channel_id =  resource["snippet"]["channelId"]
-        self.snippet.title =  resource["snippet"]["title"]
-        self.snippet.description =  resource["snippet"]["description"]
-        self.snippet.channel_title =  resource["snippet"]["channelTitle"]
-        self.snippet.default_language =  resource["snippet"].get("defaultLanguage")
+        snippet = resource.get("snippet")
+        if snippet != None:
+            inst.snippet = Snippet()
+            thumbnails = Thumbnails()
+            for x in ['default', 'medium', 'high', 'standard', 'maxres']:
+                key = ThumbnailKey()
+                key.url = snippet["thumbnails"].get(x, {}).get("url")
+                key.height = snippet["thumbnails"].get(x, {}).get("height")
+                key.width = snippet["thumbnails"].get(x, {}).get("width")
+                thumbnails.__setattr__(x, key)
+            inst.snippet.thumbnails =  thumbnails
+            
+            inst.snippet = Snippet()
+            inst.snippet.published_at =  snippet["publishedAt"]
+            inst.snippet.channel_id =  snippet["channelId"]
+            inst.snippet.title =  snippet["title"]
+            inst.snippet.description =  snippet["description"]
+            inst.snippet.channel_title =  snippet["channelTitle"]
+            inst.snippet.default_language =  snippet.get("defaultLanguage")
 
-        local = Localized()
-        local.title = resource["snippet"]["localized"]["title"]; 
-        local.description = resource["snippet"]["localized"]["description"]
-        self.snippet.localized = local
+            local = Localized()
+            local.title = snippet["localized"]["title"]; 
+            local.description = snippet["localized"]["description"]
+            inst.snippet.localized = local
+            
+        inst.status = Status(resource.get("status", {}).get("privacyStatus"))
+        inst.content_details = ContentDetails(resource.get("contentDetails", {}).get("itemCount"))
+        inst.player = Player(resource.get("player", {}).get("embedHtml"))
         
-        self.status = Status(resource.get("status", {}).get("privacy_status"))
-        self.content_details = ContentDetails(resource.get("contentDetails", {}).get("itemCount"))
-        self.player = Player(resource.get("player", {}).get("embedHtml"))
+        return inst
 
 @dtcls
 class PageInfo:
@@ -114,11 +111,6 @@ class PlaylistListReponse:
         self.page_info = PageInfo(response["pageInfo"]["totalResults"],
                                   response["pageInfo"]["resultsPerPage"])
         
-        self.items: list[PlaylistResource] = []
-        for x in response["items"]:
-            g = PlaylistResource()
-            g._from_resource_dict(x)
-            self.items.append(g)
-            
-
+        self.items: list[PlaylistResource] = [PlaylistResource._from_resource_dict(x) 
+                                              for x in response["items"]]
 
