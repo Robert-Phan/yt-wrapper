@@ -1,13 +1,14 @@
-from dataclasses import dataclass as dtcls
-from typing import  Any
+from dataclasses import dataclass
+from typing import Any
+from .utils import camel_snake_converter 
 
-@dtcls
+@dataclass
 class ThumbnailKey:
     url: str = None
     width: int = None
     height: int = None
 
-@dtcls
+@dataclass
 class Thumbnails:
     default : ThumbnailKey = None
     medium : ThumbnailKey = None
@@ -15,12 +16,12 @@ class Thumbnails:
     standard : ThumbnailKey = None
     maxres : ThumbnailKey = None
 
-@dtcls
+@dataclass
 class Localized:
     title: str = None
     description: str = None
     
-@dtcls
+@dataclass
 class Snippet:
     published_at: str = None
     channel_id: str = None
@@ -31,15 +32,15 @@ class Snippet:
     default_language: str = None
     localized: Localized = None
     
-@dtcls
+@dataclass
 class Status:
     privacy_status: str = None
     
-@dtcls
+@dataclass
 class ContentDetails:
     item_count: int = 0
     
-@dtcls
+@dataclass
 class Player:
     embed_html: str = None
 
@@ -64,8 +65,13 @@ class PlaylistResource:
         inst.etag = resource["etag"]
         inst.kind = "youtube#playlist"
         
-        snippet = resource.get("snippet")
+        snippet: dict = resource.get("snippet")
         if snippet != None:
+            snippetAttrs = ["publishedAt", "channelId", "title", "description", 
+                            "defaultLanguage"]
+            for x in snippetAttrs:
+                inst.snippet.__setattr__(camel_snake_converter(x), snippet.get(x))
+
             thumbnails = Thumbnails()
             for x in ['default', 'medium', 'high', 'standard', 'maxres']:
                 key = ThumbnailKey()
@@ -75,13 +81,6 @@ class PlaylistResource:
                 thumbnails.__setattr__(x, key)
             inst.snippet.thumbnails =  thumbnails
             
-            inst.snippet.published_at =  snippet["publishedAt"]
-            inst.snippet.channel_id =  snippet["channelId"]
-            inst.snippet.title =  snippet["title"]
-            inst.snippet.description =  snippet["description"]
-            inst.snippet.channel_title =  snippet["channelTitle"]
-            inst.snippet.default_language =  snippet.get("defaultLanguage")
-
             local = Localized()
             local.title = snippet["localized"]["title"]; 
             local.description = snippet["localized"]["description"]
@@ -93,7 +92,7 @@ class PlaylistResource:
         
         return inst
 
-@dtcls
+@dataclass
 class PageInfo:
     total_results: int
     results_per_page: int
