@@ -66,7 +66,6 @@ class PlaylistResource:
         
         snippet = resource.get("snippet")
         if snippet != None:
-            inst.snippet = Snippet()
             thumbnails = Thumbnails()
             for x in ['default', 'medium', 'high', 'standard', 'maxres']:
                 key = ThumbnailKey()
@@ -76,7 +75,6 @@ class PlaylistResource:
                 thumbnails.__setattr__(x, key)
             inst.snippet.thumbnails =  thumbnails
             
-            inst.snippet = Snippet()
             inst.snippet.published_at =  snippet["publishedAt"]
             inst.snippet.channel_id =  snippet["channelId"]
             inst.snippet.title =  snippet["title"]
@@ -105,8 +103,8 @@ class PlaylistListReponse:
         self.kind = "youtube#playlistListResponse"
         self.etag = response["etag"]
         
-        self.next_page_token: str = response["nextPageToken"] if "nextPageToken" in response else None
-        self.prev_page_token: str = response["prevPageToken"] if "prevPageToken" in response else None
+        self.next_page_token: str = response.get("nextPageToken")
+        self.prev_page_token: str = response.get("prevPageToken")
         
         self.page_info = PageInfo(response["pageInfo"]["totalResults"],
                                   response["pageInfo"]["resultsPerPage"])

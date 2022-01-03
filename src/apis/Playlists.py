@@ -1,5 +1,5 @@
 from typing import Literal
-from ..resources.PlaylistResource import PlaylistListReponse, PlaylistResource, Snippet
+from ..resources.PlaylistResource import PlaylistListReponse, PlaylistResource
 from googleapiclient.discovery import Resource
 
 PlaylistPartType = Literal["content_details", "id", "localizations", 
@@ -80,4 +80,3 @@ class Playlist:
             id=playlist_id
         )
         request.execute()
-        ...

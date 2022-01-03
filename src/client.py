@@ -1,11 +1,14 @@
 import os
 import pickle
-from .apis.Playlists import Playlist
+
 import google_auth_oauthlib.flow
 import googleapiclient.discovery
 from googleapiclient.discovery import Resource
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
+
+from .apis.Playlists import Playlist
+from .apis.PlaylistItems import PlaylistItem
 
 class Client:
     def __init__(self) -> None:
@@ -13,6 +16,7 @@ class Client:
         
     def init_resources(self):
         self.playlist = Playlist(self.client)
+        self.playlist_item = PlaylistItem(self.client)
         
     def _fetch_new_creds(self, client_secrets_file: str, scopes: list[str], token_store: str):
         """Fetches new credentials"""
