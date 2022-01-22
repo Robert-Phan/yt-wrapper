@@ -58,13 +58,13 @@ class Client:
         if not credentials or not credentials.valid:
             if credentials and credentials.expired and credentials.refresh_token:
                 print('Refreshing acess token...')
-                # try:
-                request = Request()
-                credentials.refresh(request)
-                print("Access token refreshed!")
-                # except:
-                #     print("Refresh token expired!")
-                #     credentials = fetch_new_creds(client_secrets_file, scopes)
+                try:
+                    request = Request()
+                    credentials.refresh(request)
+                    print("Access token refreshed!")
+                except:
+                    print("Refresh token expired!")
+                    credentials = inst._fetch_new_creds(client_secrets_file, scopes, token_store)
             else:
                 print("Fetching new credentials...")
                 credentials = inst._fetch_new_creds(client_secrets_file, scopes, token_store)
