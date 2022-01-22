@@ -53,3 +53,35 @@ class PlaylistItem:
         req = self.client.playlistItems().insert(body=request_body, part=part)
         res = PlaylistItemResource._from_resource_dict(req.execute())
         return res
+    
+    def update(self, *, body: PlaylistItemResource, part: PlaylistItemPartType):
+        if not (body.snippet.playlist_id and body.snippet.resource_id ):
+            raise Exception(
+                "`snippet.playlist_id`, and `snippet.resource_id` properties not provided"
+                )
+        
+        request_body = {
+            "snippet": {
+                "playlistId": body.snippet.playlist_id,
+                "resourceId": {
+                    "kind": "youtube#video",
+                    "videoId": body.snippet.resource_id.video_id
+                },
+                "position": body.snippet.position
+            }
+        }
+
+        if "content_details" in part:
+            request_body["contentDetails"] = {}
+            request_body["contentDetails"]["note"] = body.content_details.note
+            
+        req = self.client.playlistItems().insert(body=request_body, part=part)
+        res = PlaylistItemResource._from_resource_dict(req.execute())
+        return res
+    
+    def delete(self,  id: str):
+        request = self.client.playlistItems().delete(
+            id=id
+        )
+        request.execute()
+        
