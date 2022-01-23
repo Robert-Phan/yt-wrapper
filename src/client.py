@@ -15,11 +15,12 @@ class Client:
         self.client: Resource = ...
         
     def init_resources(self):
+        """Adds resources to the class."""
         self.playlist = Playlist(self.client)
         self.playlist_item = PlaylistItem(self.client)
         
     def _fetch_new_creds(self, client_secrets_file: str, scopes: list[str], token_store: str):
-        """Fetches new credentials"""
+        """Fetches new credentials."""
         
         flow = google_auth_oauthlib.flow.InstalledAppFlow.from_client_secrets_file(
         client_secrets_file, scopes)
@@ -36,11 +37,13 @@ class Client:
     def from_client_secrets(cls, client_secrets_file: str, scopes: list[str], 
                             token_store: str = "token.pickle"):
         """
-        Returns a youtube client.\n
+        Returns a youtube client.
+        
         Parameters:
             `client_secrets_file`: the path to your client secrets file. 
             `scopes`: the scopes of this client.
             `token_store`: the file the program will use to store credentials for later use.
+            
         Returns:
             An instance of the Youtube client, with OAuth2 access.
         """

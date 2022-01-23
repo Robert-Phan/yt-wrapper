@@ -1,3 +1,5 @@
+"""Class representations of the `Playlist` resource."""
+
 from dataclasses import dataclass
 from .utils import camel_snake_converter
 
@@ -46,23 +48,37 @@ class Status:
     
 
 class PlaylistItemResource:
+    """
+    The class representation for the `PlaylistItem` JSON resource during request bodies and responses.
+    """
     def __init__(self) -> None:
         self.id: str = None
         self.etag: str = None
         self.kind = "youtube#playlistItem"
         
+        # ? Some of these attrs are init as None, whilst some are init as a class.
+        # ? This is becaause those that are init as a class are intended to be assigned by users
+        # ? when they use the insert or any other methods that needs to provide a resource body.
         self.snippet = Snippet()
         self.content_details = ContentDetails()
         self.status: Status = None
     
     @classmethod
     def _from_resource_dict(cls, resource: dict):
+        """
+        Creates a resource from a returned resource dictionary.
+        """
         inst = cls()
         inst.id = resource['id']
         inst.etag = resource['etag']
         
+        # * assigns the attrs snippet, status, contentDetails
+        # * the program has to check whether the props got requested or not
+        # * in the case that the user didn't request them in the `part` param
+        
         snippet: dict = resource.get('snippet')
         if snippet != None:
+            # goes through all of the simple attrs and assign them
             snippetAttrs = ['publishedAt', 'title', 'description', 
                             'channelTitle', 'channelId',
                             'videoOwnerChannelTitle', 'videoOwnerChannelId',
@@ -70,7 +86,8 @@ class PlaylistItemResource:
             for x in snippetAttrs:
                 inst.snippet.__setattr__(camel_snake_converter(x),
                                          snippet.get(x))
-                
+            
+            # goes through the thumbnails to assign them 
             for x in ['default', 'medium', 'high', 'standard', 'maxres']:
                 key = ThumbnailKey()
                 key.url = snippet["thumbnails"].get(x, {}).get("url")
@@ -100,6 +117,7 @@ class PageInfo:
     results_per_page: int
 
 class PlaylistItemListResponse:
+    """The response of a `list` method from the `PlaylistItem` class."""
     def __init__(self, response: dict) -> None:
         self.kind = "youtube#playlistListResponse"
         self.etag = response["etag"]

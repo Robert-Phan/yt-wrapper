@@ -6,7 +6,7 @@ PlaylistPartType = Literal["content_details", "id", "localizations",
             "player", "snippet", "status"] | list[
                 Literal["content_details", "id", "localizations", 
                         "player", "snippet", "status"]]
-        
+# TODO: Add in all the params I missed.
 class Playlist:
     def __init__(self, client: Resource) -> None:
         self.client = client
@@ -16,13 +16,17 @@ class Playlist:
              max_results: int = 5, page_token: str = ""
              ):
         """
-        Returns a collection of playlists. 
+        Returns a collection of playlists that match the API request parameters.
+        For more info, visit\
+        [Google's official documentation](https://developers.google.com/youtube/v3/docs/playlists/list)
         """
         if len([x for x in (channel_id, id, mine) if x != None]) != 1: 
             raise Exception("No/too many filters specified.")
         
         if type(part) == list:
             part = ",".join(part)
+        if type(id) == list:
+            id = ",".join(id)
         
         response = self.client.playlists().list(part=part,
                                      channelId=channel_id,
@@ -33,6 +37,11 @@ class Playlist:
         return PlaylistListReponse(response)
     
     def insert(self, body: PlaylistResource, *, part: PlaylistPartType):
+        """
+        Creates a playlist.
+        For more info, visit\
+    [Google's official documentation](https://developers.google.com/youtube/v3/docs/playlists/insert)
+        """
         if not body.snippet.title: raise Exception("Playlist title not provided")
         
         if type(part) == list:
@@ -53,6 +62,12 @@ class Playlist:
         
     
     def update(self, body: PlaylistResource, *, part: PlaylistPartType):
+        """
+        Modifies a playlist.\
+        For example, you could change a playlist's title, description, or privacy status. 
+        For more info, visit\
+    [Google's official documentation](https://developers.google.com/youtube/v3/docs/playlists/update)
+        """
         if not body.snippet.title or "snippet" not in part: 
             raise Exception("Playlist title not provided")
         if not body.id: raise Exception("Playlist id not provided")
@@ -76,6 +91,11 @@ class Playlist:
         return res
     
     def delete(self, playlist_id: str):
+        """
+        Deletes a playlist.
+        For more info, visit\
+    [Google's official documentation](https://developers.google.com/youtube/v3/docs/playlists/delete)
+        """
         request = self.client.playlists().delete(
             id=playlist_id
         )
