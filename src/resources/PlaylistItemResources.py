@@ -1,4 +1,4 @@
-"""Class representations of the `Playlist` resource."""
+"""Class representations of the `PlaylistItem` resource."""
 
 from dataclasses import dataclass
 from .utils import camel_snake_converter

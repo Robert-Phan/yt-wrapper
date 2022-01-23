@@ -1,5 +1,5 @@
 from typing import Literal
-from ..resources.PlaylistItemResource import PlaylistItemResource, PlaylistItemListResponse
+from ..resources.PlaylistItemResources import PlaylistItemResource, PlaylistItemListResponse
 from googleapiclient.discovery import Resource
 
 # the type used in the `part` parameter in class methods

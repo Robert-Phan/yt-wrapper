@@ -1,2 +1,2 @@
-from PlaylistItemResource import PlaylistItemResource
-from PlaylistResource import PlaylistResource
+from PlaylistItemResources import PlaylistItemResource
+from PlaylistResources import PlaylistResource
