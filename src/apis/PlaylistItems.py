@@ -1,5 +1,5 @@
 from typing import Literal
-from ..resources.PlaylistItemsResource import PlaylistItemResource, PlaylistItemListResponse, Snippet
+from ..resources.PlaylistItemResource import PlaylistItemResource, PlaylistItemListResponse, Snippet
 from googleapiclient.discovery import Resource
 
 PlaylistItemPartType = Literal["content_details", "id", 
@@ -79,7 +79,7 @@ class PlaylistItem:
         res = PlaylistItemResource._from_resource_dict(req.execute())
         return res
     
-    def delete(self,  id: str):
+    def delete(self, id:str):
         request = self.client.playlistItems().delete(
             id=id
         )

@@ -30,7 +30,7 @@ class Snippet:
     thumbnails: Thumbnails = None
     channel_title: str = None
     default_language: str = None
-    localized: Localized = None
+    localized = Localized()
     
 @dataclass
 class Status:
@@ -38,7 +38,7 @@ class Status:
     
 @dataclass
 class ContentDetails:
-    item_count: int = 0
+    item_count: int = None
     
 @dataclass
 class Player:
@@ -54,8 +54,8 @@ class PlaylistResource:
         self.snippet = Snippet()
         
         self.status = Status()
-        self.content_details = ContentDetails()
-        self.player = Player()
+        self.content_details: ContentDetails = None
+        self.player: Player = None
         pass
     
     @classmethod
@@ -81,14 +81,17 @@ class PlaylistResource:
                 thumbnails.__setattr__(x, key)
             inst.snippet.thumbnails =  thumbnails
             
-            local = Localized()
-            local.title = snippet["localized"]["title"]; 
-            local.description = snippet["localized"]["description"]
-            inst.snippet.localized = local
+            inst.snippet.localized.title = snippet["localized"]["title"]; 
+            inst.snippet.localized.description = snippet["localized"]["description"]
             
-        inst.status = Status(resource.get("status", {}).get("privacyStatus"))
-        inst.content_details = ContentDetails(resource.get("contentDetails", {}).get("itemCount"))
-        inst.player = Player(resource.get("player", {}).get("embedHtml"))
+        if "status" in resource:
+            inst.status.privacy_status = resource.get("status").get("privacyStatus")
+        else: inst.status = None
+        
+        if "contentDetails" in resource:
+            inst.content_details.item_count = resource.get("contentDetails").get("itemCount")
+        if "player" in resource:
+            inst.player.embed_html = resource.get("player").get("embedHtml")
         
         return inst
 

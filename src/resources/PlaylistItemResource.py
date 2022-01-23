@@ -9,11 +9,11 @@ class ThumbnailKey:
 
 @dataclass
 class Thumbnails:
-    default : ThumbnailKey = None
-    medium : ThumbnailKey = None
-    high : ThumbnailKey = None
-    standard : ThumbnailKey = None
-    maxres : ThumbnailKey = None
+    default: ThumbnailKey = None
+    medium: ThumbnailKey = None
+    high: ThumbnailKey = None
+    standard: ThumbnailKey = None
+    maxres: ThumbnailKey = None
     
 @dataclass
 class ResourceId:
@@ -32,7 +32,7 @@ class Snippet:
     video_owner_channel_id: str = None
     playlist_id: str = None
     position: int = None
-    resource_id: ResourceId = None
+    resource_id = ResourceId()
 
 @dataclass
 class ContentDetails:
@@ -53,7 +53,7 @@ class PlaylistItemResource:
         
         self.snippet = Snippet()
         self.content_details = ContentDetails()
-        self.status = Status()
+        self.status: Status = None
     
     @classmethod
     def _from_resource_dict(cls, resource: dict):
@@ -71,27 +71,27 @@ class PlaylistItemResource:
                 inst.snippet.__setattr__(camel_snake_converter(x),
                                          snippet.get(x))
                 
-            thumbnails = Thumbnails()
             for x in ['default', 'medium', 'high', 'standard', 'maxres']:
                 key = ThumbnailKey()
                 key.url = snippet["thumbnails"].get(x, {}).get("url")
                 key.height = snippet["thumbnails"].get(x, {}).get("height")
                 key.width = snippet["thumbnails"].get(x, {}).get("width")
-                thumbnails.__setattr__(x, key)
-            inst.snippet.thumbnails =  thumbnails
+                inst.snippet.thumbnails.__setattr__(x, key)
             
-            resource_id = ResourceId()
-            resource_id.kind = snippet["resourceId"]["kind"]
-            resource_id.video_id = snippet["resourceId"]["videoId"]
-            inst.snippet.resource_id = resource_id
+            inst.snippet.resource_id.kind = snippet["resourceId"]["kind"]
+            inst.snippet.resource_id.video_id = snippet["resourceId"]["videoId"]
+        else: inst.snippet = None
         
         content_details: dict = resource.get("contentDetails")
         if content_details != None:
             for x in ["videoId", "note", "videoPublishedAt"]:
                 inst.content_details.__setattr__(camel_snake_converter(x),
                                                  content_details.get(x))
-            
-        inst.status = resource.get("status", {}).get("privacyStatus")
+        else: inst.content_details = None
+        
+        if "status" in resource:
+            inst.status.privacy_status = resource.get("status").get("privacyStatus")
+        
         return inst
 
 @dataclass
