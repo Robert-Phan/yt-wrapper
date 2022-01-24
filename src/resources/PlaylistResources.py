@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 from typing import Any
-from .utils import camel_snake_converter 
+from .utils import camel_snake_converter, assign_resource_dict_to_class
 
 @dataclass
 class ThumbnailKey:
@@ -32,7 +32,7 @@ class Snippet:
     thumbnails: Thumbnails = None
     channel_title: str = None
     default_language: str = None
-    localized = Localized()
+    localized: Localized = Localized()
     
 @dataclass
 class Status:
@@ -46,71 +46,26 @@ class ContentDetails:
 class Player:
     embed_html: str = None
 
+@dataclass
 class PlaylistResource:
     """
     The class representation for the `Playlist` JSON resource during request bodies and responses.
     """    
-    def __init__(self) -> None:
-        self.id: str = None
-        self.etag: Any = None
-        self.kind = "youtube#playlist"
-        
-        # ? Some of these attrs are init as None, whilst some are init as a class.
-        # ? This is becaause those that are init as a class are intended to be assigned by users
-        # ? when they use the insert or any other methods that needs to provide a resource body.
-        self.snippet = Snippet()
-        self.status = Status()
-        self.content_details: ContentDetails = None
-        self.player: Player = None 
-        pass
+    id: str = None
+    kind: str = "youtube#playlist"
+    etag: str = None
     
+    content_details: ContentDetails = None
+    player: Player = None 
+    snippet: Snippet = Snippet()
+    status: Status = Status()
+
     @classmethod
     def _from_resource_dict(cls, resource: dict):
         """
         Creates a resource from a returned resource dictionary.
         """
-        inst = cls()
-        inst.id = resource["id"]
-        inst.etag = resource["etag"]
-        inst.kind = "youtube#playlist"
-        
-        # * assigns the attrs snippet, status, contentDetails, and player
-        # * the program has to check whether the props got requested or not
-        # * in the case that the user didn't request them in the `part` param
-        
-        snippet: dict = resource.get("snippet")
-        if snippet != None:
-            # goes through all of the simple attrs and assign them
-            snippetAttrs = ["publishedAt", "channelId", "title", "description", 
-                            "defaultLanguage"]
-            for x in snippetAttrs:
-                inst.snippet.__setattr__(camel_snake_converter(x), snippet.get(x))
-
-            # goes through the thumbnails to assign them 
-            thumbnails = Thumbnails()
-            for x in ['default', 'medium', 'high', 'standard', 'maxres']:
-                key = ThumbnailKey()
-                key.url = snippet["thumbnails"].get(x, {}).get("url")
-                key.height = snippet["thumbnails"].get(x, {}).get("height")
-                key.width = snippet["thumbnails"].get(x, {}).get("width")
-                thumbnails.__setattr__(x, key)
-            inst.snippet.thumbnails =  thumbnails
-            
-            inst.snippet.localized.title = snippet["localized"]["title"]; 
-            inst.snippet.localized.description = snippet["localized"]["description"]
-        else: inst.snippet = None
-        
-        if "status" in resource:
-            inst.status.privacy_status = resource.get("status").get("privacyStatus")
-        else: inst.status = None
-        
-        if "contentDetails" in resource:
-            inst.content_details = ContentDetails()
-            inst.content_details.item_count = resource.get("contentDetails").get("itemCount")
-        if "player" in resource:
-            inst.player = Player()
-            inst.player.embed_html = resource.get("player").get("embedHtml")
-        
+        inst = assign_resource_dict_to_class(resource, cls)
         return inst
 
 @dataclass

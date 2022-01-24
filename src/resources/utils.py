@@ -29,16 +29,42 @@ def camel_snake_converter(string: str, snake_to_camel: bool = False):
         return string
 
 T = TypeVar('T')
-def assign_resource_dict_to_class(resource: dict, clas: Type[T]):
-    obj: T = clas()
-    for (attr, typ) in obj.__annotations__.items():
-        if typ in {str, int, bool, list[str], list[int], list[bool]}:
-            obj.__setattr__(attr, resource.get(camel_snake_converter(attr, True)))
-        elif get_origin(typ) == list:
-            ls = []
-            for x in resource.get(camel_snake_converter(attr, True)):
-                ls.append(assign_resource_dict_to_class(x, get_origin(typ)))
-            obj.__setattr__(attr, ls)
+def assign_resource_dict_to_class(resource: dict, cls: Type[T]):
+    """
+    Takes a class and a resource, and converts that resource into an object.
+    
+    Parameters:
+        `resource`: the resource to be converted.
+        `cls`: the class whose object is to be converted into.
+    
+    Returns:
+        An instance of type `cls`, whose attrs are filled with values from `resource`.
+    """
+    inst: T = cls() # creates an instance of the class.
+    for (attr, typ) in inst.__annotations__.items():
+        # goes thru the attrs and the annotations of the attrs. 
+        converted = camel_snake_converter(attr, True) # converts class attrs to resource keys
+        if resource and resource.get(converted):
+            if typ in {str, int, bool, list[str], list[int], list[bool]}:
+                # * if the attr is a "simple" type, a type we can just copy from the resource directly
+                # * just copy it from the resource directly (converting cases first)
+                inst.__setattr__(attr, resource[converted])
+            elif get_origin(typ) == list:
+                # * if the attr is a complex type within a list
+                # * go thru the list, and apply the same process as the case down there
+                # * just appending to the list this time
+                # * then you finally assign the list to the attr. (maybe)
+                ls = [] 
+                for x in resource.get(converted):
+                    ls.append(assign_resource_dict_to_class(x, get_args(typ)[0]))
+                inst.__setattr__(attr, ls)
+            else:
+                # * if the attr is a "complex" type, on which has it's own values
+                # * use this fuction on it's annontation to convert the resource to an obj
+                # * then assign it back to the attr
+                # * this process works recursively
+                inst.__setattr__(attr, assign_resource_dict_to_class(resource.get(converted), 
+                                                                     typ))
         else:
-            obj.__setattr__(attr, assign_resource_dict_to_class(resource, typ))
-    return obj
+            inst.__setattr__(attr, None)
+    return inst

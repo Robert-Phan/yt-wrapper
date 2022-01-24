@@ -236,9 +236,9 @@ class VideoResource:
     id: str = None
     kind: str = "youtube#video"
     etag: str = None
-    snippet: Snippet = None
-    status: Status = None
-    recording_details: RecordingDetails = None
+    snippet: Snippet = Snippet()
+    status: Status = Status()
+    recording_details: RecordingDetails = RecordingDetails()
         
     content_details: ContentDetails = None
     file_details: FileDetails = None
@@ -247,22 +247,112 @@ class VideoResource:
     topic_details: TopicDetails = None
     player: Player = None
     statistics: Statistics = None
-    suggestion: Suggestions = None
+    suggestions: Suggestions = None
     
     @classmethod
     def _from_resource_dict(cls, resource: dict):
         """
         Creates a resource from a returned resource dictionary.
         """
-        inst = cls()
-        for (attr, typ) in inst.__annotations__.items():
-            if attr in {"id", "etag", "kind"}:
-                inst.__setattr__(attr, resource[attr])
-                continue
-            converted = camel_snake_converter(attr, True)
-            if camel_snake_converter(attr, True) in resource:
-                assigned = assign_resource_dict_to_class(resource[converted], typ)
-                inst.__setattr__(attr, assigned)
-                ...
+        inst = assign_resource_dict_to_class(resource, cls)
         return inst
+    
+nyaa = {
+            "kind": "youtube#video",
+            "etag": "x67Tv9bXQNH85HJyeMQw1_TfJ9E",
+            "id": "BwodfmqvkCA",
+            "snippet": {
+                "publishedAt": "2022-01-24T08:14:00Z",
+                "channelId": "UCCXX6ZVbhusEhEb-AQF4qTg",
+                "title": "tfw",
+                "description": "",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://i.ytimg.com/vi/BwodfmqvkCA/default.jpg",
+                        "width": 120,
+                        "height": 90
+                    },
+                    "medium": {
+                        "url": "https://i.ytimg.com/vi/BwodfmqvkCA/mqdefault.jpg",
+                        "width": 320,
+                        "height": 180
+                    },
+                    "high": {
+                        "url": "https://i.ytimg.com/vi/BwodfmqvkCA/hqdefault.jpg",
+                        "width": 480,
+                        "height": 360
+                    },
+                    "standard": {
+                        "url": "https://i.ytimg.com/vi/BwodfmqvkCA/sddefault.jpg",
+                        "width": 640,
+                        "height": 480
+                    }
+                },
+                "channelTitle": "iwanttodie",
+                "categoryId": "22",
+                "liveBroadcastContent": "none",
+                "localized": {
+                    "title": "tfw",
+                    "description": ""
+                }
+            },
+            "contentDetails": {
+                "duration": "PT44S",
+                "dimension": "2d",
+                "definition": "sd",
+                "caption": "false",
+                "licensedContent": False,
+                "contentRating": {},
+                "projection": "rectangular",
+                "hasCustomThumbnail": False
+            },
+            "statistics": {
+                "viewCount": "0",
+                "likeCount": "0",
+                "dislikeCount": "0",
+                "favoriteCount": "0",
+                "commentCount": "0"
+            },
+            "fileDetails": {
+                "fileName": "redditsave.com_blade_sorcery_extremely_professional_stealth_kill-xy6fu3a9z0a81-480.mp4",
+                "fileType": "video",
+                "container": "mov",
+                "videoStreams": [
+                    {
+                        "widthPixels": 854,
+                        "heightPixels": 480,
+                        "frameRateFps": 30,
+                        "aspectRatio": 1.7769784152732992,
+                        "codec": "h264",
+                        "bitrateBps": "1019482"
+                    }
+                ],
+                "audioStreams": [
+                    {
+                        "channelCount": 2,
+                        "codec": "aac",
+                        "bitrateBps": "154234"
+                    }
+                ],
+                "durationMs": "43300",
+                "bitrateBps": "1173716"
+            },
+            "processingDetails": {
+                "processingStatus": "succeeded",
+                "fileDetailsAvailability": "available",
+                "processingIssuesAvailability": "available",
+                "tagSuggestionsAvailability": "inProgress",
+                "editorSuggestionsAvailability": "inProgress",
+                "thumbnailsAvailability": "available"
+            },
+            "suggestions": {
+                "processingHints": [
+                    "nonStreamableMov"
+                ]
+            }
+        }
 
+bruh = VideoResource._from_resource_dict(nyaa)
+print(bruh.file_details)
+print(bruh.snippet)
+# print(bruh.statistics)
