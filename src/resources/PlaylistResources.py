@@ -12,11 +12,11 @@ class ThumbnailKey:
 
 @dataclass
 class Thumbnails:
-    default : ThumbnailKey = None
-    medium : ThumbnailKey = None
-    high : ThumbnailKey = None
-    standard : ThumbnailKey = None
-    maxres : ThumbnailKey = None
+    default: ThumbnailKey = None
+    medium: ThumbnailKey = None
+    high: ThumbnailKey = None
+    standard: ThumbnailKey = None
+    maxres: ThumbnailKey = None
 
 @dataclass
 class Localized:

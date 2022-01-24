@@ -7,8 +7,8 @@ from googleapiclient.discovery import Resource
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 
-from .apis.Playlists import Playlist
-from .apis.PlaylistItems import PlaylistItem
+from .apis import Playlist
+from .apis import PlaylistItem
 
 class Client:
     def __init__(self) -> None:
@@ -19,18 +19,19 @@ class Client:
         self.playlist = Playlist(self.client)
         self.playlist_item = PlaylistItem(self.client)
         
-    def _fetch_new_creds(self, client_secrets_file: str, scopes: list[str], token_store: str):
+    def _save_creds(self, creds: Credentials, token_store: str):
+        """Saves credentials to a token cache."""
+        with open(token_store, 'wb') as f:
+            print('Saving Credentials for Future Use...')
+            pickle.dump(creds, f)
+        
+    def _fetch_new_creds(self, client_secrets_file: str, scopes: list[str]):
         """Fetches new credentials."""
         
         flow = google_auth_oauthlib.flow.InstalledAppFlow.from_client_secrets_file(
         client_secrets_file, scopes)
         credentials = flow.run_console()
         
-        # Saves the credentials for the next run
-        with open(token_store, 'wb') as f:
-            print('Saving Credentials for Future Use...')
-            pickle.dump(credentials, f)
-                
         return credentials
     
     @classmethod
@@ -51,13 +52,15 @@ class Client:
         inst = cls()
         
         credentials: Credentials = None
-        # * Fetches stored credentials
+        
+        # * gets stored creds
         if os.path.exists(token_store):
             print("Loading credentials from file...")
             with open(token_store, 'rb') as token:
                 credentials = pickle.load(token)
         
-        # * Tries to refresh creds/get new creds if expired
+        # * Refreshes the access token/fetches new creds
+        # * Saves it in token.pickle at the end
         if not credentials or not credentials.valid:
             try:
                 print('Refreshing acess token...')
@@ -66,8 +69,10 @@ class Client:
                 print("Access token refreshed!")
             except:
                 print("Fetching new credentials...")
-                credentials = inst._fetch_new_creds(client_secrets_file, scopes, token_store)
+                credentials = inst._fetch_new_creds(client_secrets_file, scopes)
                 print("New credentails fetched!")
+            finally:
+                inst._save_creds(credentials, token_store)
         
         youtube = googleapiclient.discovery.build(
             "youtube", "v3", credentials=credentials)

@@ -1,2 +1,2 @@
-from Playlists import Playlist
-from PlaylistItems import PlaylistItem
+from .Playlists import Playlist
+from .PlaylistItems import PlaylistItem
