@@ -105,8 +105,10 @@ class PlaylistResource:
         else: inst.status = None
         
         if "contentDetails" in resource:
+            inst.content_details = ContentDetails()
             inst.content_details.item_count = resource.get("contentDetails").get("itemCount")
         if "player" in resource:
+            inst.player = Player()
             inst.player.embed_html = resource.get("player").get("embedHtml")
         
         return inst

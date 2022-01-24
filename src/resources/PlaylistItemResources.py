@@ -107,6 +107,7 @@ class PlaylistItemResource:
         else: inst.content_details = None
         
         if "status" in resource:
+            inst.status = Status()
             inst.status.privacy_status = resource.get("status").get("privacyStatus")
         
         return inst

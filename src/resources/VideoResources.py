@@ -1,5 +1,5 @@
-from dataclasses import dataclass 
-
+from dataclasses import dataclass
+from utils import camel_snake_converter, assign_resource_dict_to_class
 @dataclass
 class ThumbnailKey:
     url: str = None
@@ -21,14 +21,14 @@ class Localized:
 
 @dataclass # top-level
 class Snippet:
-    publised_at: str = None
+    published_at: str = None
     channel_id: str = None
     title: str = None
     description: str = None
     thumbnails: Thumbnails = None
     channel_title: str = None
     tags: list[str] = None
-    category_id = None
+    category_id: str = None
     live_broadcast_content: str = None
     default_language: str = None
     localized: Localized = None
@@ -228,31 +228,26 @@ class Suggestions:
     editor_suggestions: list[str] = None
     tag_suggestions: list[TagSuggestions] = None
 
-    
+@dataclass
 class VideoResource:
     """
     The class representation for the `Video` JSON resource during request bodies and responses.
     """    
-    def __init__(self) -> None:
-        self.id: str = None
-        self.kind = "youtube#video"
-        self.etag: str = None
+    id: str = None
+    kind: str = "youtube#video"
+    etag: str = None
+    snippet: Snippet = None
+    status: Status = None
+    recording_details: RecordingDetails = None
         
-        # ? Some of these attrs are init as None, whilst some are init as a class.
-        # ? This is becaause those that are init as a class are intended to be assigned by users
-        # ? when they use the insert or any other methods that needs to provide a resource body.
-        self.snippet = Snippet()
-        self.status = Status()
-        self.recording_details = RecordingDetails()
-        
-        self.content_details: ContentDetails = None
-        self.file_details: FileDetails = None
-        self.live_streaming_details: LivestreamingDetails = None
-        self.processing_details: ProcessingDetails = None
-        self.topic_details: TopicDetails = None
-        self.player: Player = None
-        self.statistics: Statistics = None
-        self.suggestion: Suggestions = None
+    content_details: ContentDetails = None
+    file_details: FileDetails = None
+    live_streaming_details: LivestreamingDetails = None
+    processing_details: ProcessingDetails = None
+    topic_details: TopicDetails = None
+    player: Player = None
+    statistics: Statistics = None
+    suggestion: Suggestions = None
     
     @classmethod
     def _from_resource_dict(cls, resource: dict):
@@ -260,5 +255,14 @@ class VideoResource:
         Creates a resource from a returned resource dictionary.
         """
         inst = cls()
-        inst.id = resource['id']
-        inst.etag = resource['etag']
+        for (attr, typ) in inst.__annotations__.items():
+            if attr in {"id", "etag", "kind"}:
+                inst.__setattr__(attr, resource[attr])
+                continue
+            converted = camel_snake_converter(attr, True)
+            if camel_snake_converter(attr, True) in resource:
+                assigned = assign_resource_dict_to_class(resource[converted], typ)
+                inst.__setattr__(attr, assigned)
+                ...
+        return inst
+
