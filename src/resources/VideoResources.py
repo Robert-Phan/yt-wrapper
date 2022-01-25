@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from utils import camel_snake_converter, assign_resource_dict_to_class
+from .utils import assign_resource_dict_to_class
 @dataclass
 class ThumbnailKey:
     url: str = None
@@ -256,103 +256,22 @@ class VideoResource:
         """
         inst = assign_resource_dict_to_class(resource, cls)
         return inst
-    
-nyaa = {
-            "kind": "youtube#video",
-            "etag": "x67Tv9bXQNH85HJyeMQw1_TfJ9E",
-            "id": "BwodfmqvkCA",
-            "snippet": {
-                "publishedAt": "2022-01-24T08:14:00Z",
-                "channelId": "UCCXX6ZVbhusEhEb-AQF4qTg",
-                "title": "tfw",
-                "description": "",
-                "thumbnails": {
-                    "default": {
-                        "url": "https://i.ytimg.com/vi/BwodfmqvkCA/default.jpg",
-                        "width": 120,
-                        "height": 90
-                    },
-                    "medium": {
-                        "url": "https://i.ytimg.com/vi/BwodfmqvkCA/mqdefault.jpg",
-                        "width": 320,
-                        "height": 180
-                    },
-                    "high": {
-                        "url": "https://i.ytimg.com/vi/BwodfmqvkCA/hqdefault.jpg",
-                        "width": 480,
-                        "height": 360
-                    },
-                    "standard": {
-                        "url": "https://i.ytimg.com/vi/BwodfmqvkCA/sddefault.jpg",
-                        "width": 640,
-                        "height": 480
-                    }
-                },
-                "channelTitle": "iwanttodie",
-                "categoryId": "22",
-                "liveBroadcastContent": "none",
-                "localized": {
-                    "title": "tfw",
-                    "description": ""
-                }
-            },
-            "contentDetails": {
-                "duration": "PT44S",
-                "dimension": "2d",
-                "definition": "sd",
-                "caption": "false",
-                "licensedContent": False,
-                "contentRating": {},
-                "projection": "rectangular",
-                "hasCustomThumbnail": False
-            },
-            "statistics": {
-                "viewCount": "0",
-                "likeCount": "0",
-                "dislikeCount": "0",
-                "favoriteCount": "0",
-                "commentCount": "0"
-            },
-            "fileDetails": {
-                "fileName": "redditsave.com_blade_sorcery_extremely_professional_stealth_kill-xy6fu3a9z0a81-480.mp4",
-                "fileType": "video",
-                "container": "mov",
-                "videoStreams": [
-                    {
-                        "widthPixels": 854,
-                        "heightPixels": 480,
-                        "frameRateFps": 30,
-                        "aspectRatio": 1.7769784152732992,
-                        "codec": "h264",
-                        "bitrateBps": "1019482"
-                    }
-                ],
-                "audioStreams": [
-                    {
-                        "channelCount": 2,
-                        "codec": "aac",
-                        "bitrateBps": "154234"
-                    }
-                ],
-                "durationMs": "43300",
-                "bitrateBps": "1173716"
-            },
-            "processingDetails": {
-                "processingStatus": "succeeded",
-                "fileDetailsAvailability": "available",
-                "processingIssuesAvailability": "available",
-                "tagSuggestionsAvailability": "inProgress",
-                "editorSuggestionsAvailability": "inProgress",
-                "thumbnailsAvailability": "available"
-            },
-            "suggestions": {
-                "processingHints": [
-                    "nonStreamableMov"
-                ]
-            }
-        }
 
-bruh = VideoResource._from_resource_dict(nyaa)
-print(bruh.file_details)
-print(bruh.snippet)
-# print(bruh.statistics)
+@dataclass
+class PageInfo:
+    total_results: int = None
+    results_per_page: int = None
+    
+@dataclass
+class VideoListResponse:
+    kind: str = "youtube#videoListResponse"
+    etag: str = None
+    next_page_token: str = None
+    prev_page_token: str = None
+    page_info: PageInfo = None
+    items: list[VideoResource] = None
+    
+    @classmethod
+    def init(cls, resource: dict):
+        inst = assign_resource_dict_to_class(resource, cls)
+        return inst

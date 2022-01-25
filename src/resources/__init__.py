@@ -1,2 +1,3 @@
 from .PlaylistItemResources import PlaylistItemResource
 from .PlaylistResources import PlaylistResource
+from .VideoResources import VideoResource

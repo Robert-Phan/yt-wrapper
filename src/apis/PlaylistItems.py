@@ -37,7 +37,7 @@ class PlaylistItem:
               maxResults=max_results, pageToken=page_token,
               videoId=video_id)
         
-        return PlaylistItemListResponse(req.execute())
+        return PlaylistItemListResponse.init(req.execute())
 
     def insert(self, *, body: PlaylistItemResource, part: PlaylistItemPartType):
         """

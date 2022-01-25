@@ -1,5 +1,5 @@
 from typing import Literal
-from ..resources.PlaylistResources import PlaylistListReponse, PlaylistResource
+from ..resources.PlaylistResources import PlaylistListResponse, PlaylistResource
 from googleapiclient.discovery import Resource
 
 PlaylistPartType = Literal["content_details", "id", "localizations", 
@@ -34,7 +34,7 @@ class Playlist:
                                      mine=mine,
                                      maxResults=max_results,
                                      pageToken=page_token).execute()
-        return PlaylistListReponse(response)
+        return PlaylistListResponse.init(response)
     
     def insert(self, body: PlaylistResource, *, part: PlaylistPartType):
         """

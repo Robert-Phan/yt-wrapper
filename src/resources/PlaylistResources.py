@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 from typing import Any
-from .utils import camel_snake_converter, assign_resource_dict_to_class
+from .utils import assign_resource_dict_to_class
 
 @dataclass
 class ThumbnailKey:
@@ -70,21 +70,20 @@ class PlaylistResource:
 
 @dataclass
 class PageInfo:
-    total_results: int
-    results_per_page: int
+    total_results: int = None
+    results_per_page: int = None
 
-class PlaylistListReponse:
-    """The response of a `list` method from the `Playlist` class."""
-    def __init__(self, response: dict) -> None:
-        self.kind = "youtube#playlistListResponse"
-        self.etag = response["etag"]
-        
-        self.next_page_token: str = response.get("nextPageToken")
-        self.prev_page_token: str = response.get("prevPageToken")
-        
-        self.page_info = PageInfo(response["pageInfo"]["totalResults"],
-                                  response["pageInfo"]["resultsPerPage"])
-        
-        self.items: list[PlaylistResource] = [PlaylistResource._from_resource_dict(x) 
-                                              for x in response["items"]]
+@dataclass
+class PlaylistListResponse:
+    kind: str = "youtube#playlistListResponse"
+    etag: str = None
+    next_page_token: str = None
+    prev_page_token: str = None
+    page_info: PageInfo = None
+    items: list[PlaylistResource] = None
+    
+    @classmethod
+    def init(cls, resource: dict):
+        inst = assign_resource_dict_to_class(resource, cls)
+        return inst
 
