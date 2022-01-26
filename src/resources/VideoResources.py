@@ -133,7 +133,7 @@ class Status:
     embeddable: bool = None 
     public_stats_viewable: bool = None 
     made_for_kids: bool = None 
-    self_declared_made_for_kid: bool = None
+    self_declared_made_for_kids: bool = None
     
 @dataclass # top-level
 class Statistics:

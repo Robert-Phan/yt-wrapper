@@ -15,7 +15,7 @@ class Client:
     def __init__(self) -> None:
         self.client: Resource = ...
         
-    def init_resources(self):
+    def _init_resources(self):
         """Adds resources to the class."""
         self.playlist = Playlist(self.client)
         self.playlist_item = PlaylistItem(self.client)
@@ -80,6 +80,6 @@ class Client:
             "youtube", "v3", credentials=credentials)
         
         inst.client = youtube
-        inst.init_resources()
+        inst._init_resources()
         return inst
     
