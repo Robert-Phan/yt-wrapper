@@ -1,5 +1,6 @@
 """Utility fucntions."""
 
+from dataclasses import dataclass
 import re
 from typing import Type, TypeVar, get_args, get_origin
 
@@ -41,6 +42,11 @@ def assign_resource_dict_to_class(resource: dict, cls: Type[T]):
         An instance of type `cls`, whose attrs are filled with values from `resource`.
     """
     inst: T = cls() # creates an instance of the class.
+    # get all the annotations from inherited classes
+    for x in cls.__bases__:
+        if "__annotations__" in x.__dict__:
+            inst.__annotations__.update(x.__annotations__)
+    
     for (attr, typ) in inst.__annotations__.items():
         # goes thru the attrs and the annotations of the attrs. 
         converted = camel_snake_converter(attr, True) # converts class attrs to resource keys
@@ -69,8 +75,12 @@ def assign_resource_dict_to_class(resource: dict, cls: Type[T]):
             inst.__setattr__(attr, None)
     return inst
 
-class FromResourceDict:
+@dataclass
+class ResponseResourceBase:
+    kind: str = None
+    etag: str = None
+    
     @classmethod
-    def _from_resource_dict(cls, resource: dict):
+    def _from_response_dict(cls, resource: dict):
         inst = assign_resource_dict_to_class(resource, cls)
         return inst

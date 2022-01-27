@@ -1,7 +1,7 @@
 """Class representations of the `Playlist` resource."""
 
 from dataclasses import dataclass
-from .utils import FromResourceDict
+from .utils import ResponseResourceBase
 
 @dataclass
 class ThumbnailKey:
@@ -46,13 +46,11 @@ class Player:
     embed_html: str = None
 
 @dataclass
-class PlaylistResource(FromResourceDict):
+class PlaylistResource(ResponseResourceBase):
     """
     The class representation for the `Playlist` JSON resource during request bodies and responses.
     """    
     id: str = None
-    kind: str = "youtube#playlist"
-    etag: str = None
     
     content_details: ContentDetails = None
     player: Player = None 
@@ -66,9 +64,7 @@ class PageInfo:
     results_per_page: int = None
 
 @dataclass
-class PlaylistListResponse(FromResourceDict):
-    kind: str = "youtube#playlistListResponse"
-    etag: str = None
+class PlaylistListResponse(ResponseResourceBase):
     next_page_token: str = None
     prev_page_token: str = None
     page_info: PageInfo = None

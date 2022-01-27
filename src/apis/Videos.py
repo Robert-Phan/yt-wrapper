@@ -44,7 +44,7 @@ class Video:
               pageToken=page_token, regionCode=region_code, videoCategoryId=video_category_id,
               onBehalfOfContentOwner=on_behalf_of_content_owner, hl="es")
         
-        return VideoListResponse._from_resource_dict(req.execute())
+        return VideoListResponse._from_response_dict(req.execute())
         
     def insert(self, media_body: str, body: VideoResource = None,
                *, part: VideoPartType, notify_subscribers: bool = True,
@@ -86,7 +86,7 @@ class Video:
                                           notifySubscribers=notify_subscribers,
                                           onBehalfOfContentOwner=on_behalf_of_content_owner)
         
-        return VideoResource._from_resource_dict(req.execute())
+        return VideoResource._from_response_dict(req.execute())
     
     def update(self, body: VideoResource, *, part: VideoPartType,
                on_behalf_of_content_owner: str = None):
@@ -126,7 +126,7 @@ class Video:
             
         req = self.client.videos().update(part=part, body=request_body,
                                           onBehalfOfContentOwner=on_behalf_of_content_owner)
-        return VideoResource._from_resource_dict(req.execute())
+        return VideoResource._from_response_dict(req.execute())
     
     def delete(self, video_id: str,
                on_behalf_of_content_owner: str = None):
@@ -157,4 +157,4 @@ class Video:
             id=video_id,
             onBehalfOfContentOwner=on_behalf_of_content_owner
             ).execute()
-        return VideoGetRatingResponse._from_resource_dict(res)
+        return VideoGetRatingResponse._from_response_dict(res)

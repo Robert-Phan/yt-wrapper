@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from .utils import FromResourceDict
+from .utils import ResponseResourceBase
 
 @dataclass
 class ThumbnailKey:
@@ -230,13 +230,12 @@ class Suggestions:
     tag_suggestions: list[TagSuggestions] = None
 
 @dataclass
-class VideoResource(FromResourceDict):
+class VideoResource(ResponseResourceBase):
     """
     The class representation for the `Video` JSON resource during request bodies and responses.
     """    
     id: str = None
-    kind: str = "youtube#video"
-    etag: str = None
+
     snippet: Snippet = Snippet()
     status: Status = Status()
     recording_details: RecordingDetails = RecordingDetails()
@@ -256,23 +255,17 @@ class PageInfo:
     results_per_page: int = None
     
 @dataclass
-class VideoListResponse(FromResourceDict):
-    kind: str = "youtube#videoListResponse"
-    etag: str = None
+class VideoListResponse(ResponseResourceBase):
     next_page_token: str = None
     prev_page_token: str = None
     page_info: PageInfo = None
     items: list[VideoResource] = None
-    
-    
+
 @dataclass
 class RatingItem:
     video_id: str = None
     rating: str = None
 
 @dataclass
-class VideoGetRatingResponse(FromResourceDict):
-    kind: str = "youtube#videoGetRatingResponse"
-    etag: str = None
+class VideoGetRatingResponse(ResponseResourceBase):
     items: list[RatingItem] = None
-    

@@ -37,7 +37,7 @@ class PlaylistItem:
               maxResults=max_results, pageToken=page_token,
               videoId=video_id, onBehalfOfContentOwner=on_behalf_of_content_owner)
         
-        return PlaylistItemListResponse._from_resource_dict(req.execute())
+        return PlaylistItemListResponse._from_response_dict(req.execute())
 
     def insert(self, *, body: PlaylistItemResource, part: PlaylistItemPartType, 
                on_behalf_of_content_owner: str = None):
@@ -65,7 +65,7 @@ class PlaylistItem:
             request_body["contentDetails"]["note"] = body.content_details.note
 
         req = self.client.playlistItems().insert(body=request_body, part=part)
-        res = PlaylistItemResource._from_resource_dict(req.execute(),
+        res = PlaylistItemResource._from_response_dict(req.execute(),
                                 onBehalfOfContentOwner=on_behalf_of_content_owner)
         return res
     
@@ -98,7 +98,7 @@ class PlaylistItem:
             
         req = self.client.playlistItems().insert(body=request_body, part=part,
                                                 onBehalfOfContentOwner=on_behalf_of_content_owner)
-        res = PlaylistItemResource._from_resource_dict(req.execute())
+        res = PlaylistItemResource._from_response_dict(req.execute())
         return res
     
     def delete(self, id: str,

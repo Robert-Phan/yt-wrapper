@@ -36,7 +36,7 @@ class Playlist:
                                      maxResults=max_results,
                                      pageToken=page_token,
                                      onBehalfOfContentOwner=on_behalf_of_content_owner).execute()
-        return PlaylistListResponse._from_resource_dict(response)
+        return PlaylistListResponse._from_response_dict(response)
     
     def insert(self, body: PlaylistResource, *, part: PlaylistPartType,
                on_behalf_of_content_owner: str = None):
@@ -61,7 +61,7 @@ class Playlist:
             
         req = self.client.playlists().insert(body=request_body, part=part,
                                              onBehalfOfContentOwner=on_behalf_of_content_owner)
-        res = PlaylistResource._from_resource_dict(req.execute())
+        res = PlaylistResource._from_response_dict(req.execute())
         return res
         
     
@@ -93,7 +93,7 @@ class Playlist:
             
         req = self.client.playlists().update(body=request_body, part=part,
                                              onBehalfOfContentOwner=on_behalf_of_content_owner)
-        res = PlaylistResource._from_resource_dict(req.execute())
+        res = PlaylistResource._from_response_dict(req.execute())
         return res
     
     def delete(self, playlist_id: str,
