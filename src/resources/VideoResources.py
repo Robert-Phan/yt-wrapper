@@ -1,5 +1,6 @@
 from dataclasses import dataclass
-from .utils import assign_resource_dict_to_class
+from .utils import FromResourceDict
+
 @dataclass
 class ThumbnailKey:
     url: str = None
@@ -229,7 +230,7 @@ class Suggestions:
     tag_suggestions: list[TagSuggestions] = None
 
 @dataclass
-class VideoResource:
+class VideoResource(FromResourceDict):
     """
     The class representation for the `Video` JSON resource during request bodies and responses.
     """    
@@ -249,21 +250,13 @@ class VideoResource:
     statistics: Statistics = None
     suggestions: Suggestions = None
     
-    @classmethod
-    def _from_resource_dict(cls, resource: dict):
-        """
-        Creates a resource from a returned resource dictionary.
-        """
-        inst = assign_resource_dict_to_class(resource, cls)
-        return inst
-
 @dataclass
 class PageInfo:
     total_results: int = None
     results_per_page: int = None
     
 @dataclass
-class VideoListResponse:
+class VideoListResponse(FromResourceDict):
     kind: str = "youtube#videoListResponse"
     etag: str = None
     next_page_token: str = None
@@ -271,7 +264,15 @@ class VideoListResponse:
     page_info: PageInfo = None
     items: list[VideoResource] = None
     
-    @classmethod
-    def init(cls, resource: dict):
-        inst = assign_resource_dict_to_class(resource, cls)
-        return inst
+    
+@dataclass
+class RatingItem:
+    video_id: str = None
+    rating: str = None
+
+@dataclass
+class VideoGetRatingResponse(FromResourceDict):
+    kind: str = "youtube#videoGetRatingResponse"
+    etag: str = None
+    items: list[RatingItem] = None
+    

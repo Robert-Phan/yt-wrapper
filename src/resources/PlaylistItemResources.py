@@ -1,7 +1,7 @@
 """Class representations of the `PlaylistItem` resource."""
 
 from dataclasses import dataclass
-from .utils import assign_resource_dict_to_class
+from .utils import FromResourceDict
 
 @dataclass
 class ThumbnailKey:
@@ -47,7 +47,7 @@ class Status:
     privacy_status: str = None
     
 @dataclass
-class PlaylistItemResource:
+class PlaylistItemResource(FromResourceDict):
     id: str = None
     kind: str = "youtube#playlist"
     etag: str = None
@@ -56,31 +56,16 @@ class PlaylistItemResource:
     content_details: ContentDetails = ContentDetails()
     status: Status = None
     
-    @classmethod
-    def _from_resource_dict(cls, resource: dict):
-        """
-        Creates a resource from a returned resource dictionary.
-        """
-        inst = assign_resource_dict_to_class(resource, cls)
-        return inst
-
 @dataclass
 class PageInfo:
     total_results: int = None
     results_per_page: int = None
     
 @dataclass
-class PlaylistItemListResponse:
+class PlaylistItemListResponse(FromResourceDict):
     kind: str = "youtube#playlistItemListResponse"
     etag: str = None
     next_page_token: str = None
     prev_page_token: str = None
     page_info: PageInfo = None
     items: list[PlaylistItemResource] = None
-    
-    @classmethod
-    def init(cls, resource: dict):
-        inst = assign_resource_dict_to_class(resource, cls)
-        return inst
-
-    

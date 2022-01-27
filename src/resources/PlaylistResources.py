@@ -1,8 +1,7 @@
 """Class representations of the `Playlist` resource."""
 
 from dataclasses import dataclass
-from typing import Any
-from .utils import assign_resource_dict_to_class
+from .utils import FromResourceDict
 
 @dataclass
 class ThumbnailKey:
@@ -47,7 +46,7 @@ class Player:
     embed_html: str = None
 
 @dataclass
-class PlaylistResource:
+class PlaylistResource(FromResourceDict):
     """
     The class representation for the `Playlist` JSON resource during request bodies and responses.
     """    
@@ -60,13 +59,6 @@ class PlaylistResource:
     snippet: Snippet = Snippet()
     status: Status = Status()
 
-    @classmethod
-    def _from_resource_dict(cls, resource: dict):
-        """
-        Creates a resource from a returned resource dictionary.
-        """
-        inst = assign_resource_dict_to_class(resource, cls)
-        return inst
 
 @dataclass
 class PageInfo:
@@ -74,16 +66,10 @@ class PageInfo:
     results_per_page: int = None
 
 @dataclass
-class PlaylistListResponse:
+class PlaylistListResponse(FromResourceDict):
     kind: str = "youtube#playlistListResponse"
     etag: str = None
     next_page_token: str = None
     prev_page_token: str = None
     page_info: PageInfo = None
     items: list[PlaylistResource] = None
-    
-    @classmethod
-    def init(cls, resource: dict):
-        inst = assign_resource_dict_to_class(resource, cls)
-        return inst
-

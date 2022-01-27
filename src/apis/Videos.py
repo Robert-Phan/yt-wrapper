@@ -1,5 +1,5 @@
 from typing import Literal
-from ..resources.VideoResources import VideoResource, VideoListResponse
+from ..resources.VideoResources import VideoResource, VideoListResponse, VideoGetRatingResponse
 from googleapiclient.discovery import Resource
 from googleapiclient.http import MediaFileUpload
 
@@ -21,7 +21,8 @@ class Video:
     def list(self, *, part: VideoPartType, chart: Literal["most_popular"] = None,
              id: str | list[str] = None, my_rating: Literal["like", "dislike"] = None,
              max_height: int = None, max_width: int = None, max_results: int = None,
-             page_token: str = None, region_code: str = None, video_category_id: str = None):
+             page_token: str = None, region_code: str = None, video_category_id: str = None,
+             on_behalf_of_content_owner: str = None):
         """
         Return a list of videos items that match the parameters.
         For more info, visit\
@@ -40,12 +41,14 @@ class Video:
         .list(part=part, 
               chart=chart, id=id, myRating=my_rating, 
               maxHeight=max_height,maxWidth=max_width,maxResults=max_results,
-              pageToken=page_token, regionCode=region_code, videoCategoryId=video_category_id)
+              pageToken=page_token, regionCode=region_code, videoCategoryId=video_category_id,
+              onBehalfOfContentOwner=on_behalf_of_content_owner, hl="es")
         
-        return VideoListResponse.init(req.execute())
+        return VideoListResponse._from_resource_dict(req.execute())
         
     def insert(self, media_body: str, body: VideoResource = None,
-               *, part: VideoPartType, notify_subscribers: bool = True):
+               *, part: VideoPartType, notify_subscribers: bool = True,
+               on_behalf_of_content_owner: str = None):
         """
         Uploads a video to YouTube and optionally sets the video's metadata.
         For more info, visit\
@@ -79,11 +82,14 @@ class Video:
             part = ",".join(part)
             
         req = self.client.videos().insert(part=part, body = request_body, 
-                                          media_body=MediaFileUpload(media_body))
+                                          media_body=MediaFileUpload(media_body),
+                                          notifySubscribers=notify_subscribers,
+                                          onBehalfOfContentOwner=on_behalf_of_content_owner)
         
         return VideoResource._from_resource_dict(req.execute())
     
-    def update(self, body: VideoResource, *, part: VideoPartType):
+    def update(self, body: VideoResource, *, part: VideoPartType,
+               on_behalf_of_content_owner: str = None):
         """
         Updates a video's metadata.
         For more info, visit\
@@ -118,17 +124,20 @@ class Video:
         if type(part) == list:
             part = ",".join(part)
             
-        req = self.client.videos().update(part=part, body=request_body)
+        req = self.client.videos().update(part=part, body=request_body,
+                                          onBehalfOfContentOwner=on_behalf_of_content_owner)
         return VideoResource._from_resource_dict(req.execute())
     
-    def delete(self, video_id: str):
+    def delete(self, video_id: str,
+               on_behalf_of_content_owner: str = None):
         """
         Deletes a video.
         For more info, visit\
     [Google's official documentation](https://developers.google.com/youtube/v3/docs/playlists/delete)
         """
         request = self.client.videos().delete(
-            id=video_id
+            id=video_id,
+            onBehalfOfContentOwner=on_behalf_of_content_owner
         )
         request.execute()
     
@@ -141,3 +150,11 @@ class Video:
         
         req = self.client.videos().rate(id=video_id, rating=rating)
         req.execute()
+        
+    def get_rating(self, video_id: str,
+                   on_behalf_of_content_owner: str = None):
+        res = self.client.videos().getRating(
+            id=video_id,
+            onBehalfOfContentOwner=on_behalf_of_content_owner
+            ).execute()
+        return VideoGetRatingResponse._from_resource_dict(res)

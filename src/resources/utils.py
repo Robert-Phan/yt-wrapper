@@ -68,3 +68,9 @@ def assign_resource_dict_to_class(resource: dict, cls: Type[T]):
         else:
             inst.__setattr__(attr, None)
     return inst
+
+class FromResourceDict:
+    @classmethod
+    def _from_resource_dict(cls, resource: dict):
+        inst = assign_resource_dict_to_class(resource, cls)
+        return inst

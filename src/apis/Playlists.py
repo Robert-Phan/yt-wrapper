@@ -13,7 +13,8 @@ class Playlist:
     
     def list(self, *, part: PlaylistPartType,
              channel_id : str = None, id: list[str] | str = None, mine: bool = None,
-             max_results: int = 5, page_token: str = ""
+             max_results: int = 5, page_token: str = "",
+             on_behalf_of_content_owner: str = None
              ):
         """
         Returns a collection of playlists that match the API request parameters.
@@ -33,10 +34,12 @@ class Playlist:
                                      id=id,
                                      mine=mine,
                                      maxResults=max_results,
-                                     pageToken=page_token).execute()
-        return PlaylistListResponse.init(response)
+                                     pageToken=page_token,
+                                     onBehalfOfContentOwner=on_behalf_of_content_owner).execute()
+        return PlaylistListResponse._from_resource_dict(response)
     
-    def insert(self, body: PlaylistResource, *, part: PlaylistPartType):
+    def insert(self, body: PlaylistResource, *, part: PlaylistPartType,
+               on_behalf_of_content_owner: str = None):
         """
         Creates a playlist.
         For more info, visit\
@@ -56,12 +59,14 @@ class Playlist:
         if "status" in part:
             request_body["status"] = {"privacyStatus": body.status.privacy_status}
             
-        req = self.client.playlists().insert(body=request_body, part=part)
+        req = self.client.playlists().insert(body=request_body, part=part,
+                                             onBehalfOfContentOwner=on_behalf_of_content_owner)
         res = PlaylistResource._from_resource_dict(req.execute())
         return res
         
     
-    def update(self, body: PlaylistResource, *, part: PlaylistPartType):
+    def update(self, body: PlaylistResource, *, part: PlaylistPartType,
+               on_behalf_of_content_owner: str = None):
         """
         Modifies a playlist.\
         For example, you could change a playlist's title, description, or privacy status. 
@@ -86,17 +91,20 @@ class Playlist:
         if "status" in part:
             request_body["status"] = {"privacyStatus": body.status.privacy_status}
             
-        req = self.client.playlists().update(body=request_body, part=part)
+        req = self.client.playlists().update(body=request_body, part=part,
+                                             onBehalfOfContentOwner=on_behalf_of_content_owner)
         res = PlaylistResource._from_resource_dict(req.execute())
         return res
     
-    def delete(self, playlist_id: str):
+    def delete(self, playlist_id: str,
+               on_behalf_of_content_owner: str = None):
         """
         Deletes a playlist.
         For more info, visit\
     [Google's official documentation](https://developers.google.com/youtube/v3/docs/playlists/delete)
         """
         request = self.client.playlists().delete(
-            id=playlist_id
+            id=playlist_id,
+            onBehalfOfContentOwner=on_behalf_of_content_owner
         )
         request.execute()

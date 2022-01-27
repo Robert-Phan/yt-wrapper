@@ -7,7 +7,7 @@ PlaylistItemPartType = Literal["content_details", "id",
                                "snippet", "status"] | list[
                                    Literal["content_details", "id", 
                                            "snippet", "status"]]
-# TODO: Add in all the params I missed.
+
 class PlaylistItem:
     """Contains request methods for the `PlaylistItem` resource."""
     def __init__(self, client: Resource) -> None:
@@ -16,7 +16,7 @@ class PlaylistItem:
     def list(self, *, part: PlaylistItemPartType, 
              id: str|list[str] = None, playlist_id: str = None,
              max_results: int = 5, page_token: str = "",
-             video_id: str = ""
+             video_id: str = "", on_behalf_of_content_owner: str = None
              ):
         """
         Return a collection of playlist items that match the parameters.
@@ -35,11 +35,12 @@ class PlaylistItem:
         .list(part=part, 
               playlistId=playlist_id, id=id,
               maxResults=max_results, pageToken=page_token,
-              videoId=video_id)
+              videoId=video_id, onBehalfOfContentOwner=on_behalf_of_content_owner)
         
-        return PlaylistItemListResponse.init(req.execute())
+        return PlaylistItemListResponse._from_resource_dict(req.execute())
 
-    def insert(self, *, body: PlaylistItemResource, part: PlaylistItemPartType):
+    def insert(self, *, body: PlaylistItemResource, part: PlaylistItemPartType, 
+               on_behalf_of_content_owner: str = None):
         """
         Adds a resource to a playlist.
         For more info, visit\
@@ -64,16 +65,18 @@ class PlaylistItem:
             request_body["contentDetails"]["note"] = body.content_details.note
 
         req = self.client.playlistItems().insert(body=request_body, part=part)
-        res = PlaylistItemResource._from_resource_dict(req.execute())
+        res = PlaylistItemResource._from_resource_dict(req.execute(),
+                                onBehalfOfContentOwner=on_behalf_of_content_owner)
         return res
     
-    def update(self, *, body: PlaylistItemResource, part: PlaylistItemPartType):
+    def update(self, *, body: PlaylistItemResource, part: PlaylistItemPartType,
+               on_behalf_of_content_owner: str = None):
         """
         Modifies a playlist item. For example, you could update the item's position in the playlist.
         For more info, visit\
 [Google's official documentation](https://developers.google.com/youtube/v3/docs/playlistItems/update)
         """
-        if not (body.snippet.playlist_id and body.snippet.resource_id ):
+        if not (body.snippet.playlist_id and body.snippet.resource_id):
             raise Exception(
                 "`snippet.playlist_id`, and `snippet.resource_id` properties not provided"
                 )
@@ -93,11 +96,13 @@ class PlaylistItem:
             request_body["contentDetails"] = {}
             request_body["contentDetails"]["note"] = body.content_details.note
             
-        req = self.client.playlistItems().insert(body=request_body, part=part)
+        req = self.client.playlistItems().insert(body=request_body, part=part,
+                                                onBehalfOfContentOwner=on_behalf_of_content_owner)
         res = PlaylistItemResource._from_resource_dict(req.execute())
         return res
     
-    def delete(self, id:str):
+    def delete(self, id: str,
+               on_behalf_of_content_owner: str = None):
         """
         Deletes a playlist item.
         For more info, visit\
@@ -106,5 +111,5 @@ class PlaylistItem:
         request = self.client.playlistItems().delete(
             id=id
         )
-        request.execute()
+        request.execute(onBehalfOfContentOwner=on_behalf_of_content_owner)
         
