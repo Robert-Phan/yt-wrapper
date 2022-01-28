@@ -1,20 +1,9 @@
+"""Class representations of the `Video` resource."""
+
 from dataclasses import dataclass
 from .utils import ResponseResourceBase
+from .ThumbnailResources import ThumbnailResource
 
-@dataclass
-class ThumbnailKey:
-    url: str = None
-    width: int = None
-    height: int = None
-    
-@dataclass
-class Thumbnails:
-    default: ThumbnailKey = None
-    medium: ThumbnailKey = None
-    high: ThumbnailKey = None
-    standard: ThumbnailKey = None
-    maxres: ThumbnailKey = None
-    
 @dataclass
 class Localized:
     title: str = None
@@ -26,7 +15,7 @@ class Snippet:
     channel_id: str = None
     title: str = None
     description: str = None
-    thumbnails: Thumbnails = None
+    thumbnails: ThumbnailResource = None
     channel_title: str = None
     tags: list[str] = None
     category_id: str = None
@@ -269,3 +258,11 @@ class RatingItem:
 @dataclass
 class VideoGetRatingResponse(ResponseResourceBase):
     items: list[RatingItem] = None
+    
+@dataclass
+class VideoReportAbuseBody:
+    video_id: str
+    reason_id: str
+    secondary_reason_id: str = None
+    comments: str = None
+    language: str = None

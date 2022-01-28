@@ -6,7 +6,7 @@ PlaylistPartType = Literal["content_details", "id", "localizations",
             "player", "snippet", "status"] | list[
                 Literal["content_details", "id", "localizations", 
                         "player", "snippet", "status"]]
-# TODO: Add in all the params I missed.
+
 class Playlist:
     def __init__(self, client: Resource) -> None:
         self.client = client

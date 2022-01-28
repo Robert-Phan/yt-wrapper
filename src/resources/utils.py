@@ -30,7 +30,7 @@ def camel_snake_converter(string: str, snake_to_camel: bool = False):
         return string
 
 T = TypeVar('T')
-def assign_resource_dict_to_class(resource: dict, cls: Type[T]):
+def assign_response_dict_to_class(resource: dict, cls: Type[T]):
     """
     Takes a class and a resource, and converts that resource into an object.
     
@@ -62,14 +62,14 @@ def assign_resource_dict_to_class(resource: dict, cls: Type[T]):
                 # * then you finally assign the list to the attr. (maybe)
                 ls = [] 
                 for x in resource.get(converted):
-                    ls.append(assign_resource_dict_to_class(x, get_args(typ)[0]))
+                    ls.append(assign_response_dict_to_class(x, get_args(typ)[0]))
                 inst.__setattr__(attr, ls)
             else:
                 # * if the attr is a "complex" type, on which has it's own values
                 # * use this fuction on it's annontation to convert the resource to an obj
                 # * then assign it back to the attr
                 # * this process works recursively
-                inst.__setattr__(attr, assign_resource_dict_to_class(resource.get(converted), 
+                inst.__setattr__(attr, assign_response_dict_to_class(resource.get(converted), 
                                                                      typ))
         else:
             inst.__setattr__(attr, None)
@@ -81,6 +81,6 @@ class ResponseResourceBase:
     etag: str = None
     
     @classmethod
-    def _from_response_dict(cls, resource: dict):
-        inst = assign_resource_dict_to_class(resource, cls)
+    def _from_response_dict(cls, response: dict):
+        inst = assign_response_dict_to_class(response, cls)
         return inst

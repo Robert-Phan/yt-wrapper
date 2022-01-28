@@ -2,20 +2,7 @@
 
 from dataclasses import dataclass
 from .utils import ResponseResourceBase
-
-@dataclass
-class ThumbnailKey:
-    url: str = None
-    width: int = None
-    height: int = None
-
-@dataclass
-class Thumbnails:
-    default: ThumbnailKey = None
-    medium: ThumbnailKey = None
-    high: ThumbnailKey = None
-    standard: ThumbnailKey = None
-    maxres: ThumbnailKey = None
+from .ThumbnailResources import ThumbnailResource
 
 @dataclass
 class Localized:
@@ -28,7 +15,7 @@ class Snippet:
     channel_id: str = None
     title: str = None
     description: str = None
-    thumbnails: Thumbnails = None
+    thumbnails: ThumbnailResource = None
     channel_title: str = None
     default_language: str = None
     localized: Localized = Localized()

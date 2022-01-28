@@ -1,5 +1,5 @@
 from typing import Literal
-from ..resources.VideoResources import VideoResource, VideoListResponse, VideoGetRatingResponse
+from ..resources.VideoResources import VideoResource, VideoListResponse, VideoGetRatingResponse, VideoReportAbuseBody
 from googleapiclient.discovery import Resource
 from googleapiclient.http import MediaFileUpload
 
@@ -158,3 +158,13 @@ class Video:
             onBehalfOfContentOwner=on_behalf_of_content_owner
             ).execute()
         return VideoGetRatingResponse._from_response_dict(res)
+    
+    def report_abuse(self, body: VideoReportAbuseBody):
+        request_body = {
+            "videoId": body.video_id,
+            "reasonId": body.reason_id,
+            "secondaryReasonId": body.secondary_reason_id,
+            "comments": body.comments,
+            "language": body.language,
+        }
+        self.client.videos().reportAbuse(body=request_body)
