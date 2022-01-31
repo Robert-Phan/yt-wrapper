@@ -3,3 +3,4 @@ from .PlaylistItems import PlaylistItem
 from .Videos import Video
 from .Thumbnails import Thumbnail
 from .Comments import Comment
+from .CommentThreads import CommentThread
