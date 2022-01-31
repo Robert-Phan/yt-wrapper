@@ -7,7 +7,7 @@ from googleapiclient.discovery import Resource
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 
-from .apis import Playlist, PlaylistItem, Video, Thumbnail
+from .apis import Playlist, PlaylistItem, Video, Thumbnail, Comment
 
 class Client:
     def __init__(self) -> None:
@@ -19,6 +19,7 @@ class Client:
         self.playlist_item = PlaylistItem(self.client)
         self.video = Video(self.client)
         self.thumbnail = Thumbnail(self.client)
+        self.comment = Comment(self.client)
         
     def _save_creds(self, creds: Credentials, token_store: str):
         """Saves credentials to a token cache."""
