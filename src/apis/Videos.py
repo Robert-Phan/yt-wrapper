@@ -35,7 +35,7 @@ class Video:
         if type(part) == list:
             part = ",".join(part)
         if type(id) == list:
-            id = ",".join(part)
+            id = ",".join(id)
         
         req = self.client.videos()\
         .list(part=part, 

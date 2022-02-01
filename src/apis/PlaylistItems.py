@@ -29,7 +29,7 @@ class PlaylistItem:
         if type(part) == list:
             part = ",".join(part)
         if type(id) == list:
-            id = ",".join(part)
+            id = ",".join(id)
         
         req = self.client.playlistItems()\
         .list(part=part, 
