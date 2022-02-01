@@ -1,8 +1,8 @@
-"""Utility fucntions."""
+"""Utility functions and common classes."""
 
-from dataclasses import dataclass
 import re
-from typing import Type, TypeVar, get_args, get_origin
+from dataclasses import dataclass
+from typing import Generic, Type, TypeVar, get_args, get_origin
 
 def camel_snake_converter(string: str, snake_to_camel: bool = False):
     """
@@ -77,6 +77,7 @@ def assign_response_dict_to_class(resource: dict, cls: Type[T]):
 
 @dataclass
 class ResponseResourceBase:
+    """Base class for all resource and response representations."""
     kind: str = None
     etag: str = None
     
@@ -84,3 +85,29 @@ class ResponseResourceBase:
     def _from_response_dict(cls, response: dict):
         inst = assign_response_dict_to_class(response, cls)
         return inst
+
+@dataclass
+class PageInfo:
+    total_results: int = None
+    results_per_page: int = None
+    
+@dataclass
+class ListResponse(ResponseResourceBase, Generic[T]):
+    next_page_token: str = None
+    prev_page_token: str = None
+    page_info: PageInfo = None
+    items: list[T] = None
+    
+def create_list_response(typ: type[T]) -> type[ListResponse[T]]:
+    """Creates a parameterized `ListResponse`.\n
+    Don't ask me how this works. I don't know either."""
+    
+    @dataclass
+    class ActualListResponse(ResponseResourceBase, Generic[T]):
+        next_page_token: str = None
+        prev_page_token: str = None
+        page_info: PageInfo = None
+        items: list[T] = None
+        
+    ActualListResponse.__annotations__['items'] = list[typ]
+    return ActualListResponse

@@ -1,7 +1,7 @@
 """Class representations of the `Video` resource."""
 
 from dataclasses import dataclass
-from .utils import ResponseResourceBase
+from .utils import ResponseResourceBase, create_list_response
 from .ThumbnailResources import ThumbnailResource
 
 @dataclass
@@ -238,17 +238,8 @@ class VideoResource(ResponseResourceBase):
     statistics: Statistics = None
     suggestions: Suggestions = None
     
-@dataclass
-class PageInfo:
-    total_results: int = None
-    results_per_page: int = None
-    
-@dataclass
-class VideoListResponse(ResponseResourceBase):
-    next_page_token: str = None
-    prev_page_token: str = None
-    page_info: PageInfo = None
-    items: list[VideoResource] = None
+class VideoListResponse(create_list_response(VideoResource)):
+    """The class representation for the videoListResponse resource."""
 
 @dataclass
 class RatingItem:

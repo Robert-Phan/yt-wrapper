@@ -1,7 +1,7 @@
 """Class representations of the `Playlist` resource."""
 
 from dataclasses import dataclass
-from .utils import ResponseResourceBase
+from .utils import ResponseResourceBase, create_list_response
 from .ThumbnailResources import ThumbnailResource
 
 @dataclass
@@ -44,15 +44,5 @@ class PlaylistResource(ResponseResourceBase):
     snippet: Snippet = Snippet()
     status: Status = Status()
 
-
-@dataclass
-class PageInfo:
-    total_results: int = None
-    results_per_page: int = None
-
-@dataclass
-class PlaylistListResponse(ResponseResourceBase):
-    next_page_token: str = None
-    prev_page_token: str = None
-    page_info: PageInfo = None
-    items: list[PlaylistResource] = None
+class PlaylistListResponse(create_list_response(PlaylistResource)):
+    """The class representation of playlistListResponse resource."""
