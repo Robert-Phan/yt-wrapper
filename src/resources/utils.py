@@ -2,6 +2,7 @@
 
 import re
 from dataclasses import dataclass
+from inspect import get_annotations
 from typing import Generic, Type, TypeVar, get_args, get_origin
 
 def camel_snake_converter(string: str, snake_to_camel: bool = False):
@@ -99,15 +100,26 @@ class ListResponse(ResponseResourceBase, Generic[T]):
     items: list[T] = None
     
 def create_list_response(typ: type[T]) -> type[ListResponse[T]]:
-    """Creates a parameterized `ListResponse`.\n
-    Don't ask me how this works. I don't know either."""
+    """
+    Creates a parameterized `ListResponse`, with a parameterized `items` attr.
     
-    @dataclass
-    class ActualListResponse(ResponseResourceBase, Generic[T]):
-        next_page_token: str = None
-        prev_page_token: str = None
-        page_info: PageInfo = None
-        items: list[T] = None
+    Parameters:
+        typ: the type that the return value will be parameterized by.
         
-    ActualListResponse.__annotations__['items'] = list[typ]
-    return ActualListResponse
+    Returns:
+        A ListResponse parameterized by typ. This type parameter is the same type
+        as the type parameter of the `list` of the `items` attr.
+    """
+    
+    # clones `ListResponse` 
+    class Internal(ListResponse): pass 
+    # changes the type annotation of the clone
+    anno = get_annotations(ListResponse) 
+    anno['items'] = list[typ]
+    Internal.__annotations__ = anno
+    # get all the annotations from ListResponse's inherited classes
+    for x in ListResponse.__bases__:
+        if '__annotations__' in x.__dict__:
+            Internal.__annotations__.update(x.__annotations__)
+            
+    return Internal
