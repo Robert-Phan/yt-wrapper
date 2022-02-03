@@ -1,7 +1,6 @@
 """Class representations of the `Channel` resource."""
 
 from dataclasses import dataclass
-from turtle import title
 from .utils import ResponseResourceBase, create_list_response
 from .ThumbnailResources import ThumbnailResource
 
