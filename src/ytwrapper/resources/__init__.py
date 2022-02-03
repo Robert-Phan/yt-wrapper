@@ -3,3 +3,4 @@ from .PlaylistResources import PlaylistResource
 from .VideoResources import VideoResource, VideoReportAbuseBody
 from .CommentResources import CommentResource
 from .CommentThreadResources import CommentThreadResource
+from .ChannelResources import ChannelResource
