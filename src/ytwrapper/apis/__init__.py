@@ -8,3 +8,4 @@ from .I18ns import I18n
 from .VideoExtras import VideoCategory, VideoAbuseReportReason
 from .Channels import Channel
 from .ChannelSections import ChannelSection
+from .Searches import Search
