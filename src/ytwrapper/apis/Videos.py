@@ -5,7 +5,7 @@ from googleapiclient.http import MediaFileUpload
 
 __VideoPartType = Literal[
     "content_details", "file_details",
-    "id", "live_streaming_details",
+    "live_streaming_details",
     "localizations", "player",
     "processing_details", "recording_details",
     "snippet", "statistics",

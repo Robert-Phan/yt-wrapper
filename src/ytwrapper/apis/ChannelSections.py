@@ -2,8 +2,8 @@ from typing import Literal
 from ..resources.ChannelSectionResources import ChannelSectionResource, ChannelSectionListResponse
 from googleapiclient.discovery import Resource
 
-ChannelSectionPartType = Literal['id', 'snippet', 'content_details'
-                        ] | list[Literal['id', 'snippet', 'content_details']]
+ChannelSectionPartType = Literal['snippet', 'content_details'
+                        ] | list[Literal['snippet', 'content_details']]
 
 class ChannelSection:
     def __init__(self, client: Resource) -> None:

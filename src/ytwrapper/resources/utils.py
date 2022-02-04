@@ -81,10 +81,12 @@ class ResponseResourceBase:
     """Base class for all resource and response representations."""
     kind: str = None
     etag: str = None
+    dict: dict = None
     
     @classmethod
     def _from_response_dict(cls, response: dict):
         inst = assign_response_dict_to_class(response, cls)
+        inst.dict = response
         return inst
 
 @dataclass

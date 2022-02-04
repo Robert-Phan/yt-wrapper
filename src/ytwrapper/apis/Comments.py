@@ -2,7 +2,7 @@ from typing import Literal
 from ..resources.CommentResources import CommentListResponse, CommentResource
 from googleapiclient.discovery import Resource
 
-CommentPartType = Literal["id", "snippet"]|list[Literal["id", "snippet"]]
+CommentPartType = Literal["snippet"]|list[Literal["snippet"]]
 
 class Comment:
     def __init__(self, client: Resource) -> None:

@@ -2,9 +2,9 @@ from typing import Literal
 from ..resources.PlaylistResources import PlaylistListResponse, PlaylistResource
 from googleapiclient.discovery import Resource
 
-PlaylistPartType = Literal["content_details", "id", "localizations", 
+PlaylistPartType = Literal["content_details", "localizations", 
             "player", "snippet", "status"] | list[
-                Literal["content_details", "id", "localizations", 
+                Literal["content_details", "localizations", 
                         "player", "snippet", "status"]]
 
 class Playlist:

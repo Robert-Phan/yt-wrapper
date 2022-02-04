@@ -3,9 +3,9 @@ from ..resources.PlaylistItemResources import PlaylistItemResource, PlaylistItem
 from googleapiclient.discovery import Resource
 
 # the type used in the `part` parameter in class methods
-PlaylistItemPartType = Literal["content_details", "id", 
+PlaylistItemPartType = Literal["content_details",
                                "snippet", "status"] | list[
-                                   Literal["content_details", "id", 
+                                   Literal["content_details",
                                            "snippet", "status"]]
 
 class PlaylistItem:

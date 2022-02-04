@@ -2,8 +2,8 @@ from typing import Literal
 from ..resources.CommentThreadResources import CommentThreadResource, CommentThreadListResponse
 from googleapiclient.discovery import Resource
 
-CommentThreadPartType = Literal["id", "snippet", "replies"] | list[
-        Literal["id", "snippet", "replies"]
+CommentThreadPartType = Literal["snippet", "replies"] | list[
+        Literal["snippet", "replies"]
     ]
 
 class CommentThread:
@@ -44,7 +44,7 @@ class CommentThread:
             order=order, pageToken=page_token, searchTerms=search_terms, textFormat=text_format
         )
         res = req.execute()
-        print(res)
+        
         return CommentThreadListResponse._from_response_dict(res)
     
     def insert(self, body: CommentThreadResource, *, part: CommentThreadPartType = "snippet"):

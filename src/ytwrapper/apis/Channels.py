@@ -4,14 +4,14 @@ from googleapiclient.discovery import Resource
 
 ChannelPartType = Literal["audit_details",
     "branding_settings", "content_details",
-    "content_owner_details", "id",
+    "content_owner_details",
     "localizations", "snippet",
     "statistics", "status",
     "topic_details"
 ] | list[
     Literal["audit_details",
         "branding_settings", "content_details",
-        "content_owner_details", "id",
+        "content_owner_details",
         "localizations", "snippet",
         "statistics", "status",
         "topic_details"
@@ -49,7 +49,7 @@ class Channel:
             maxResults=max_results, pageToken=page_token,
             onBehalfOfContentOwner=on_behalf_of_content_owner
         ).execute()
-        print(res)
+
         return ChannelListResponse._from_response_dict(res)
     
     def update(self, body: ChannelResource, *, part: ChannelUpdatePartType,
@@ -60,7 +60,7 @@ class Channel:
         [Google's official documentation](https://developers.google.com/youtube/v3/docs/channels/update)
         """
         request_body = {
-            'id': 'UCCXX6ZVbhusEhEb-AQF4qTg',
+            'id': body.id
         }
         
         if 'branding_settings' in part:
