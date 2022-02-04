@@ -9,3 +9,4 @@ from .VideoExtras import VideoCategory, VideoAbuseReportReason
 from .Channels import Channel
 from .ChannelSections import ChannelSection
 from .Searches import Search
+from .Subscriptions import Subscription

@@ -8,7 +8,7 @@ from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 
 from .apis import Playlist, PlaylistItem, Video, Thumbnail, Comment, CommentThread, \
-    I18n, VideoCategory, VideoAbuseReportReason, Channel, ChannelSection, Search
+I18n, VideoCategory, VideoAbuseReportReason, Channel, ChannelSection, Search, Subscription
 
 class Client:
     def __init__(self) -> None:
@@ -28,6 +28,7 @@ class Client:
         self.channel = Channel(self.client)
         self.channel_section = ChannelSection(self.client)
         self.search = Search(self.client)
+        self.subscription = Subscription(self.client)
         
     def _save_creds(self, creds: Credentials, token_store: str):
         """Saves credentials to a token cache."""
@@ -90,4 +91,3 @@ class Client:
         inst.client = youtube
         inst._init_resources()
         return inst
-    
