@@ -8,7 +8,7 @@
 - [Guides](#guides)
 - [API Reference](#api-reference)
   - [`Client`](#client)
-  - [APIs](#apis)
+  - [Methods](#methods)
     - [`Playlist`](#playlist)
     - [`PlaylistItem`](#playlistitem)
     - [`Thumbnail`](#thumbnail)
@@ -22,6 +22,9 @@
     - [`ChannelSection`](#channelsection)
     - [`Search`](#search)
     - [`Subscription`](#subscription)
+  - [Resources](#resources)
+    - [`PlaylistResource`](#playlistresource)
+    - [`PlaylistListResponse`](#playlistlistresponse)
 
 ## Introduction
 The goal of this project is to create an (almost) complete, comprehensive Python wrapper for the Youtube Data API. 
@@ -76,16 +79,16 @@ For the full documentation for this package, see the [API Reference](#api-refere
 The `Client` class represents a Youtube client, containing the entire API of this project.
 
 **Methods:**
-- `from_client_secrets(client_secrets_file: str, scopes: list[str], token_store: str = "token.pickle") (class method)` 
+- `from_client_secrets` 
     
     Creates a new `Client` object from an OAuth2 [Installed App](https://developers.google.com/youtube/v3/guides/auth/installed-apps) client secrets file. Will prompt the user to go to a link and give access, where the user will have to copy a code given at the end to the terminal.
-    - `client_secrets_file`
+    - `client_secrets_file: str`
         
         The path to the client secrets JSON file. This file should contain the client secrets of an [Installed App project.](https://developers.google.com/youtube/v3/guides/auth/installed-apps)
-    - `scopes`
+    - `scopes: list[str]`
 
         [The scope of the program](https://developers.google.com/youtube/v3/guides/auth/installed-apps#identify-access-scopes), specifying the permissions the user must give. Each method in the API has it's own scopes that it needs for it to be used.
-    - `token_store`
+    - `token_store: str = "token.pickle"`
 
         The path to the file used to store the OAuth2 access and refresh token.
 
@@ -105,9 +108,98 @@ The `Client` class represents a Youtube client, containing the entire API of thi
 - `subscription`: The interface for [Subscription](#subscription).
 
 ***
-### APIs
-**TODO: write about the API.**
+### Methods
+
+This section describes the methods available in the API. These methods are accessible via the [`Client`](#client) object.
 #### `Playlist`
+**Methods:**
+- <details> <summary><code>list</code></summary> 
+
+    Returns a collection of playlists.  
+    **Required** parameters:
+    - `part: PlaylistPartType` 
+  
+        `part` specifies what properties will be returned by the request.  
+        Valid values include:
+        - 'content_details'
+        - 'localizations'
+        - 'player'
+        - 'snippet'
+        - 'status'
+
+    **Filters** (specify exactly one):
+    - `id: list[str]|str` 
+
+        The playlist ID/list of playlist IDs that will be returned.
+    - `channel_id: str` 
+
+        Specifies a channel ID whose playlists will be returned.
+    - `mine: bool`
+
+        Specifies that the API should retrieve the playlists of the authorised user.
+    
+    **Optional** parameters:
+    - `max_results: int`
+
+        The maximum amount of items that will be returned.
+
+    - `page_token: str`
+
+        Identifies a specific page in the result set that should be returned. The `next_page_token` and `prev_page_token` are available in the returned list response for this parameter.
+    - `on_behalf_of_content_owner: str`
+
+    [Reference](https://developers.google.com/youtube/v3/docs/playlists/list)
+</details>
+
+- <details> <summary><code>insert</code></summary> 
+
+    Creates a playlist.  
+    **Required** parameters:
+    - `body: PlaylistResource`
+
+        The [`PlaylistResource`](#playlistresource) which specifies the details of this playlist.  
+        **Values you are able to set**:
+        - `snippet.title` (Required)
+        - `snippet.description`
+        - `snippet.privacy_status`
+    - `part: PlaylistPartType`
+
+        Identifies the attributes the method will set, and the attributes included in the response.
+    - `on_behalf_of_content_owner: str`
+
+    [Reference](https://developers.google.com/youtube/v3/docs/playlists/insert)
+</details>
+
+- <details> <summary><code>update</code></summary> 
+
+    Updates a playlist.  
+    **Required** parameters:
+    - `body: PlaylistResource`
+
+        The [`PlaylistResource`](#playlistresource) which specifies the details of this playlist.  
+        **Values you are able to set**:
+        - `id` (Required)
+        - Otherwise, same as the above `insert` method.
+    - `part: PlaylistPartType`
+
+        Identifies the attributes the method will set, and the attributes included in the response.
+    - `on_behalf_of_content_owner: str`
+
+    [Reference](https://developers.google.com/youtube/v3/docs/playlists/update)
+</details>
+
+- <details> <summary><code>delete</code></summary> 
+
+    Deletes a playlist.  
+    **Required** parameters:
+    - `playlist_id: str`
+
+        The ID of the Playlist that will be deleted.
+    - `on_behalf_of_content_owner: str`
+
+    [Reference](https://developers.google.com/youtube/v3/docs/playlists/delete)
+</details>
+
 #### `PlaylistItem`
 #### `Thumbnail`
 #### `Comment`
@@ -120,3 +212,15 @@ The `Client` class represents a Youtube client, containing the entire API of thi
 #### `ChannelSection`
 #### `Search`
 #### `Subscription`
+
+### Resources
+
+This section describes the resources and responses used in the API. These classes are most often used in responses, as well as in methods that require a request body.  
+Note that the attributes of these resources are in `snake_case`, not `camelCase` like in the original response. This is so as to follow the Python conventions.  
+Also note that each resource has a `to_dict` method that returns the original response. That original response is a Python dictionary, and it's keys *will* be in `camelCase`. 
+#### `PlaylistResource`
+
+Represents a Youtube playlist resource. [More information available at Google's official documentation.](https://developers.google.com/youtube/v3/docs/playlists)
+#### `PlaylistListResponse`
+
+The returned response of the [`Playlist`](#playlist) `list` method. [More information available at Google's official documentation.](https://developers.google.com/youtube/v3/docs/playlists/list#response)
