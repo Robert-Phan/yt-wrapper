@@ -3,7 +3,7 @@
 import re
 from dataclasses import dataclass
 from inspect import get_annotations
-from typing import Generic, Type, TypeVar, get_args, get_origin
+from typing import Callable, Generic, Type, TypeVar, get_args, get_origin
 
 def camel_snake_converter(string: str, snake_to_camel: bool = False):
     """
@@ -81,12 +81,12 @@ class ResponseResourceBase:
     """Base class for all resource and response representations."""
     kind: str = None
     etag: str = None
-    dict: dict = None
+    to_dict: Callable[[], dict] = None
     
     @classmethod
-    def _from_response_dict(cls, response: dict):
+    def _from_response_dict(cls, response: to_dict):
         inst = assign_response_dict_to_class(response, cls)
-        inst.dict = response
+        inst.to_dict = lambda: response
         return inst
 
 @dataclass
