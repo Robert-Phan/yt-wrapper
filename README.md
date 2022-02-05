@@ -9,19 +9,6 @@
 - [API Reference](#api-reference)
   - [`Client`](#client)
   - [Methods](#methods)
-    - [`Playlist`](#playlist)
-    - [`PlaylistItem`](#playlistitem)
-    - [`Thumbnail`](#thumbnail)
-    - [`Comment`](#comment)
-    - [`CommentThread`](#commentthread)
-    - [`I18n`](#i18n)
-    - [`VideoCategory`](#videocategory)
-    - [`VideoAbuseReportReason`](#videoabusereportreason)
-    - [`Video`](#video)
-    - [`Channel`](#channel)
-    - [`ChannelSection`](#channelsection)
-    - [`Search`](#search)
-    - [`Subscription`](#subscription)
   - [Resources](#resources)
     - [`PlaylistResource`](#playlistresource)
     - [`PlaylistListResponse`](#playlistlistresponse)
@@ -113,105 +100,113 @@ The `Client` class represents a Youtube client, containing the entire API of thi
 This section describes the methods available in the API. These methods are accessible via the [`Client`](#client) object.
 #### `Playlist`
 **Methods:**
-- <details> <summary><code>list</code></summary> 
+- <details><summary><code>list</code></summary>
 
     Returns a collection of playlists.  
     **Required** parameters:
-    - `part: PlaylistPartType` 
-  
-        `part` specifies what properties will be returned by the request.  
-        Valid values include:
-        - 'content_details'
-        - 'localizations'
-        - 'player'
-        - 'snippet'
-        - 'status'
+    - `part: PlaylistPartType`
+
+        Specifies what properties will be returned by the request.
 
     **Filters** (specify exactly one):
-    - `id: list[str]|str` 
+    - `id: list[str]|str`
 
         The playlist ID/list of playlist IDs that will be returned.
-    - `channel_id: str` 
+    - `channel_id: str`
 
         Specifies a channel ID whose playlists will be returned.
     - `mine: bool`
 
         Specifies that the API should retrieve the playlists of the authorised user.
-    
+
     **Optional** parameters:
     - `max_results: int`
 
         The maximum amount of items that will be returned.
-
     - `page_token: str`
 
         Identifies a specific page in the result set that should be returned. The `next_page_token` and `prev_page_token` are available in the returned list response for this parameter.
     - `on_behalf_of_content_owner: str`
 
+        
+
     [Reference](https://developers.google.com/youtube/v3/docs/playlists/list)
 </details>
 
-- <details> <summary><code>insert</code></summary> 
+- <details><summary><code>insert</code></summary>
 
     Creates a playlist.  
     **Required** parameters:
+    - `part: PlaylistPartType`
+
+        Identifies the attributes the method will set, and the attributes included in the response.
     - `body: PlaylistResource`
 
-        The [`PlaylistResource`](#playlistresource) which specifies the details of this playlist.  
+        The [`PlaylistResource`](#playlistresource) which specifies the details of this playlist.
         **Values you are able to set**:
         - `snippet.title` (Required)
         - `snippet.description`
         - `snippet.privacy_status`
-    - `part: PlaylistPartType`
 
-        Identifies the attributes the method will set, and the attributes included in the response.
+    **Optional** parameters:
     - `on_behalf_of_content_owner: str`
+
+        
 
     [Reference](https://developers.google.com/youtube/v3/docs/playlists/insert)
 </details>
 
-- <details> <summary><code>update</code></summary> 
+- <details><summary><code>update</code></summary>
 
     Updates a playlist.  
     **Required** parameters:
-    - `body: PlaylistResource`
-
-        The [`PlaylistResource`](#playlistresource) which specifies the details of this playlist.  
-        **Values you are able to set**:
-        - `id` (Required)
-        - Otherwise, same as the above `insert` method.
     - `part: PlaylistPartType`
 
         Identifies the attributes the method will set, and the attributes included in the response.
+    - `body: PlaylistResource`
+
+        The [`PlaylistResource`](#playlistresource) which specifies the details of this playlist.
+        **Values you are able to set**:
+        - `id` (Required)
+        - Otherwise, same as the above `insert` method.`
+
+    **Optional** parameters:
     - `on_behalf_of_content_owner: str`
+
+        
 
     [Reference](https://developers.google.com/youtube/v3/docs/playlists/update)
 </details>
 
-- <details> <summary><code>delete</code></summary> 
+- <details><summary><code>delete</code></summary>
 
     Deletes a playlist.  
     **Required** parameters:
     - `playlist_id: str`
 
         The ID of the Playlist that will be deleted.
+
+    **Optional** parameters:
     - `on_behalf_of_content_owner: str`
+
+        
 
     [Reference](https://developers.google.com/youtube/v3/docs/playlists/delete)
 </details>
 
-#### `PlaylistItem`
-#### `Thumbnail`
-#### `Comment`
-#### `CommentThread`
-#### `I18n`
-#### `VideoCategory`
-#### `VideoAbuseReportReason`
-#### `Video`
-#### `Channel`
-#### `ChannelSection`
-#### `Search`
-#### `Subscription`
+
+<!--m PlaylistItem -->
+<!--m Thumbnail -->
+<!--m Comment -->
+<!--m CommentThread -->
+<!--m I18n -->
+<!--m VideoCategory -->
+<!--m VideoAbuseReportReason -->
+<!--m Video -->
+<!--m Channel -->
+<!--m ChannelSection -->
+<!--m Search -->
+<!--m Subscription -->
 
 ### Resources
 

@@ -1,0 +1,79 @@
+{
+    "methods": {
+        "Playlist": {
+            "list": {
+                "def": "Returns a collection of playlists.",
+                "**Required** parameters": {
+                    "part: PlaylistPartType": ["Specifies what properties will be returned by the request."]
+                },
+                "**Filters** (specify exactly one)": {
+                    "id: list[str]|str": ["The playlist ID/list of playlist IDs that will be returned."],
+                    "channel_id: str": ["Specifies a channel ID whose playlists will be returned."],
+                    "mine: bool": ["Specifies that the API should retrieve the playlists of the authorised user."]
+                },
+                "**Optional** parameters": {
+                    "max_results: int": ["The maximum amount of items that will be returned."],
+                    "page_token: str": ["Identifies a specific page in the result set that should be returned. The `next_page_token` and `prev_page_token` are available in the returned list response for this parameter."],
+                    "on_behalf_of_content_owner: str": [""]
+                },
+                "ref": "https://developers.google.com/youtube/v3/docs/playlists/list"
+            },
+            "insert": {
+                "def": "Creates a playlist.",
+                "**Required** parameters": {
+                    "part: PlaylistPartType": ["Identifies the attributes the method will set, and the attributes included in the response."],
+                    "body: PlaylistResource": [
+                        "The [`PlaylistResource`](#playlistresource) which specifies the details of this playlist.", 
+                        "**Values you are able to set**:", 
+                        "- `snippet.title` (Required)", 
+                        "- `snippet.description`", 
+                        "- `snippet.privacy_status`"
+                    ]
+                },
+                "**Optional** parameters": {
+                    "on_behalf_of_content_owner: str": [""]
+                },
+                "ref": "https://developers.google.com/youtube/v3/docs/playlists/insert"
+                
+            },
+            "update": {
+                "def": "Updates a playlist.",
+                "**Required** parameters": {
+                    "part: PlaylistPartType": ["Identifies the attributes the method will set, and the attributes included in the response."],
+                    "body: PlaylistResource": [
+                        "The [`PlaylistResource`](#playlistresource) which specifies the details of this playlist.", 
+                        "**Values you are able to set**:", 
+                        "- `id` (Required)", 
+                        "- Otherwise, same as the above `insert` method.`"
+                    ]
+                },
+                "**Optional** parameters": {
+                    "on_behalf_of_content_owner: str": [""]
+                },
+                "ref": "https://developers.google.com/youtube/v3/docs/playlists/update"
+            },
+            "delete": {
+                "def": "Deletes a playlist.",
+                "**Required** parameters": {
+                    "playlist_id: str": ["The ID of the Playlist that will be deleted."]
+                },
+                "**Optional** parameters": {
+                    "on_behalf_of_content_owner: str": [""]
+                },
+                "ref": "https://developers.google.com/youtube/v3/docs/playlists/delete"
+            }
+        },
+        "PlaylistItem": {}, 
+        "Thumbnail": {}, 
+        "Comment": {}, 
+        "CommentThread": {}, 
+        "I18n": {}, 
+        "VideoCategory": {}, 
+        "VideoAbuseReportReason": {}, 
+        "Video": {}, 
+        "Channel": {}, 
+        "ChannelSection": {}, 
+        "Search": {}, 
+        "Subscription": {}
+    }
+}
