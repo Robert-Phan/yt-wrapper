@@ -9,6 +9,7 @@
 - [API Reference](#api-reference)
   - [`Client`](#client)
   - [Methods](#methods)
+    - [`Playlist`](#playlist) 
   - [Resources](#resources)
     - [`PlaylistResource`](#playlistresource)
     - [`PlaylistListResponse`](#playlistlistresponse)
