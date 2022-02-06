@@ -96,7 +96,7 @@ class Playlist:
         res = PlaylistResource._from_response_dict(req.execute())
         return res
     
-    def delete(self, playlist_id: str,
+    def delete(self, playlist_item_id: str,
                on_behalf_of_content_owner: str = None):
         """
         Deletes a playlist.
@@ -104,7 +104,7 @@ class Playlist:
     [Google's official documentation](https://developers.google.com/youtube/v3/docs/playlists/delete)
         """
         request = self.client.playlists().delete(
-            id=playlist_id,
+            id=playlist_item_id,
             onBehalfOfContentOwner=on_behalf_of_content_owner
         )
         request.execute()

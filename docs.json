@@ -4,76 +4,350 @@
             "list": {
                 "def": "Returns a collection of playlists.",
                 "**Required** parameters": {
-                    "part: PlaylistPartType": ["Specifies what properties will be returned by the request."]
+                    "part: PlaylistPartType": [
+                        "Specifies what properties will be returned by the request."
+                    ]
                 },
                 "**Filters** (specify exactly one)": {
-                    "id: list[str]|str": ["The playlist ID/list of playlist IDs that will be returned."],
-                    "channel_id: str": ["Specifies a channel ID whose playlists will be returned."],
-                    "mine: bool": ["Specifies that the API should retrieve the playlists of the authorised user."]
+                    "id: list[str]|str": [
+                        "The playlist ID/list of playlist IDs that will be returned."
+                    ],
+                    "channel_id: str": [
+                        "Specifies a channel ID whose playlists will be returned."
+                    ],
+                    "mine: bool": [
+                        "Specifies that the API should retrieve the playlists of the authorised user."
+                    ]
                 },
                 "**Optional** parameters": {
-                    "max_results: int": ["The maximum amount of items that will be returned."],
-                    "page_token: str": ["Identifies a specific page in the result set that should be returned. The `next_page_token` and `prev_page_token` are available in the returned list response for this parameter."],
-                    "on_behalf_of_content_owner: str": [""]
+                    "max_results: int": [
+                        "The maximum amount of items that will be returned."
+                    ],
+                    "page_token: str": [
+                        "Identifies a specific page in the result set that should be returned. The `next_page_token` and `prev_page_token` are available in the returned list response for this parameter."
+                    ],
+                    "on_behalf_of_content_owner: str": [
+                        ""
+                    ]
                 },
                 "ref": "https://developers.google.com/youtube/v3/docs/playlists/list"
             },
             "insert": {
                 "def": "Creates a playlist.",
                 "**Required** parameters": {
-                    "part: PlaylistPartType": ["Identifies the attributes the method will set, and the attributes included in the response."],
+                    "part: PlaylistPartType": [
+                        "Identifies the attributes the method will set, and the attributes included in the response."
+                    ],
                     "body: PlaylistResource": [
-                        "The [`PlaylistResource`](#playlistresource) which specifies the details of this playlist.", 
-                        "**Values you are able to set**:", 
-                        "- `snippet.title` (Required)", 
-                        "- `snippet.description`", 
+                        "The [`PlaylistResource`](#playlistresource) which specifies the details of this playlist.",
+                        "**Values you are able to set**:",
+                        "- `snippet.title` (Required)",
+                        "- `snippet.description`",
                         "- `snippet.privacy_status`"
                     ]
                 },
                 "**Optional** parameters": {
-                    "on_behalf_of_content_owner: str": [""]
+                    "on_behalf_of_content_owner: str": [
+                        ""
+                    ]
                 },
                 "ref": "https://developers.google.com/youtube/v3/docs/playlists/insert"
-                
             },
             "update": {
                 "def": "Updates a playlist.",
                 "**Required** parameters": {
-                    "part: PlaylistPartType": ["Identifies the attributes the method will set, and the attributes included in the response."],
+                    "part: PlaylistPartType": [
+                        "Identifies the attributes the method will set, and the attributes included in the response."
+                    ],
                     "body: PlaylistResource": [
-                        "The [`PlaylistResource`](#playlistresource) which specifies the details of this playlist.", 
-                        "**Values you are able to set**:", 
-                        "- `id` (Required)", 
+                        "The [`PlaylistResource`](#playlistresource) which specifies the details of this playlist.",
+                        "**Values you are able to set**:",
+                        "- `id` (Required)",
                         "- Otherwise, same as the above `insert` method.`"
                     ]
                 },
                 "**Optional** parameters": {
-                    "on_behalf_of_content_owner: str": [""]
+                    "on_behalf_of_content_owner: str": [
+                        ""
+                    ]
                 },
                 "ref": "https://developers.google.com/youtube/v3/docs/playlists/update"
             },
             "delete": {
                 "def": "Deletes a playlist.",
                 "**Required** parameters": {
-                    "playlist_id: str": ["The ID of the Playlist that will be deleted."]
+                    "playlist_id: str": [
+                        "The ID of the playlist that will be deleted."
+                    ]
                 },
                 "**Optional** parameters": {
-                    "on_behalf_of_content_owner: str": [""]
+                    "on_behalf_of_content_owner: str": [
+                        ""
+                    ]
                 },
                 "ref": "https://developers.google.com/youtube/v3/docs/playlists/delete"
             }
         },
-        "PlaylistItem": {}, 
-        "Thumbnail": {}, 
-        "Comment": {}, 
-        "CommentThread": {}, 
-        "I18n": {}, 
-        "VideoCategory": {}, 
-        "VideoAbuseReportReason": {}, 
-        "Video": {}, 
-        "Channel": {}, 
-        "ChannelSection": {}, 
-        "Search": {}, 
+        "PlaylistItem": {
+            "list": {
+                "def": "Returns a collection of playlist items that match the API request parameters.",
+                "**Required** parameters": {
+                    "part: PlaylistItemPartType": [
+                        "Specifies what properties will be returned by the request."
+                    ]
+                },
+                "**Filters** (specify exactly one)": {
+                    "id: list[str]|str": [
+                        "The ID/list of IDs of the playlist items that should be returned."
+                    ],
+                    "playlist_id: str": [
+                        "The ID of the playlist whose videos will be retrieved."
+                    ]
+                },
+                "**Optional** parameters": {
+                    "video_id: str": [
+                        "Specifies that the request should return only the playlist items that contain the specified video."
+                    ],
+                    "max_results: int": [
+                        "The maximum amount of items that will be returned."
+                    ],
+                    "page_token: str": [
+                        "Identifies a specific page in the result set that should be returned. The `next_page_token` and `prev_page_token` are available in the returned list response for this parameter."
+                    ],
+                    "on_behalf_of_content_owner: str": [
+                        ""
+                    ]
+                },
+                "ref": "https://developers.google.com/youtube/v3/docs/playliststems/list"
+            },
+            "insert": {
+                "def": "Modifies a playlist item.",
+                "**Required** parameters": {
+                    "part: PlaylistItemPartType": [
+                        "Identifies the attributes the method will set, and the attributes included in the response."
+                    ],
+                    "body: PlaylistItemResource": [
+                        "The PlaylistItemResource which specifies the details of the playlist item.",
+                        "**Values you are able to set**:",
+                        "- `id` (Required)",
+                        "- Otherwise, same as the above `insert` method.`"
+                    ]
+                },
+                "**Optional** parameters": {
+                    "on_behalf_of_content_owner: str": [
+                        ""
+                    ]
+                },
+                "ref": "https://developers.google.com/youtube/v3/docs/playlistItems/insert"
+            },
+            "update": {
+                "def": "Inserts a video into a playlist.",
+                "**Required** parameters": {
+                    "part: PlaylistItemPartType": [
+                        "Identifies the attributes the method will set, and the attributes included in the response."
+                    ],
+                    "body: PlaylistItemResource": [
+                        "The PlaylistItemResource which specifies the details of the playlist item.",
+                        "**Values you are able to set**:",
+                        "- `snippet.playlist_id` (Required)",
+                        "- `snippet.resource_id` (Required)",
+                        "- `snippet.position` (Required)",
+                        "- `content_details.note` (Required)",
+                        "- `content_details.start_at` (Required)",
+                        "- `content_details.end_at` (Required)"
+                    ]
+                },
+                "**Optional** parameters": {
+                    "on_behalf_of_content_owner: str": [
+                        ""
+                    ]
+                },
+                "ref": "https://developers.google.com/youtube/v3/docs/playlistItems/update"
+            },
+            "delete": {
+                "def": "Deletes a playlist item.",
+                "**Required** parameters": {
+                    "playlist_item_id: str": [
+                        "The ID of the playlist item that will be deleted."
+                    ]
+                },
+                "**Optional** parameters": {
+                    "on_behalf_of_content_owner: str": [
+                        ""
+                    ]
+                },
+                "ref": "https://developers.google.com/youtube/v3/docs/playlistitems/delete"
+            }
+        },
+        "Thumbnail": {
+            "set": {
+                "def": "Uploads a custom video thumbnail to YouTube and sets it for a video.",
+                "**Required** parameters": {
+                    "thumbnail_file: str": [
+                        "The path to the file of the thumbnail."
+                    ],
+                    "video_id: str": [
+                        "The ID of the video for the thumbnail."
+                    ]
+                },
+                "**Optional** parameters": {
+                    "on_behalf_of_content_owner: str": [
+                        ""
+                    ]
+                },
+                "ref": "https://developers.google.com/youtube/v3/docs/thumbnails/set"
+            }
+        },
+        "Comment": {
+            "list": {
+                "def": "Retrieve a list of comments.",
+                "**Required** parameters": {
+                    "part: CommentPartType": [
+                        "Specifies what properties will be returned by the request."
+                    ]
+                },
+                "**Filters** (specify exactly one)": {
+                    "id": [
+                        "The id of the comment that should be retrived."
+                    ],
+                    "parent_id": [
+                        "The ID of the top-level comment whose replies should be retrieved."
+                    ]
+                },
+                "**Optional** parameters": {
+                    "max_results: int": [
+                        "The maximum amount of items that will be returned."
+                    ],
+                    "page_token: str": [
+                        "Identifies a specific page in the result set that should be returned. The `next_page_token` and `prev_page_token` are available in the returned list response for this parameter."
+                    ],
+                    "text_format: Literal['html', 'plain_text']": [
+                        "The format of the returned comment."
+                    ]
+                },
+                "ref": "https://developers.google.com/youtube/v3/docs/comments/list"
+            },
+            "insert": {
+                "def": "Create a reply to a top-level comment. To create a top-level comment, use CommentThread.insert instead.",
+                "**Required** parameters": {
+                    "part: CommentPartType": [
+                        "Identifies the attributes the method will set, and the attributes included in the response."
+                    ],
+                    "body: CommentResource": [
+                        "The CommentResource which specifies the details of the reply.",
+                        "**Values you are able to set**:",
+                        "- `snippet.text_original`",
+                        "- `snippet.parent_id`"
+                    ]
+                },
+                "ref": "https://developers.google.com/youtube/v3/docs/comments/insert"
+            },
+            "update": {
+                "def": "Modifies a comment.",
+                "**Required** parameters": {
+                    "part: CommentPartType": [
+                        "Identifies the attributes the method will set, and the attributes included in the response."
+                    ],
+                    "body: CommentResource": [
+                        "The CommentResource which specifies the details of the comment.",
+                        "**Values you are able to set**:",
+                        "- `id`",
+                        "- `snippet.text_original`"
+                    ]
+                },
+                "ref": "https://developers.google.com/youtube/v3/docs/comments/update"
+            },
+            "delete": {
+                "def": "Deletes a comment.",
+                "**Required** parameters": {
+                    "comment_id: str": [
+                        "The ID of the comment that should be deleted."
+                    ]
+                },
+                "ref": "https://developers.google.com/youtube/v3/docs/comments/delete"
+            }
+        },
+        "CommentThread": {
+            "list": {
+                "def": "Retrieve a list of comment threads.",
+                "**Required** parameters": {
+                    "part: CommentThreadPartType": [
+                        "Specifies what properties will be returned by the request."
+                    ]
+                },
+                "**Filters** (specify exactly one)": {
+                    "id: str": [
+                        "The ID of the comment."
+                    ],
+                    "channel_id: str": [
+                        "Specifies the API to retrieve all comment threads which contain comments from this channel."
+                    ],
+                    "video_id: str": [
+                        "Specifies the ID of the video whose comments should be retrieved."
+                    ],
+                    "all_threads_related_to_channel_id: str": [
+                        "Specifies the API to return all comment threads associated with the specified channel."
+                    ]
+                },
+                "**Optional** parameters": {
+                    "moderation_status: Literal['held_for_review', 'likely_spam', 'published']": [
+                        "Specifies that all returned comments are of the given moderation state."
+                    ],
+                    "order: Literal['time', 'relevance']": [
+                        "Specifies the order the returned comment threads should be in."
+                    ],
+                    "text_format: Literal['html', 'plain_text']": [
+                        "The format of the returned comment."
+                    ],
+                    "max_results: int": [
+                        "The maximum amount of items that will be returned."
+                    ],
+                    "page_token: str": [
+                        "Identifies a specific page in the result set that should be returned. The `next_page_token` and `prev_page_token` are available in the returned list response for this parameter."
+                    ],
+                    "on_behalf_of_content_owner: str": [
+                        ""
+                    ]
+                },
+                "ref": "https://developers.google.com/youtube/v3/docs/commentthreads/list"
+            },
+            "insert": {
+                "def": "Create a new top-level comment.",
+                "**Required** parameters": {
+                    "part: CommentThreadPartType": [
+                        "Identifies the attributes the method will set, and the attributes included in the response."
+                    ],
+                    "body: CommentResource": [
+                        "**Values you are able to set**:",
+                        "- `snippet.channel_id`",
+                        "- `snippet.video_id`",
+                        "- `snippet.top_level_comment.snippet.text_original`"
+                    ]
+                },
+                "ref": "https://developers.google.com/youtube/v3/docs/commentthreads/insert"
+            }
+        },
+        "VideoCategory": {
+            "list":{
+                "def": "Returns a list of categories that can be associated with YouTube videos.",
+                "**Optional** parameters": {
+                    "id: str|list[str]": ["The ID of the video category to be retrieved."],
+                    "region_code: str": ["Specifies the API to retrive all video categories in the specified region code."]
+                },
+                "ref": "https://developers.google.com/youtube/v3/docs/videoCategories/list"
+            }
+        },
+        "VideoAbuseReportReason": {
+            "list": {
+                "def": "Retrieve a list of reasons that can be used to report abusive videos.",
+                "ref": "https://developers.google.com/youtube/v3/docs/videoAbuseReportReasons/list"
+            }
+        },
+        "I18n": {},
+        "Video": {},
+        "Channel": {},
+        "ChannelSection": {},
+        "Search": {},
         "Subscription": {}
     }
 }
