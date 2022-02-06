@@ -9,7 +9,7 @@
 - [API Reference](#api-reference)
   - [`Client`](#client)
   - [Methods](#methods)
-    - [`Playlist`](#playlist) 
+    - [`Playlist`](#playlist)
   - [Resources](#resources)
     - [`PlaylistResource`](#playlistresource)
     - [`PlaylistListResponse`](#playlistlistresponse)
@@ -99,6 +99,8 @@ The `Client` class represents a Youtube client, containing the entire API of thi
 ### Methods
 
 This section describes the methods available in the API. These methods are accessible via the [`Client`](#client) object.
+
+<!--m-start Playlist -->
 #### `Playlist`
 **Methods:**
 - <details><summary><code>list</code></summary>
@@ -195,19 +197,31 @@ This section describes the methods available in the API. These methods are acces
     [Reference](https://developers.google.com/youtube/v3/docs/playlists/delete)
 </details>
 
-
-<!--m PlaylistItem -->
-<!--m Thumbnail -->
-<!--m Comment -->
-<!--m CommentThread -->
-<!--m I18n -->
-<!--m VideoCategory -->
-<!--m VideoAbuseReportReason -->
-<!--m Video -->
-<!--m Channel -->
-<!--m ChannelSection -->
-<!--m Search -->
-<!--m Subscription -->
+<!--m-end Playlist -->
+<!--m-start PlaylistItem -->
+<!--m-end PlaylistItem -->
+<!--m-start Thumbnail -->
+<!--m-end Thumbnail -->
+<!--m-start Comment -->
+<!--m-end Comment -->
+<!--m-start CommentThread -->
+<!--m-end CommentThread -->
+<!--m-start I18n -->
+<!--m-end I18n -->
+<!--m-start VideoCategory -->
+<!--m-end VideoCategory -->
+<!--m-start VideoAbuseReportReason -->
+<!--m-end VideoAbuseReportReason -->
+<!--m-start Video -->
+<!--m-end Video -->
+<!--m-start Channel -->
+<!--m-end Channel -->
+<!--m-start ChannelSection -->
+<!--m-end ChannelSection -->
+<!--m-start Search -->
+<!--m-end Search -->
+<!--m-start Subscription -->
+<!--m-end Subscription -->
 
 ### Resources
 
