@@ -14,11 +14,28 @@
     - [`Thumbnail`](#thumbnail)
     - [`Comment`](#comment)
     - [`CommentThread`](#commentthread)
+    - [`I18n`](#i18n)
     - [`VideoCategory`](#videocategory)
     - [`VideoAbuseReportReason`](#videoabusereportreason)
+    - [`Video`](#video)
+    - [`Channel`](#channel)
+    - [`ChannelSection`](#channelsection)
+    - [`Search`](#search)
+    - [`Subscription`](#subscription)
   - [Resources](#resources)
     - [`PlaylistResource`](#playlistresource)
-    - [`PlaylistListResponse`](#playlistlistresponse)
+    - [`PlaylistItemResource`](#playlistitemresource)
+    - [`ThumbnailResource`](#thumbnailresource)
+    - [`CommentResource`](#commentresource)
+    - [`CommentThreadResource`](#commentthreadresource)
+    - [`I18nResource`](#i18nresource)
+    - [`VideoCategoryResource`](#videocategoryresource)
+    - [`VideoAbuseReportReasonResource`](#videoabusereportreasonresource)
+    - [`VideoResource`](#videoresource)
+    - [`ChannelResource`](#channelresource)
+    - [`ChannelSectionResource`](#channelsectionresource)
+    - [`SearchResult`](#searchresult)
+    - [`SubscriptionResource`](#subscriptionresource)
 
 ## Introduction
 The goal of this project is to create an (almost) complete, comprehensive Python wrapper for the Youtube Data API. 
@@ -110,6 +127,7 @@ This section describes the methods available in the API. These methods are acces
 #### `Playlist`
 **Methods:**
 - <details><summary><code>list</code></summary>
+    <br>
 
     Returns a collection of playlists.  
     **Required** parameters:
@@ -143,6 +161,7 @@ This section describes the methods available in the API. These methods are acces
 </details>
 
 - <details><summary><code>insert</code></summary>
+    <br>
 
     Creates a playlist.  
     **Required** parameters:
@@ -166,6 +185,7 @@ This section describes the methods available in the API. These methods are acces
 </details>
 
 - <details><summary><code>update</code></summary>
+    <br>
 
     Updates a playlist.  
     **Required** parameters:
@@ -188,6 +208,7 @@ This section describes the methods available in the API. These methods are acces
 </details>
 
 - <details><summary><code>delete</code></summary>
+    <br>
 
     Deletes a playlist.  
     **Required** parameters:
@@ -208,6 +229,7 @@ This section describes the methods available in the API. These methods are acces
 #### `PlaylistItem`
 **Methods:**
 - <details><summary><code>list</code></summary>
+    <br>
 
     Returns a collection of playlist items that match the API request parameters.  
     **Required** parameters:
@@ -241,6 +263,7 @@ This section describes the methods available in the API. These methods are acces
 </details>
 
 - <details><summary><code>insert</code></summary>
+    <br>
 
     Modifies a playlist item.  
     **Required** parameters:
@@ -263,6 +286,7 @@ This section describes the methods available in the API. These methods are acces
 </details>
 
 - <details><summary><code>update</code></summary>
+    <br>
 
     Inserts a video into a playlist.  
     **Required** parameters:
@@ -289,6 +313,7 @@ This section describes the methods available in the API. These methods are acces
 </details>
 
 - <details><summary><code>delete</code></summary>
+    <br>
 
     Deletes a playlist item.  
     **Required** parameters:
@@ -309,6 +334,7 @@ This section describes the methods available in the API. These methods are acces
 #### `Thumbnail`
 **Methods:**
 - <details><summary><code>set</code></summary>
+    <br>
 
     Uploads a custom video thumbnail to YouTube and sets it for a video.  
     **Required** parameters:
@@ -332,6 +358,7 @@ This section describes the methods available in the API. These methods are acces
 #### `Comment`
 **Methods:**
 - <details><summary><code>list</code></summary>
+    <br>
 
     Retrieve a list of comments.  
     **Required** parameters:
@@ -362,6 +389,7 @@ This section describes the methods available in the API. These methods are acces
 </details>
 
 - <details><summary><code>insert</code></summary>
+    <br>
 
     Create a reply to a top-level comment. To create a top-level comment, use CommentThread.insert instead.  
     **Required** parameters:
@@ -379,6 +407,7 @@ This section describes the methods available in the API. These methods are acces
 </details>
 
 - <details><summary><code>update</code></summary>
+    <br>
 
     Modifies a comment.  
     **Required** parameters:
@@ -396,6 +425,7 @@ This section describes the methods available in the API. These methods are acces
 </details>
 
 - <details><summary><code>delete</code></summary>
+    <br>
 
     Deletes a comment.  
     **Required** parameters:
@@ -411,6 +441,7 @@ This section describes the methods available in the API. These methods are acces
 #### `CommentThread`
 **Methods:**
 - <details><summary><code>list</code></summary>
+    <br>
 
     Retrieve a list of comment threads.  
     **Required** parameters:
@@ -456,6 +487,7 @@ This section describes the methods available in the API. These methods are acces
 </details>
 
 - <details><summary><code>insert</code></summary>
+    <br>
 
     Create a new top-level comment.  
     **Required** parameters:
@@ -474,11 +506,14 @@ This section describes the methods available in the API. These methods are acces
 
 <!--m-end CommentThread -->
 <!--m-start I18n -->
+#### `I18n`
+**Methods:**
 <!--m-end I18n -->
 <!--m-start VideoCategory -->
 #### `VideoCategory`
 **Methods:**
 - <details><summary><code>list</code></summary>
+    <br>
 
     Returns a list of categories that can be associated with YouTube videos.  
     **Optional** parameters:
@@ -497,6 +532,7 @@ This section describes the methods available in the API. These methods are acces
 #### `VideoAbuseReportReason`
 **Methods:**
 - <details><summary><code>list</code></summary>
+    <br>
 
     Retrieve a list of reasons that can be used to report abusive videos.  
     [Reference](https://developers.google.com/youtube/v3/docs/videoAbuseReportReasons/list)
@@ -504,25 +540,300 @@ This section describes the methods available in the API. These methods are acces
 
 <!--m-end VideoAbuseReportReason -->
 <!--m-start Video -->
+#### `Video`
+**Methods:**
+- <details><summary><code>list</code></summary>
+    <br>
+
+    Retrieves a list of videos.  
+    **Required** parameters:
+    - `part: VideoPartType`
+
+        Specifies what properties will be returned by the request.
+
+    **Filters** (specify exactly one):
+    - `chart: Literal['most_popular']`
+
+        Identifies the chart that you want to retrieve.
+    - `id: list[str]|str`
+
+        Specifies the video(s) that should be retrieved.
+    - `my_rating: Literal["like", "dislike"]`
+
+        Specifies that the API should only retrieve videos that the user has disliked/like.
+
+    **Optional** parameters:
+    - `region_code: str`
+
+        Specifies the API to select a video chart in the specified region code.
+        Used in conjunction with the `chart` parameter.
+    - `video_category_id: str`
+
+        Specifies the video category for which the chart should be retrieved.
+        Used in conjunction with the `chart` parameter.
+    - `max_height: int`
+
+        Specifies the maximum height of the embedded player returned in the `player.embed_html` property
+    - `max_width: int`
+
+        Specifies the maximum width of the embedded player returned in the `player.embed_html` property
+    - `max_results: int`
+
+        The maximum amount of items that will be returned.
+    - `page_token: str`
+
+        Identifies a specific page in the result set that should be returned. The `next_page_token` and `prev_page_token` are available in the returned list response for this parameter.
+    - `on_behalf_of_content_owner: str`
+
+        
+
+    [Reference](https://developers.google.com/youtube/v3/docs/videos/list)
+</details>
+
+- <details><summary><code>insert</code></summary>
+    <br>
+
+    Upload a video to youtube.  
+    **Required** parameters:
+    - `part: VideoPartType`
+
+        Identifies the attributes the method will set, and the attributes included in the response.
+    - `body: VideoResource`
+
+        The VideoResource which specifies the details of the comment.
+        **Values you are able to set**:
+        - `snippet.title`
+        - `snippet.description`
+        - `snippet.tags`
+        - `snippet.category_id`
+        - `snippet.default_language`
+        - `status.embeddable`
+        - `status.license`
+        - `status.public_stats_viewable`
+        - `status.publish_at`
+        - `status.self_declared_made_for_kids`
+        - `recording_details.recording_date`
+    - `media_body: str`
+
+        The path to the file of the uploaded video.
+
+    **Optional** parameters:
+    - `notify_subscribers: bool`
+
+        Indicates whether YouTube should notify subscribers to the video's channel about the video.
+    - `on_behalf_of_content_owner: str`
+
+        
+
+    [Reference](https://developers.google.com/youtube/v3/docs/videos/insert)
+</details>
+
+- <details><summary><code>update</code></summary>
+    <br>
+
+    Updates a video's metadata.  
+    **Required** parameters:
+    - `part: VideoPartType`
+
+        Identifies the attributes the method will set, and the attributes included in the response.
+    - `body: VideoResource`
+
+        The VideoResource which specifies the details of the comment.
+        **Values you are able to set**:
+        - `id` (Required)
+        - `snippet.title (Required IF updating the `snippet` attribute.)`
+        - `snippet.description`
+        - `snippet.tags`
+        - `snippet.category_id`
+        - `snippet.default_language`
+        - `status.embeddable`
+        - `status.license`
+        - `status.public_stats_viewable`
+        - `status.publish_at`
+        - `status.self_declared_made_for_kids`
+        - `recording_details.recording_date`
+
+    **Optional** parameters:
+    - `on_behalf_of_content_owner: str`
+
+        
+
+    [Reference](https://developers.google.com/youtube/v3/docs/videos/insert)
+</details>
+
+- <details><summary><code>delete</code></summary>
+    <br>
+
+    Deletes a video.  
+    **Required** parameters:
+    - `video_id: str`
+
+        The ID of the Video that will be deleted.
+
+    **Optional** parameters:
+    - `on_behalf_of_content_owner: str`
+
+        
+
+    [Reference](https://developers.google.com/youtube/v3/docs/video/delete)
+</details>
+
+- <details><summary><code>rate</code></summary>
+    <br>
+
+    Rate a video.  
+    **Required** parameters:
+    - `video_id: str`
+
+        The ID of the Video to rate.
+    - `rating: Literal['dislike', 'like', 'none']`
+
+        The rating to give to the video.
+
+    [Reference](https://developers.google.com/youtube/v3/docs/video/rate)
+</details>
+
+- <details><summary><code>get_rating</code></summary>
+    <br>
+
+    Get a video's rating.  
+    **Required** parameters:
+    - `video_id: str`
+
+        The ID of the Video whose rating shall be retrieved.
+    - `on_behalf_of_content_owner: str`
+
+        
+
+    [Reference](https://developers.google.com/youtube/v3/docs/video/getrating)
+</details>
+
 <!--m-end Video -->
 <!--m-start Channel -->
+#### `Channel`
+**Methods:**
 <!--m-end Channel -->
 <!--m-start ChannelSection -->
+#### `ChannelSection`
+**Methods:**
 <!--m-end ChannelSection -->
 <!--m-start Search -->
+#### `Search`
+**Methods:**
 <!--m-end Search -->
 <!--m-start Subscription -->
+#### `Subscription`
+**Methods:**
 <!--m-end Subscription -->
 
 ***
 ### Resources
-<!-- TODO: Add in a way to write resource docs, then write them. -->
 This section describes the resources and responses used in the API. These classes are most often used in responses, as well as in methods that require a request body.  
 Note that the attributes of these resources are in `snake_case`, not `camelCase` like in the original response. This is so as to follow the Python conventions.  
 Also note that each resource has a `to_dict` method that returns the original response. That original response is a Python dictionary, and it's keys *will* be in `camelCase`. 
+
+<!--r-start PlaylistResource -->
 #### `PlaylistResource`
 
-Represents a Youtube playlist resource. [More information available at Google's official documentation.](https://developers.google.com/youtube/v3/docs/playlists)
-#### `PlaylistListResponse`
+- <details><summary><code>PlaylistResource</code></summary>
 
-The returned response of the [`Playlist`](#playlist) `list` method. [More information available at Google's official documentation.](https://developers.google.com/youtube/v3/docs/playlists/list#response)
+</details>
+<!--r-end PlaylistResource -->
+
+<!--r-start PlaylistItemResource -->
+#### `PlaylistItemResource`
+
+- <details><summary><code>PlaylistItemResource</code></summary>
+
+</details>
+<!--r-end PlaylistItemResource -->
+
+<!--r-start ThumbnailResource -->
+#### `ThumbnailResource`
+
+- <details><summary><code>ThumbnailResource</code></summary>
+
+</details>
+<!--r-end ThumbnailResource -->
+
+<!--r-start CommentResource -->
+#### `CommentResource`
+
+- <details><summary><code>CommentResource</code></summary>
+
+</details>
+<!--r-end CommentResource -->
+
+<!--r-start CommentThreadResource -->
+#### `CommentThreadResource`
+
+- <details><summary><code>CommentThreadResource</code></summary>
+
+</details>
+<!--r-end CommentThreadResource -->
+
+<!--r-start I18nResource -->
+#### `I18nResource`
+
+- <details><summary><code>I18nResource</code></summary>
+
+</details>
+<!--r-end I18nResource -->
+
+<!--r-start VideoCategoryResource -->
+#### `VideoCategoryResource`
+
+- <details><summary><code>VideoCategoryResource</code></summary>
+
+</details>
+<!--r-end VideoCategoryResource -->
+
+<!--r-start VideoAbuseReportReasonResource -->
+#### `VideoAbuseReportReasonResource`
+
+- <details><summary><code>VideoAbuseReportReasonResource</code></summary>
+
+</details>
+<!--r-end VideoAbuseReportReasonResource -->
+
+<!--r-start VideoResource -->
+#### `VideoResource`
+
+- <details><summary><code>VideoResource</code></summary>
+
+</details>
+<!--r-end VideoResource -->
+
+<!--r-start ChannelResource -->
+#### `ChannelResource`
+
+- <details><summary><code>ChannelResource</code></summary>
+
+</details>
+<!--r-end ChannelResource -->
+
+<!--r-start ChannelSectionResource -->
+#### `ChannelSectionResource`
+
+- <details><summary><code>ChannelSectionResource</code></summary>
+
+</details>
+<!--r-end ChannelSectionResource -->
+
+<!--r-start SearchResult -->
+#### `SearchResult`
+
+- <details><summary><code>SearchResult</code></summary>
+
+</details>
+<!--r-end SearchResult -->
+
+<!--r-start SubscriptionResource -->
+#### `SubscriptionResource`
+
+- <details><summary><code>SubscriptionResource</code></summary>
+
+</details>
+<!--r-end SubscriptionResource -->
+
+

@@ -343,11 +343,131 @@
                 "ref": "https://developers.google.com/youtube/v3/docs/videoAbuseReportReasons/list"
             }
         },
-        "I18n": {},
-        "Video": {},
+        "Video": {
+            "list": {
+                "def": "Retrieves a list of videos.",
+                "**Required** parameters": {
+                    "part: VideoPartType": ["Specifies what properties will be returned by the request."]
+                },
+                "**Filters** (specify exactly one)": {
+                    "chart: Literal['most_popular']": ["Identifies the chart that you want to retrieve."],
+                    "id: list[str]|str": ["Specifies the video(s) that should be retrieved."],
+                    "my_rating: Literal[\"like\", \"dislike\"]": ["Specifies that the API should only retrieve videos that the user has disliked/like."]
+                },
+                "**Optional** parameters": {
+                    "region_code: str": ["Specifies the API to select a video chart in the specified region code.", "Used in conjunction with the `chart` parameter."],
+                    "video_category_id: str": ["Specifies the video category for which the chart should be retrieved.", "Used in conjunction with the `chart` parameter."],
+                    "max_height: int": ["Specifies the maximum height of the embedded player returned in the `player.embed_html` property"],
+                    "max_width: int": ["Specifies the maximum width of the embedded player returned in the `player.embed_html` property"],
+                    "max_results: int": ["The maximum amount of items that will be returned."],
+                    "page_token: str": ["Identifies a specific page in the result set that should be returned. The `next_page_token` and `prev_page_token` are available in the returned list response for this parameter."],
+                    "on_behalf_of_content_owner: str": [""]
+                },
+                "ref": "https://developers.google.com/youtube/v3/docs/videos/list"
+            },
+            "insert": {
+                "def": "Upload a video to youtube.",
+                "**Required** parameters": {
+                    "part: VideoPartType": ["Identifies the attributes the method will set, and the attributes included in the response."],
+                    "body: VideoResource": [
+                        "The VideoResource which specifies the details of the comment.",
+                        "**Values you are able to set**:",
+                        "- `snippet.title`",
+                        "- `snippet.description`",
+                        "- `snippet.tags`",
+                        "- `snippet.category_id`",
+                        "- `snippet.default_language`",
+                        "- `status.embeddable`",
+                        "- `status.license`",
+                        "- `status.public_stats_viewable`",
+                        "- `status.publish_at`",
+                        "- `status.self_declared_made_for_kids`",
+                        "- `recording_details.recording_date`"
+                    ], 
+                    "media_body: str": ["The path to the file of the uploaded video."]
+                },
+                "**Optional** parameters": {
+                    "notify_subscribers: bool": ["Indicates whether YouTube should notify subscribers to the video's channel about the video."],
+                    "on_behalf_of_content_owner: str": [""]
+                },
+                "ref": "https://developers.google.com/youtube/v3/docs/videos/insert"
+            },
+            "update": {
+                "def": "Updates a video's metadata.",
+                "**Required** parameters": {
+                    "part: VideoPartType": ["Identifies the attributes the method will set, and the attributes included in the response."],
+                    "body: VideoResource": [
+                        "The VideoResource which specifies the details of the comment.",
+                        "**Values you are able to set**:",
+                        "- `id` (Required)",
+                        "- `snippet.title (Required IF updating the `snippet` attribute.)`",
+                        "- `snippet.description`",
+                        "- `snippet.tags`",
+                        "- `snippet.category_id`",
+                        "- `snippet.default_language`",
+                        "- `status.embeddable`",
+                        "- `status.license`",
+                        "- `status.public_stats_viewable`",
+                        "- `status.publish_at`",
+                        "- `status.self_declared_made_for_kids`",
+                        "- `recording_details.recording_date`"
+                    ]
+                },
+                "**Optional** parameters": {
+                    "on_behalf_of_content_owner: str": [""]
+                },
+                "ref": "https://developers.google.com/youtube/v3/docs/videos/insert"
+            },
+            "delete": {
+                "def": "Deletes a video.",
+                "**Required** parameters": {
+                    "video_id: str": [
+                        "The ID of the Video that will be deleted."
+                    ]
+                },
+                "**Optional** parameters": {
+                    "on_behalf_of_content_owner: str": [
+                        ""
+                    ]
+                },
+                "ref": "https://developers.google.com/youtube/v3/docs/video/delete"
+            },
+            "rate": {
+                "def": "Rate a video.",
+                "**Required** parameters":{
+                    "video_id: str": ["The ID of the Video to rate."],
+                    "rating: Literal['dislike', 'like', 'none']": ["The rating to give to the video."]
+                },
+                "ref": "https://developers.google.com/youtube/v3/docs/video/rate"
+            },
+            "get_rating": {
+                "def": "Get a video's rating.",
+                "**Required** parameters": {
+                    "video_id: str": ["The ID of the Video whose rating shall be retrieved."],
+                    "on_behalf_of_content_owner: str": [""]
+                },
+                "ref": "https://developers.google.com/youtube/v3/docs/video/getrating"
+            }
+        },
         "Channel": {},
         "ChannelSection": {},
         "Search": {},
-        "Subscription": {}
+        "Subscription": {},
+        "I18n": {}
+    },
+    "resources": {
+        "PlaylistResource": {},
+        "PlaylistItemResource": {},
+        "ThumbnailResource": {},
+        "CommentResource": {},
+        "CommentThreadResource": {},
+        "I18nResource": {},
+        "VideoCategoryResource": {},
+        "VideoAbuseReportReasonResource": {},
+        "VideoResource": {},
+        "ChannelResource": {},
+        "ChannelSectionResource": {},
+        "SearchResult": {},
+        "SubscriptionResource": {}
     }
 }
