@@ -27,6 +27,9 @@ def substitute_method_docs(matches: list[Match[str]], method_docs: dict[str, dic
                     meth_doc_string.append(f'    {under}  \n')
                 elif part == 'ref':
                     meth_doc_string.append(f'    [Reference]({under})')
+                elif part == "return":
+                    returned: str = under
+                    meth_doc_string.append(f"    **Returns:** [`{under}`](#{returned.lower()})\n\n")
                 else:
                     params: dict[str, list[str]] = under
                     meth_doc_string.append(f'    {part}:\n')

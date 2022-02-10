@@ -155,7 +155,7 @@ This section describes the methods available in the API. These methods are acces
         Identifies a specific page in the result set that should be returned. The `next_page_token` and `prev_page_token` are available in the returned list response for this parameter.
     - `on_behalf_of_content_owner: str`
 
-        
+        Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value.
 
     [Reference](https://developers.google.com/youtube/v3/docs/playlists/list)
 </details>
@@ -168,7 +168,7 @@ This section describes the methods available in the API. These methods are acces
     - `part: PlaylistPartType`
 
         Identifies the attributes the method will set, and the attributes included in the response.
-    - `body: PlaylistResource`
+    - `body: [PlaylistResource](#playlistresource)`
 
         The [`PlaylistResource`](#playlistresource) which specifies the details of this playlist.
         **Values you are able to set**:
@@ -179,7 +179,9 @@ This section describes the methods available in the API. These methods are acces
     **Optional** parameters:
     - `on_behalf_of_content_owner: str`
 
-        
+        Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value.
+
+    **Returns:** [`[PlaylistResource](#playlistresource)`](#[playlistresource](#playlistresource))
 
     [Reference](https://developers.google.com/youtube/v3/docs/playlists/insert)
 </details>
@@ -202,7 +204,9 @@ This section describes the methods available in the API. These methods are acces
     **Optional** parameters:
     - `on_behalf_of_content_owner: str`
 
-        
+        Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value.
+
+    **Returns:** [`PlaylistResource`](#playlistresource)
 
     [Reference](https://developers.google.com/youtube/v3/docs/playlists/update)
 </details>
@@ -219,7 +223,7 @@ This section describes the methods available in the API. These methods are acces
     **Optional** parameters:
     - `on_behalf_of_content_owner: str`
 
-        
+        Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value.
 
     [Reference](https://developers.google.com/youtube/v3/docs/playlists/delete)
 </details>
@@ -257,7 +261,7 @@ This section describes the methods available in the API. These methods are acces
         Identifies a specific page in the result set that should be returned. The `next_page_token` and `prev_page_token` are available in the returned list response for this parameter.
     - `on_behalf_of_content_owner: str`
 
-        
+        Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value.
 
     [Reference](https://developers.google.com/youtube/v3/docs/playliststems/list)
 </details>
@@ -272,7 +276,7 @@ This section describes the methods available in the API. These methods are acces
         Identifies the attributes the method will set, and the attributes included in the response.
     - `body: PlaylistItemResource`
 
-        The PlaylistItemResource which specifies the details of the playlist item.
+        The [`PlaylistItemResource`](#playlistitemresource) which specifies the details of the playlist item.
         **Values you are able to set**:
         - `id` (Required)
         - Otherwise, same as the above `insert` method.`
@@ -280,7 +284,9 @@ This section describes the methods available in the API. These methods are acces
     **Optional** parameters:
     - `on_behalf_of_content_owner: str`
 
-        
+        Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value.
+
+    **Returns:** [`PlaylistItemResource`](#playlistitemresource)
 
     [Reference](https://developers.google.com/youtube/v3/docs/playlistItems/insert)
 </details>
@@ -295,7 +301,7 @@ This section describes the methods available in the API. These methods are acces
         Identifies the attributes the method will set, and the attributes included in the response.
     - `body: PlaylistItemResource`
 
-        The PlaylistItemResource which specifies the details of the playlist item.
+        The [`PlaylistItemResource`](#playlistitemresource) which specifies the details of the playlist item.
         **Values you are able to set**:
         - `snippet.playlist_id` (Required)
         - `snippet.resource_id` (Required)
@@ -307,7 +313,9 @@ This section describes the methods available in the API. These methods are acces
     **Optional** parameters:
     - `on_behalf_of_content_owner: str`
 
-        
+        Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value.
+
+    **Returns:** [`PlaylistItemResource`](#playlistitemresource)
 
     [Reference](https://developers.google.com/youtube/v3/docs/playlistItems/update)
 </details>
@@ -324,9 +332,9 @@ This section describes the methods available in the API. These methods are acces
     **Optional** parameters:
     - `on_behalf_of_content_owner: str`
 
-        
+        Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value.
 
-    [Reference](https://developers.google.com/youtube/v3/docs/playlistitems/delete)
+    [Reference](https://developers.google.com/youtube/v3/docs/playlistItems/delete)
 </details>
 
 <!--m-end PlaylistItem -->
@@ -348,7 +356,7 @@ This section describes the methods available in the API. These methods are acces
     **Optional** parameters:
     - `on_behalf_of_content_owner: str`
 
-        
+        Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value.
 
     [Reference](https://developers.google.com/youtube/v3/docs/thumbnails/set)
 </details>
@@ -398,10 +406,12 @@ This section describes the methods available in the API. These methods are acces
         Identifies the attributes the method will set, and the attributes included in the response.
     - `body: CommentResource`
 
-        The CommentResource which specifies the details of the reply.
+        The [`CommentResource`](#commentresource) which specifies the details of the reply.
         **Values you are able to set**:
         - `snippet.text_original`
         - `snippet.parent_id`
+
+    **Returns:** [`CommentResource`](#commentresource)
 
     [Reference](https://developers.google.com/youtube/v3/docs/comments/insert)
 </details>
@@ -416,10 +426,12 @@ This section describes the methods available in the API. These methods are acces
         Identifies the attributes the method will set, and the attributes included in the response.
     - `body: CommentResource`
 
-        The CommentResource which specifies the details of the comment.
+        The [`CommentResource`](#commentresource) which specifies the details of the comment.
         **Values you are able to set**:
         - `id`
         - `snippet.text_original`
+
+    **Returns:** [`CommentResource`](#commentresource)
 
     [Reference](https://developers.google.com/youtube/v3/docs/comments/update)
 </details>
@@ -481,9 +493,9 @@ This section describes the methods available in the API. These methods are acces
         Identifies a specific page in the result set that should be returned. The `next_page_token` and `prev_page_token` are available in the returned list response for this parameter.
     - `on_behalf_of_content_owner: str`
 
-        
+        Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value.
 
-    [Reference](https://developers.google.com/youtube/v3/docs/commentthreads/list)
+    [Reference](https://developers.google.com/youtube/v3/docs/commentThreads/list)
 </details>
 
 - <details><summary><code>insert</code></summary>
@@ -494,14 +506,17 @@ This section describes the methods available in the API. These methods are acces
     - `part: CommentThreadPartType`
 
         Identifies the attributes the method will set, and the attributes included in the response.
-    - `body: CommentResource`
+    - `body: CommentThreadResource`
 
+        The [`CommentThreadResource`](#commentthreadresource) which specifies the details of the comment.
         **Values you are able to set**:
         - `snippet.channel_id`
         - `snippet.video_id`
         - `snippet.top_level_comment.snippet.text_original`
 
-    [Reference](https://developers.google.com/youtube/v3/docs/commentthreads/insert)
+    **Returns:** [`CommentThreadResource`](#commentthreadresource)
+
+    [Reference](https://developers.google.com/youtube/v3/docs/commentThreads/insert)
 </details>
 
 <!--m-end CommentThread -->
@@ -585,7 +600,7 @@ This section describes the methods available in the API. These methods are acces
         Identifies a specific page in the result set that should be returned. The `next_page_token` and `prev_page_token` are available in the returned list response for this parameter.
     - `on_behalf_of_content_owner: str`
 
-        
+        Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value.
 
     [Reference](https://developers.google.com/youtube/v3/docs/videos/list)
 </details>
@@ -600,7 +615,7 @@ This section describes the methods available in the API. These methods are acces
         Identifies the attributes the method will set, and the attributes included in the response.
     - `body: VideoResource`
 
-        The VideoResource which specifies the details of the comment.
+        The [`VideoResource`](#videoresource) which specifies the details of the comment.
         **Values you are able to set**:
         - `snippet.title`
         - `snippet.description`
@@ -623,7 +638,9 @@ This section describes the methods available in the API. These methods are acces
         Indicates whether YouTube should notify subscribers to the video's channel about the video.
     - `on_behalf_of_content_owner: str`
 
-        
+        Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value.
+
+    **Returns:** [`VideoResource`](#videoresource)
 
     [Reference](https://developers.google.com/youtube/v3/docs/videos/insert)
 </details>
@@ -638,7 +655,7 @@ This section describes the methods available in the API. These methods are acces
         Identifies the attributes the method will set, and the attributes included in the response.
     - `body: VideoResource`
 
-        The VideoResource which specifies the details of the comment.
+        The [`VideoResource`](#videoresource) which specifies the details of the video.
         **Values you are able to set**:
         - `id` (Required)
         - `snippet.title (Required IF updating the `snippet` attribute.)`
@@ -656,9 +673,11 @@ This section describes the methods available in the API. These methods are acces
     **Optional** parameters:
     - `on_behalf_of_content_owner: str`
 
-        
+        Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value.
 
-    [Reference](https://developers.google.com/youtube/v3/docs/videos/insert)
+    **Returns:** [`VideoResource`](#videoresource)
+
+    [Reference](https://developers.google.com/youtube/v3/docs/videos/update)
 </details>
 
 - <details><summary><code>delete</code></summary>
@@ -673,9 +692,9 @@ This section describes the methods available in the API. These methods are acces
     **Optional** parameters:
     - `on_behalf_of_content_owner: str`
 
-        
+        Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value.
 
-    [Reference](https://developers.google.com/youtube/v3/docs/video/delete)
+    [Reference](https://developers.google.com/youtube/v3/docs/videos/delete)
 </details>
 
 - <details><summary><code>rate</code></summary>
@@ -690,7 +709,7 @@ This section describes the methods available in the API. These methods are acces
 
         The rating to give to the video.
 
-    [Reference](https://developers.google.com/youtube/v3/docs/video/rate)
+    [Reference](https://developers.google.com/youtube/v3/docs/videos/rate)
 </details>
 
 - <details><summary><code>get_rating</code></summary>
@@ -703,19 +722,193 @@ This section describes the methods available in the API. These methods are acces
         The ID of the Video whose rating shall be retrieved.
     - `on_behalf_of_content_owner: str`
 
-        
+        Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value.
 
-    [Reference](https://developers.google.com/youtube/v3/docs/video/getrating)
+    [Reference](https://developers.google.com/youtube/v3/docs/videos/getrating)
 </details>
 
 <!--m-end Video -->
 <!--m-start Channel -->
 #### `Channel`
 **Methods:**
+- <details><summary><code>list</code></summary>
+    <br>
+
+    Retrieve a channel/list of channel resources.  
+    **Required** parameters:
+    - `part: ChannelPartType`
+
+        Specifies what properties will be returned by the request.
+
+    **Filters** (specify exactly one):
+    - `mine: bool`
+
+        Specifies that the API should retrieve the channel of the authorised user.
+    - `for_username: str`
+
+        Specifies the name of the channel that should retrieve.
+    - `id: str|list[str]`
+
+        The ID of the channel to be retrieved.
+    - `managed_by_me: bool`
+
+        Specifies that the API should retrieve channels managed by the authenticated user.
+
+    **Optional** parameters:
+    - `max_results: int`
+
+        The maximum amount of items that will be returned.
+    - `page_token: str`
+
+        Identifies a specific page in the result set that should be returned. The `next_page_token` and `prev_page_token` are available in the returned list response for this parameter.
+    - `on_behalf_of_content_owner: str`
+
+        Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value.
+
+    [Reference](https://developers.google.com/youtube/v3/docs/channels/list)
+</details>
+
+- <details><summary><code>update</code></summary>
+    <br>
+
+    Updates a channel.  
+    **Required** parameters:
+    - `body: ChannelResource`
+
+        The [`ChannelResource`](#channelresource) which specifies the details of the channel.
+        **Values you are able to set**:
+        - `branding_settings.channel.description`
+        - `branding_settings.channel.country`
+        - `branding_settings.channel.default_language`
+        - `branding_settings.channel.keywords`
+        - `branding_settings.channel.moderate_comments`
+        - `branding_settings.channel.tracking_analytics_account_id`
+        - `branding_settings.channel.unsubscribed_trailer`
+        - `status.self_declared_made_for_kids`
+    - `part: ChannelPartType`
+
+        Identifies the attributes the method will set, and the attributes included in the response.
+
+    **Optional** parameters:
+    - `on_behalf_of_content_owner: str`
+
+        Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value.
+
+    **Returns:** [`ChannelResource`](#channelresource)
+
+    [Reference](https://developers.google.com/youtube/v3/docs/channels/update)
+</details>
+
 <!--m-end Channel -->
 <!--m-start ChannelSection -->
 #### `ChannelSection`
 **Methods:**
+- <details><summary><code>list</code></summary>
+    <br>
+
+    Retrieve a list of channel sections.  
+    **Required** parameters:
+    - `part: ChannelSectionPartType`
+
+        Specifies what properties will be returned by the request.
+
+    **Filters** (specify exactly one):
+    - `channel_id: str`
+
+        Specifies a channel ID whose channel sections will be returned.
+    - `id: str`
+
+        The ID of the sections that should be retrieved.
+    - `mine: bool`
+
+        Specifies that the API should retrieve the channel section of the authorised user.
+
+    **Optional** parameters:
+    - `on_behalf_of_content_owner: str`
+
+        Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value.
+
+    [Reference](https://developers.google.com/youtube/v3/docs/channelSections/list)
+</details>
+
+- <details><summary><code>insert</code></summary>
+    <br>
+
+    Adds a channel section to the autheticated user's channel.  
+    **Required** parameters:
+    - `part: ChannelSectionPartType`
+
+        Identifies the attributes the method will set, and the attributes included in the response.
+    - `body: ChannelResource`
+
+        The [`ChannelSectionResource`](#channelsectionresource) which specifies the details of the channel.
+        **Values you are able to set**:
+        - `id`
+        - `snippet.type`
+        - `snippet.title`
+        - `snippet.position`
+        - `content_details.playlists`
+        - `content_details.channels`
+
+    **Optional** parameters:
+    - `on_behalf_of_content_owner: str`
+
+        Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value.
+    - `on_behalf_of_content_owner_channel: str`
+
+        Specifies the YouTube channel ID of the channel to which a video is being added.
+
+    **Returns:** [`ChannelSectionResource`](#channelsectionresource)
+
+    [Reference](https://developers.google.com/youtube/v3/docs/channelSections/insert)
+</details>
+
+- <details><summary><code>update</code></summary>
+    <br>
+
+    Updates a channel section.  
+    **Required** parameters:
+    - `part: ChannelSectionPartType`
+
+        Identifies the attributes the method will set, and the attributes included in the response.
+    - `body: ChannelResource`
+
+        The [`ChannelSectionResource`](#channelsectionresource) which specifies the details of the channel.
+        **Values you are able to set**:
+        - `id`
+        - `snippet.type`
+        - `snippet.title`
+        - `snippet.position`
+        - `content_details.playlists`
+        - `content_details.channels`
+
+    **Optional** parameters:
+    - `on_behalf_of_content_owner: str`
+
+        Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value.
+
+    **Returns:** [`ChannelSectionResource`](#channelsectionresource)
+
+    [Reference](https://developers.google.com/youtube/v3/docs/channelSections/update)
+</details>
+
+- <details><summary><code>delete</code></summary>
+    <br>
+
+    Deletes a channel section.  
+    **Required** parameters:
+    - `section_id: str`
+
+        The ID of the channel section that will be deleted.
+
+    **Optional** parameters:
+    - `on_behalf_of_content_owner: str`
+
+        Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value.
+
+    [Reference](https://developers.google.com/youtube/v3/docs/channelSections/delete)
+</details>
+
 <!--m-end ChannelSection -->
 <!--m-start Search -->
 #### `Search`
@@ -724,6 +917,84 @@ This section describes the methods available in the API. These methods are acces
 <!--m-start Subscription -->
 #### `Subscription`
 **Methods:**
+- <details><summary><code>list</code></summary>
+    <br>
+
+    Retrieve subscription resources.  
+    **Required** parameters:
+    - `part: SubscriptionPartType`
+
+        Specifies what properties will be returned by the request.
+
+    **Filters** (specify exactly one):
+    - `channel_id: str`
+
+        Specifies a channel ID whose subscriptions will be returned.
+    - `id: str|list[str]`
+
+        The ID of the channel to be retrieved.
+    - `mine: bool`
+
+        Specifies that the API should retrieve the subscriptions of the authorised user.
+    - `my_recent_subscribers: bool`
+
+        Retrieve a feed of the subscribers of the authenticated user in reverse chronological order.
+    - `my_subscribers: bool`
+
+        Retrieve a feed of the subscribers of the authenticated user in no particular order
+
+    **Optional** parameters:
+    - `order: Literal['alphabetical', 'relevance', 'unread']`
+
+        Specifies the method that will be used to sort resources in the response.
+    - `for_channel_id: str`
+
+        Specifies a list of channel IDs, which the APi will only match to.
+    - `max_results: int`
+
+        The maximum amount of items that will be returned.
+    - `page_token: str`
+
+        Identifies a specific page in the result set that should be returned. The `next_page_token` and `prev_page_token` are available in the returned list response for this parameter.
+    - `on_behalf_of_content_owner: str`
+
+        Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value.
+    - `on_behalf_of_content_owner_channel: str`
+
+        Specifies the YouTube channel ID of the channel to which a video is being added.
+
+    [Reference](https://developers.google.com/youtube/v3/docs/subscriptions/list)
+</details>
+
+- <details><summary><code>insert</code></summary>
+    <br>
+
+    Subscribe to a channel.  
+    **Required** parameters:
+    - `channel_id: str`
+
+        Specifies a channel ID to subscribe to.
+    - `part: SubscriptionPartType`
+
+        Identifies the attributes the method will set, and the attributes included in the response.
+
+    **Returns:** [`SubscriptionResource`](#subscriptionresource)
+
+    [Reference](https://developers.google.com/youtube/v3/docs/subscriptions/insert)
+</details>
+
+- <details><summary><code>delete</code></summary>
+    <br>
+
+    Deletes a subscription.  
+    **Required** parameters:
+    - `subscription_id: str`
+
+        The ID of the subscription that will be deleted.
+
+    [Reference](https://developers.google.com/youtube/v3/docs/subscriptions/delete)
+</details>
+
 <!--m-end Subscription -->
 
 ***
