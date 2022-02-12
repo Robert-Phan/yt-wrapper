@@ -28,7 +28,8 @@
     - [`ThumbnailResource`](#thumbnailresource)
     - [`CommentResource`](#commentresource)
     - [`CommentThreadResource`](#commentthreadresource)
-    - [`I18nResource`](#i18nresource)
+    - [`I18nLanguageResource`](#i18nlanguageresource)
+    - [`I18nRegionResource`](#i18nregionresource)
     - [`VideoCategoryResource`](#videocategoryresource)
     - [`VideoAbuseReportReasonResource`](#videoabusereportreasonresource)
     - [`VideoResource`](#videoresource)
@@ -36,6 +37,20 @@
     - [`ChannelSectionResource`](#channelsectionresource)
     - [`SearchResult`](#searchresult)
     - [`SubscriptionResource`](#subscriptionresource)
+    - [`PlaylistListResponse`](#playlistlistresponse)
+    - [`PlaylistItemListResponse`](#playlistitemlistresponse)
+    - [`ThumbnailListResponse`](#thumbnaillistresponse)
+    - [`CommentListResponse`](#commentlistresponse)
+    - [`CommentThreadListResponse`](#commentthreadlistresponse)
+    - [`I18nLanguageListResponse`](#i18nlanguagelistresponse)
+    - [`I18nRegionListResponse`](#i18nregionlistresponse)
+    - [`VideoCategoryListResponse`](#videocategorylistresponse)
+    - [`VideoAbuseReportReasonListResponse`](#videoabusereportreasonlistresponse)
+    - [`VideoListResponse`](#videolistresponse)
+    - [`ChannelListResponse`](#channellistresponse)
+    - [`ChannelSectionListResponse`](#channelsectionlistresponse)
+    - [`SearchListResponse`](#searchlistresponse)
+    - [`SubscriptionListResponse`](#subscriptionlistresponse)
 
 ## Introduction
 The goal of this project is to create an (almost) complete, comprehensive Python wrapper for the Youtube Data API. 
@@ -157,6 +172,8 @@ This section describes the methods available in the API. These methods are acces
 
         Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value.
 
+    **Returns:** [`PlaylistListResponse`](#playlistlistresponse)
+
     [Reference](https://developers.google.com/youtube/v3/docs/playlists/list)
 </details>
 
@@ -165,23 +182,23 @@ This section describes the methods available in the API. These methods are acces
 
     Creates a playlist.  
     **Required** parameters:
-    - `part: PlaylistPartType`
-
-        Identifies the attributes the method will set, and the attributes included in the response.
     - `body: [PlaylistResource](#playlistresource)`
 
-        The [`PlaylistResource`](#playlistresource) which specifies the details of this playlist.
+        The [`PlaylistResource`](#playlistresource) which specifies the details of this playlist.  
         **Values you are able to set**:
         - `snippet.title` (Required)
         - `snippet.description`
         - `snippet.privacy_status`
+    - `part: PlaylistPartType`
+
+        Identifies the attributes the method will set, and the attributes included in the response.
 
     **Optional** parameters:
     - `on_behalf_of_content_owner: str`
 
         Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value.
 
-    **Returns:** [`[PlaylistResource](#playlistresource)`](#[playlistresource](#playlistresource))
+    **Returns:** [`PlaylistResource`](#playlistresource)
 
     [Reference](https://developers.google.com/youtube/v3/docs/playlists/insert)
 </details>
@@ -191,15 +208,15 @@ This section describes the methods available in the API. These methods are acces
 
     Updates a playlist.  
     **Required** parameters:
-    - `part: PlaylistPartType`
-
-        Identifies the attributes the method will set, and the attributes included in the response.
     - `body: PlaylistResource`
 
-        The [`PlaylistResource`](#playlistresource) which specifies the details of this playlist.
+        The [`PlaylistResource`](#playlistresource) which specifies the details of this playlist.  
         **Values you are able to set**:
         - `id` (Required)
         - Otherwise, same as the above `insert` method.`
+    - `part: PlaylistPartType`
+
+        Identifies the attributes the method will set, and the attributes included in the response.
 
     **Optional** parameters:
     - `on_behalf_of_content_owner: str`
@@ -263,6 +280,8 @@ This section describes the methods available in the API. These methods are acces
 
         Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value.
 
+    **Returns:** [`PlaylistItemListResponse`](#playlistitemlistresponse)
+
     [Reference](https://developers.google.com/youtube/v3/docs/playliststems/list)
 </details>
 
@@ -271,15 +290,19 @@ This section describes the methods available in the API. These methods are acces
 
     Modifies a playlist item.  
     **Required** parameters:
+    - `body: PlaylistItemResource`
+
+        The [`PlaylistItemResource`](#playlistitemresource) which specifies the details of the playlist item.  
+        **Values you are able to set**:
+        - `snippet.playlist_id` (Required)
+        - `snippet.resource_id` (Required)
+        - `snippet.position`
+        - `content_details.note`
+        - `content_details.start_at`
+        - `content_details.end_at`
     - `part: PlaylistItemPartType`
 
         Identifies the attributes the method will set, and the attributes included in the response.
-    - `body: PlaylistItemResource`
-
-        The [`PlaylistItemResource`](#playlistitemresource) which specifies the details of the playlist item.
-        **Values you are able to set**:
-        - `id` (Required)
-        - Otherwise, same as the above `insert` method.`
 
     **Optional** parameters:
     - `on_behalf_of_content_owner: str`
@@ -296,19 +319,15 @@ This section describes the methods available in the API. These methods are acces
 
     Inserts a video into a playlist.  
     **Required** parameters:
+    - `body: PlaylistItemResource`
+
+        The [`PlaylistItemResource`](#playlistitemresource) which specifies the details of the playlist item.  
+        **Values you are able to set**:
+        - `id` (Required)
+        - Otherwise, same as the above `insert` method.`
     - `part: PlaylistItemPartType`
 
         Identifies the attributes the method will set, and the attributes included in the response.
-    - `body: PlaylistItemResource`
-
-        The [`PlaylistItemResource`](#playlistitemresource) which specifies the details of the playlist item.
-        **Values you are able to set**:
-        - `snippet.playlist_id` (Required)
-        - `snippet.resource_id` (Required)
-        - `snippet.position` (Required)
-        - `content_details.note` (Required)
-        - `content_details.start_at` (Required)
-        - `content_details.end_at` (Required)
 
     **Optional** parameters:
     - `on_behalf_of_content_owner: str`
@@ -358,6 +377,8 @@ This section describes the methods available in the API. These methods are acces
 
         Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value.
 
+    **Returns:** [`ThumbnailListResponse`](#thumbnaillistresponse)
+
     [Reference](https://developers.google.com/youtube/v3/docs/thumbnails/set)
 </details>
 
@@ -393,6 +414,8 @@ This section describes the methods available in the API. These methods are acces
 
         The format of the returned comment.
 
+    **Returns:** [`CommentListResponse`](#commentlistresponse)
+
     [Reference](https://developers.google.com/youtube/v3/docs/comments/list)
 </details>
 
@@ -401,15 +424,15 @@ This section describes the methods available in the API. These methods are acces
 
     Create a reply to a top-level comment. To create a top-level comment, use CommentThread.insert instead.  
     **Required** parameters:
-    - `part: CommentPartType`
-
-        Identifies the attributes the method will set, and the attributes included in the response.
     - `body: CommentResource`
 
-        The [`CommentResource`](#commentresource) which specifies the details of the reply.
+        The [`CommentResource`](#commentresource) which specifies the details of the reply.  
         **Values you are able to set**:
         - `snippet.text_original`
         - `snippet.parent_id`
+    - `part: CommentPartType`
+
+        Identifies the attributes the method will set, and the attributes included in the response.
 
     **Returns:** [`CommentResource`](#commentresource)
 
@@ -421,15 +444,15 @@ This section describes the methods available in the API. These methods are acces
 
     Modifies a comment.  
     **Required** parameters:
+    - `body: CommentResource`
+
+        The [`CommentResource`](#commentresource) which specifies the details of the comment.  
+        **Values you are able to set**:
+        - `id`(Required)
+        - `snippet.text_original`
     - `part: CommentPartType`
 
         Identifies the attributes the method will set, and the attributes included in the response.
-    - `body: CommentResource`
-
-        The [`CommentResource`](#commentresource) which specifies the details of the comment.
-        **Values you are able to set**:
-        - `id`
-        - `snippet.text_original`
 
     **Returns:** [`CommentResource`](#commentresource)
 
@@ -495,6 +518,8 @@ This section describes the methods available in the API. These methods are acces
 
         Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value.
 
+    **Returns:** [`CommentThreadListResponse`](#commentthreadlistresponse)
+
     [Reference](https://developers.google.com/youtube/v3/docs/commentThreads/list)
 </details>
 
@@ -503,16 +528,16 @@ This section describes the methods available in the API. These methods are acces
 
     Create a new top-level comment.  
     **Required** parameters:
-    - `part: CommentThreadPartType`
-
-        Identifies the attributes the method will set, and the attributes included in the response.
     - `body: CommentThreadResource`
 
-        The [`CommentThreadResource`](#commentthreadresource) which specifies the details of the comment.
+        The [`CommentThreadResource`](#commentthreadresource) which specifies the details of the comment.  
         **Values you are able to set**:
         - `snippet.channel_id`
         - `snippet.video_id`
         - `snippet.top_level_comment.snippet.text_original`
+    - `part: CommentThreadPartType`
+
+        Identifies the attributes the method will set, and the attributes included in the response.
 
     **Returns:** [`CommentThreadResource`](#commentthreadresource)
 
@@ -523,6 +548,24 @@ This section describes the methods available in the API. These methods are acces
 <!--m-start I18n -->
 #### `I18n`
 **Methods:**
+- <details><summary><code>list_languages</code></summary>
+    <br>
+
+    Returns a list of languages that YouTube supports.  
+    **Returns:** [`I18nLanguageListResponse`](#i18nlanguagelistresponse)
+
+    [Reference](https://developers.google.com/youtube/v3/docs/i18nLanguages/list/)
+</details>
+
+- <details><summary><code>list_regions</code></summary>
+    <br>
+
+    Returns a list of content regions that YouTube supports.  
+    **Returns:** [`I18nLanguageRegionResponse`](#i18nlanguageregionresponse)
+
+    [Reference](https://developers.google.com/youtube/v3/docs/i18nRegions/list/)
+</details>
+
 <!--m-end I18n -->
 <!--m-start VideoCategory -->
 #### `VideoCategory`
@@ -539,6 +582,8 @@ This section describes the methods available in the API. These methods are acces
 
         Specifies the API to retrive all video categories in the specified region code.
 
+    **Returns:** [`VideoCategoryListResponse`](#videocategorylistresponse)
+
     [Reference](https://developers.google.com/youtube/v3/docs/videoCategories/list)
 </details>
 
@@ -550,6 +595,8 @@ This section describes the methods available in the API. These methods are acces
     <br>
 
     Retrieve a list of reasons that can be used to report abusive videos.  
+    **Returns:** [`VideoAbuseReportReasonListResponse`](#videoabusereportreasonlistresponse)
+
     [Reference](https://developers.google.com/youtube/v3/docs/videoAbuseReportReasons/list)
 </details>
 
@@ -602,6 +649,8 @@ This section describes the methods available in the API. These methods are acces
 
         Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value.
 
+    **Returns:** [`VideoListResponse`](#videolistresponse)
+
     [Reference](https://developers.google.com/youtube/v3/docs/videos/list)
 </details>
 
@@ -610,12 +659,9 @@ This section describes the methods available in the API. These methods are acces
 
     Upload a video to youtube.  
     **Required** parameters:
-    - `part: VideoPartType`
-
-        Identifies the attributes the method will set, and the attributes included in the response.
     - `body: VideoResource`
 
-        The [`VideoResource`](#videoresource) which specifies the details of the comment.
+        The [`VideoResource`](#videoresource) which specifies the details of the comment.  
         **Values you are able to set**:
         - `snippet.title`
         - `snippet.description`
@@ -628,6 +674,9 @@ This section describes the methods available in the API. These methods are acces
         - `status.publish_at`
         - `status.self_declared_made_for_kids`
         - `recording_details.recording_date`
+    - `part: VideoPartType`
+
+        Identifies the attributes the method will set, and the attributes included in the response.
     - `media_body: str`
 
         The path to the file of the uploaded video.
@@ -650,12 +699,9 @@ This section describes the methods available in the API. These methods are acces
 
     Updates a video's metadata.  
     **Required** parameters:
-    - `part: VideoPartType`
-
-        Identifies the attributes the method will set, and the attributes included in the response.
     - `body: VideoResource`
 
-        The [`VideoResource`](#videoresource) which specifies the details of the video.
+        The [`VideoResource`](#videoresource) which specifies the details of the video.  
         **Values you are able to set**:
         - `id` (Required)
         - `snippet.title (Required IF updating the `snippet` attribute.)`
@@ -669,6 +715,9 @@ This section describes the methods available in the API. These methods are acces
         - `status.publish_at`
         - `status.self_declared_made_for_kids`
         - `recording_details.recording_date`
+    - `part: VideoPartType`
+
+        Identifies the attributes the method will set, and the attributes included in the response.
 
     **Optional** parameters:
     - `on_behalf_of_content_owner: str`
@@ -724,6 +773,8 @@ This section describes the methods available in the API. These methods are acces
 
         Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value.
 
+    **Returns:** [`VideoGetRatingResponse`](#videogetratingresponse)
+
     [Reference](https://developers.google.com/youtube/v3/docs/videos/getrating)
 </details>
 
@@ -765,6 +816,8 @@ This section describes the methods available in the API. These methods are acces
 
         Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value.
 
+    **Returns:** [`ChannelListResponse`](#channellistresponse)
+
     [Reference](https://developers.google.com/youtube/v3/docs/channels/list)
 </details>
 
@@ -775,7 +828,7 @@ This section describes the methods available in the API. These methods are acces
     **Required** parameters:
     - `body: ChannelResource`
 
-        The [`ChannelResource`](#channelresource) which specifies the details of the channel.
+        The [`ChannelResource`](#channelresource) which specifies the details of the channel.  
         **Values you are able to set**:
         - `branding_settings.channel.description`
         - `branding_settings.channel.country`
@@ -828,6 +881,8 @@ This section describes the methods available in the API. These methods are acces
 
         Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value.
 
+    **Returns:** [`ChannelSectionListResponse`](#channelsectionlistresponse)
+
     [Reference](https://developers.google.com/youtube/v3/docs/channelSections/list)
 </details>
 
@@ -836,12 +891,9 @@ This section describes the methods available in the API. These methods are acces
 
     Adds a channel section to the autheticated user's channel.  
     **Required** parameters:
-    - `part: ChannelSectionPartType`
-
-        Identifies the attributes the method will set, and the attributes included in the response.
     - `body: ChannelResource`
 
-        The [`ChannelSectionResource`](#channelsectionresource) which specifies the details of the channel.
+        The [`ChannelSectionResource`](#channelsectionresource) which specifies the details of the channel.  
         **Values you are able to set**:
         - `id`
         - `snippet.type`
@@ -849,6 +901,9 @@ This section describes the methods available in the API. These methods are acces
         - `snippet.position`
         - `content_details.playlists`
         - `content_details.channels`
+    - `part: ChannelSectionPartType`
+
+        Identifies the attributes the method will set, and the attributes included in the response.
 
     **Optional** parameters:
     - `on_behalf_of_content_owner: str`
@@ -868,12 +923,9 @@ This section describes the methods available in the API. These methods are acces
 
     Updates a channel section.  
     **Required** parameters:
-    - `part: ChannelSectionPartType`
-
-        Identifies the attributes the method will set, and the attributes included in the response.
     - `body: ChannelResource`
 
-        The [`ChannelSectionResource`](#channelsectionresource) which specifies the details of the channel.
+        The [`ChannelSectionResource`](#channelsectionresource) which specifies the details of the channel.  
         **Values you are able to set**:
         - `id`
         - `snippet.type`
@@ -881,6 +933,9 @@ This section describes the methods available in the API. These methods are acces
         - `snippet.position`
         - `content_details.playlists`
         - `content_details.channels`
+    - `part: ChannelSectionPartType`
+
+        Identifies the attributes the method will set, and the attributes included in the response.
 
     **Optional** parameters:
     - `on_behalf_of_content_owner: str`
@@ -913,6 +968,110 @@ This section describes the methods available in the API. These methods are acces
 <!--m-start Search -->
 #### `Search`
 **Methods:**
+- <details><summary><code>list</code></summary>
+    <br>
+
+    Searches something on youtube.  
+    **Required** parameters:
+    - `q: str`
+
+        The query to search for.
+
+    **Filters** (specify one or zero of these parameters.):
+    - `for_content_owner: bool`
+
+        Restricts the search to only retrieve videos owned by the content owner identified by the `on_behalf_of_content_owner` parameter.
+    - `for_developer: bool`
+
+        Restricts the search to only retrieve videos uploaded via the developer's application or website.
+    - `for_mine: bool`
+
+        Restricts the search to only retrieve videos owned by the authenticated user.
+    - `related_to_video_id: bool`
+
+        Specifies the ID of a video. The API will restrict the search result to videos related to that video.
+
+    **Optional** parameters:
+    - `order: Literal['date', 'rating', 'relevance', 'title', 'videoCount', 'viewCount']`
+
+        Specifies the order of the resource.
+    - `safe_search: Literal['none', 'moderate', 'strict']`
+
+        Specifies whether the API should retrieve restricted content or not.
+    - `type: Literal['channel', 'playlist', 'video']`
+
+        Specifies what type of resource will be returned.
+    - `published_after: str`
+
+        Restricts the API to only return resources published after the specified time in the parameter.
+    - `published_before: str`
+
+        Restricts the API to only return resources published before the specified time in the parameter.
+    - `region_code: str`
+
+        Specifies to return search results available in the region code.
+    - `relevance_language: str`
+
+        Specifies to return search results that are most relevant to the specified language.
+    - `location: str`
+
+        Restricts the search result to resources published in the specified location.
+        Used in conjunction with `location_radius`.
+    - `location_radius: str`
+
+        Specifies the area around the point provided by `location` to restrict videos.
+    - `channel_id: str`
+
+        Specifies that the result should only contain resources published by the provided channel.
+    - `channel_type: Literal['show']`
+
+        Restricts the search to a particular type of channel.
+    - `event_type: Literal['completed', 'live', 'upcoming']`
+
+        Restricts a search to broadcast events.
+        Set the `type` parameter to `video` when specifying this parameter.
+    - `video_caption: Literal['closedCaption', 'none']`
+
+        See the attached reference.
+    - `video_category_id: str`
+
+        See the attached reference.
+    - `video_definition: Literal['high', 'standard']`
+
+        See the attached reference.
+    - `video_dimension: Literal['2d', '3d']`
+
+        See the attached reference.
+    - `video_duration: Literal['long', 'medium', 'short']`
+
+        See the attached reference.
+    - `video_embeddable: Literal['true']`
+
+        See the attached reference.
+    - `video_license: Literal['creativeCommon', 'youtube']`
+
+        See the attached reference.
+    - `video_syndicated: Literal['true']`
+
+        See the attached reference.
+    - `video_type: Literal['episode', 'movie']`
+
+        See the attached reference.
+    - `max_results: int`
+
+        The maximum amount of items that will be returned.
+    - `page_token: str`
+
+        Identifies a specific page in the result set that should be returned. The `next_page_token` and `prev_page_token` are available in the returned list response for this parameter.
+    - `on_behalf_of_content_owner: str`
+
+        Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value.
+
+    **Returns:** [`SearchResultListResponse`](#searchresultlistresponse)
+
+    [Reference](https://developers.google.com/youtube/v3/docs/search/list)
+</details>
+
 <!--m-end Search -->
 <!--m-start Subscription -->
 #### `Subscription`
@@ -962,6 +1121,8 @@ This section describes the methods available in the API. These methods are acces
     - `on_behalf_of_content_owner_channel: str`
 
         Specifies the YouTube channel ID of the channel to which a video is being added.
+
+    **Returns:** [`SubscriptionListResponse`](#subscriptionlistresponse)
 
     [Reference](https://developers.google.com/youtube/v3/docs/subscriptions/list)
 </details>
@@ -1043,13 +1204,21 @@ Also note that each resource has a `to_dict` method that returns the original re
 </details>
 <!--r-end CommentThreadResource -->
 
-<!--r-start I18nResource -->
-#### `I18nResource`
+<!--r-start I18nLanguageResource -->
+#### `I18nLanguageResource`
 
-- <details><summary><code>I18nResource</code></summary>
+- <details><summary><code>I18nLanguageResource</code></summary>
 
 </details>
-<!--r-end I18nResource -->
+<!--r-end I18nLanguageResource -->
+
+<!--r-start I18nRegionResource -->
+#### `I18nRegionResource`
+
+- <details><summary><code>I18nRegionResource</code></summary>
+
+</details>
+<!--r-end I18nRegionResource -->
 
 <!--r-start VideoCategoryResource -->
 #### `VideoCategoryResource`
@@ -1107,4 +1276,114 @@ Also note that each resource has a `to_dict` method that returns the original re
 </details>
 <!--r-end SubscriptionResource -->
 
+<!--r-start PlaylistListResponse -->
+#### `PlaylistListResponse`
 
+- <details><summary><code>PlaylistListResponse</code></summary>
+
+</details>
+<!--r-end PlaylistListResponse -->  
+
+<!--r-start PlaylistItemListResponse -->
+#### `PlaylistItemListResponse`
+
+- <details><summary><code>PlaylistItemListResponse</code></summary>
+
+</details>
+<!--r-end PlaylistItemListResponse -->  
+
+<!--r-start ThumbnailListResponse -->
+#### `ThumbnailListResponse`
+
+- <details><summary><code>ThumbnailListResponse</code></summary>
+
+</details>
+<!--r-end ThumbnailListResponse -->  
+
+<!--r-start CommentListResponse -->
+#### `CommentListResponse`
+
+- <details><summary><code>CommentListResponse</code></summary>
+
+</details>
+<!--r-end CommentListResponse -->  
+
+<!--r-start CommentThreadListResponse -->
+#### `CommentThreadListResponse`
+
+- <details><summary><code>CommentThreadListResponse</code></summary>
+
+</details>
+<!--r-end CommentThreadListResponse -->  
+
+<!--r-start I18nLanguageListResponse -->
+#### `I18nLanguageListResponse`
+
+- <details><summary><code>I18nLanguageListResponse</code></summary>
+
+</details>
+<!--r-end I18nLanguageListResponse -->  
+
+<!--r-start I18nRegionListResponse -->
+#### `I18nRegionListResponse`
+
+- <details><summary><code>I18nRegionListResponse</code></summary>
+
+</details>
+<!--r-end I18nRegionListResponse -->  
+
+<!--r-start VideoCategoryListResponse -->
+#### `VideoCategoryListResponse`
+
+- <details><summary><code>VideoCategoryListResponse</code></summary>
+
+</details>
+<!--r-end VideoCategoryListResponse -->  
+
+<!--r-start VideoAbuseReportReasonListResponse -->
+#### `VideoAbuseReportReasonListResponse`
+
+- <details><summary><code>VideoAbuseReportReasonListResponse</code></summary>
+
+</details>
+<!--r-end VideoAbuseReportReasonListResponse -->  
+
+<!--r-start VideoListResponse -->
+#### `VideoListResponse`
+
+- <details><summary><code>VideoListResponse</code></summary>
+
+</details>
+<!--r-end VideoListResponse -->  
+
+<!--r-start ChannelListResponse -->
+#### `ChannelListResponse`
+
+- <details><summary><code>ChannelListResponse</code></summary>
+
+</details>
+<!--r-end ChannelListResponse -->  
+
+<!--r-start ChannelSectionListResponse -->
+#### `ChannelSectionListResponse`
+
+- <details><summary><code>ChannelSectionListResponse</code></summary>
+
+</details>
+<!--r-end ChannelSectionListResponse -->  
+
+<!--r-start SearchListResponse -->
+#### `SearchListResponse`
+
+- <details><summary><code>SearchListResponse</code></summary>
+
+</details>
+<!--r-end SearchListResponse -->  
+
+<!--r-start SubscriptionListResponse -->
+#### `SubscriptionListResponse`
+
+- <details><summary><code>SubscriptionListResponse</code></summary>
+
+</details>
+<!--r-end SubscriptionListResponse -->  

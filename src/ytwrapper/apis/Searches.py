@@ -9,11 +9,12 @@ class Search:
     # With the amount of params this has, and the fact that I don't have a proper testing mechanism
     # and the fact that this uses a _lot_ of quota per call and I have the free tier of quota
     # means that a lot of the params here isn't gonna be tested. So yeah... 
-    def list(self, q: str, *, for_content_owner: bool = None, for_developer: bool = None, for_mine: bool = None, related_to_video_id: bool = None,
+    def list(self, *, q: str = None, 
+             for_content_owner: bool = None, for_developer: bool = None, for_mine: bool = None, related_to_video_id: str = None,
              order: Literal['date', 'rating', 'relevance', 'title', 'videoCount', 'viewCount'] = None,
              safe_search: Literal['none', 'moderate', 'strict'] = None,
              type: Literal['channel', 'playlist', 'video'] = None, topic_id: str = None, 
-             published_atfer: str = None, publised_before: str = None,
+             published_after: str = None, published_before: str = None,
              region_code: str = None, relevance_language: str = None, 
              location: str = None, location_radius: str = None,
              channel_id: str = None, channel_type: Literal['show'] = None, event_type: Literal['completed', 'live', 'upcoming'] = None,
@@ -35,7 +36,7 @@ class Search:
             channelId=channel_id, channelType=channel_type, eventType=event_type,
             location=location, locationRadius=location_radius, maxResults=max_results,
             onBehalfOfContentOwner=on_behalf_of_content_owner, order=order, pageToken=page_token,
-            publishedAfter=published_atfer, publishedBefore=publised_before, q=q, 
+            publishedAfter=published_after, publishedBefore=published_before, q=q, 
             regionCode=region_code, relevanceLanguage=relevance_language, safeSearch=safe_search,
             topicId=topic_id, type=type,
             videoCaption=video_caption, videoCategoryId=video_category_id, videoDefinition=video_definition,

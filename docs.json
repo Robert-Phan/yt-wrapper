@@ -4,73 +4,52 @@
             "list": {
                 "def": "Returns a collection of playlists.",
                 "**Required** parameters": {
-                    "part: PlaylistPartType": [
-                        "Specifies what properties will be returned by the request."
-                    ]
+                    "part: PlaylistPartType": "Specifies what properties will be returned by the request."
                 },
                 "**Filters** (specify exactly one)": {
-                    "id: list[str]|str": [
-                        "The playlist ID/list of playlist IDs that will be returned."
-                    ],
-                    "channel_id: str": [
-                        "Specifies a channel ID whose playlists will be returned."
-                    ],
-                    "mine: bool": [
-                        "Specifies that the API should retrieve the playlists of the authorised user."
-                    ]
+                    "id: list[str]|str": "The playlist ID/list of playlist IDs that will be returned.",
+                    "channel_id: str": "Specifies a channel ID whose playlists will be returned.",
+                    "mine: bool": "Specifies that the API should retrieve the playlists of the authorised user."
                 },
                 "**Optional** parameters": {
-                    "max_results: int": [
-                        "The maximum amount of items that will be returned."
-                    ],
-                    "page_token: str": [
-                        "Identifies a specific page in the result set that should be returned. The `next_page_token` and `prev_page_token` are available in the returned list response for this parameter."
-                    ],
-                    "on_behalf_of_content_owner: str": [
-                        "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
-                    ]
+                    "max_results: int": "The maximum amount of items that will be returned.",
+                    "page_token: str": "Identifies a specific page in the result set that should be returned. The `next_page_token` and `prev_page_token` are available in the returned list response for this parameter.",
+                    "on_behalf_of_content_owner: str": "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
                 },
+                "return": "PlaylistListResponse",
                 "ref": "https://developers.google.com/youtube/v3/docs/playlists/list"
             },
             "insert": {
                 "def": "Creates a playlist.",
                 "**Required** parameters": {
-                    "part: PlaylistPartType": [
-                        "Identifies the attributes the method will set, and the attributes included in the response."
-                    ],
                     "body: [PlaylistResource](#playlistresource)": [
-                        "The [`PlaylistResource`](#playlistresource) which specifies the details of this playlist.",
+                        "The [`PlaylistResource`](#playlistresource) which specifies the details of this playlist.  ",
                         "**Values you are able to set**:",
                         "- `snippet.title` (Required)",
                         "- `snippet.description`",
                         "- `snippet.privacy_status`"
-                    ]
+                    ],
+                    "part: PlaylistPartType": "Identifies the attributes the method will set, and the attributes included in the response."
                 },
                 "**Optional** parameters": {
-                    "on_behalf_of_content_owner: str": [
-                        "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
-                    ]
+                    "on_behalf_of_content_owner: str": "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
                 },
-                "return": "[PlaylistResource](#playlistresource)",
+                "return": "PlaylistResource",
                 "ref": "https://developers.google.com/youtube/v3/docs/playlists/insert"
             },
             "update": {
                 "def": "Updates a playlist.",
                 "**Required** parameters": {
-                    "part: PlaylistPartType": [
-                        "Identifies the attributes the method will set, and the attributes included in the response."
-                    ],
                     "body: PlaylistResource": [
-                        "The [`PlaylistResource`](#playlistresource) which specifies the details of this playlist.",
+                        "The [`PlaylistResource`](#playlistresource) which specifies the details of this playlist.  ",
                         "**Values you are able to set**:",
                         "- `id` (Required)",
                         "- Otherwise, same as the above `insert` method.`"
-                    ]
+                    ],
+                    "part: PlaylistPartType": "Identifies the attributes the method will set, and the attributes included in the response."
                 },
                 "**Optional** parameters": {
-                    "on_behalf_of_content_owner: str": [
-                        "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
-                    ]
+                    "on_behalf_of_content_owner: str": "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
                 },
                 "return": "PlaylistResource",
                 "ref": "https://developers.google.com/youtube/v3/docs/playlists/update"
@@ -78,14 +57,10 @@
             "delete": {
                 "def": "Deletes a playlist.",
                 "**Required** parameters": {
-                    "playlist_id: str": [
-                        "The ID of the playlist that will be deleted."
-                    ]
+                    "playlist_id: str": "The ID of the playlist that will be deleted."
                 },
                 "**Optional** parameters": {
-                    "on_behalf_of_content_owner: str": [
-                        "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
-                    ]
+                    "on_behalf_of_content_owner: str": "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
                 },
                 "ref": "https://developers.google.com/youtube/v3/docs/playlists/delete"
             }
@@ -94,51 +69,38 @@
             "list": {
                 "def": "Returns a collection of playlist items that match the API request parameters.",
                 "**Required** parameters": {
-                    "part: PlaylistItemPartType": [
-                        "Specifies what properties will be returned by the request."
-                    ]
+                    "part: PlaylistItemPartType": "Specifies what properties will be returned by the request."
                 },
                 "**Filters** (specify exactly one)": {
-                    "id: list[str]|str": [
-                        "The ID/list of IDs of the playlist items that should be returned."
-                    ],
-                    "playlist_id: str": [
-                        "The ID of the playlist whose videos will be retrieved."
-                    ]
+                    "id: list[str]|str": "The ID/list of IDs of the playlist items that should be returned.",
+                    "playlist_id: str": "The ID of the playlist whose videos will be retrieved."
                 },
                 "**Optional** parameters": {
-                    "video_id: str": [
-                        "Specifies that the request should return only the playlist items that contain the specified video."
-                    ],
-                    "max_results: int": [
-                        "The maximum amount of items that will be returned."
-                    ],
-                    "page_token: str": [
-                        "Identifies a specific page in the result set that should be returned. The `next_page_token` and `prev_page_token` are available in the returned list response for this parameter."
-                    ],
-                    "on_behalf_of_content_owner: str": [
-                        "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
-                    ]
+                    "video_id: str": "Specifies that the request should return only the playlist items that contain the specified video.",
+                    "max_results: int": "The maximum amount of items that will be returned.",
+                    "page_token: str": "Identifies a specific page in the result set that should be returned. The `next_page_token` and `prev_page_token` are available in the returned list response for this parameter.",
+                    "on_behalf_of_content_owner: str": "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
                 },
+                "return": "PlaylistItemListResponse",
                 "ref": "https://developers.google.com/youtube/v3/docs/playliststems/list"
             },
             "insert": {
                 "def": "Modifies a playlist item.",
                 "**Required** parameters": {
-                    "part: PlaylistItemPartType": [
-                        "Identifies the attributes the method will set, and the attributes included in the response."
-                    ],
                     "body: PlaylistItemResource": [
-                        "The [`PlaylistItemResource`](#playlistitemresource) which specifies the details of the playlist item.",
+                        "The [`PlaylistItemResource`](#playlistitemresource) which specifies the details of the playlist item.  ",
                         "**Values you are able to set**:",
-                        "- `id` (Required)",
-                        "- Otherwise, same as the above `insert` method.`"
-                    ]
+                        "- `snippet.playlist_id` (Required)",
+                        "- `snippet.resource_id` (Required)",
+                        "- `snippet.position`",
+                        "- `content_details.note`",
+                        "- `content_details.start_at`",
+                        "- `content_details.end_at`"
+                    ],
+                    "part: PlaylistItemPartType": "Identifies the attributes the method will set, and the attributes included in the response."
                 },
                 "**Optional** parameters": {
-                    "on_behalf_of_content_owner: str": [
-                        "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
-                    ]
+                    "on_behalf_of_content_owner: str": "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
                 },
                 "return": "PlaylistItemResource",
                 "ref": "https://developers.google.com/youtube/v3/docs/playlistItems/insert"
@@ -146,24 +108,16 @@
             "update": {
                 "def": "Inserts a video into a playlist.",
                 "**Required** parameters": {
-                    "part: PlaylistItemPartType": [
-                        "Identifies the attributes the method will set, and the attributes included in the response."
-                    ],
                     "body: PlaylistItemResource": [
-                        "The [`PlaylistItemResource`](#playlistitemresource) which specifies the details of the playlist item.",
+                        "The [`PlaylistItemResource`](#playlistitemresource) which specifies the details of the playlist item.  ",
                         "**Values you are able to set**:",
-                        "- `snippet.playlist_id` (Required)",
-                        "- `snippet.resource_id` (Required)",
-                        "- `snippet.position` (Required)",
-                        "- `content_details.note` (Required)",
-                        "- `content_details.start_at` (Required)",
-                        "- `content_details.end_at` (Required)"
-                    ]
+                        "- `id` (Required)",
+                        "- Otherwise, same as the above `insert` method.`"
+                    ],
+                    "part: PlaylistItemPartType": "Identifies the attributes the method will set, and the attributes included in the response."
                 },
                 "**Optional** parameters": {
-                    "on_behalf_of_content_owner: str": [
-                        "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
-                    ]
+                    "on_behalf_of_content_owner: str": "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
                 },
                 "return": "PlaylistItemResource",
                 "ref": "https://developers.google.com/youtube/v3/docs/playlistItems/update"
@@ -171,14 +125,10 @@
             "delete": {
                 "def": "Deletes a playlist item.",
                 "**Required** parameters": {
-                    "playlist_item_id: str": [
-                        "The ID of the playlist item that will be deleted."
-                    ]
+                    "playlist_item_id: str": "The ID of the playlist item that will be deleted."
                 },
                 "**Optional** parameters": {
-                    "on_behalf_of_content_owner: str": [
-                        "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
-                    ]
+                    "on_behalf_of_content_owner: str": "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
                 },
                 "ref": "https://developers.google.com/youtube/v3/docs/playlistItems/delete"
             }
@@ -187,18 +137,13 @@
             "set": {
                 "def": "Uploads a custom video thumbnail to YouTube and sets it for a video.",
                 "**Required** parameters": {
-                    "thumbnail_file: str": [
-                        "The path to the file of the thumbnail."
-                    ],
-                    "video_id: str": [
-                        "The ID of the video for the thumbnail."
-                    ]
+                    "thumbnail_file: str": "The path to the file of the thumbnail.",
+                    "video_id: str": "The ID of the video for the thumbnail."
                 },
                 "**Optional** parameters": {
-                    "on_behalf_of_content_owner: str": [
-                        "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
-                    ]
+                    "on_behalf_of_content_owner: str": "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
                 },
+                "return": "ThumbnailListResponse",
                 "ref": "https://developers.google.com/youtube/v3/docs/thumbnails/set"
             }
         },
@@ -206,43 +151,30 @@
             "list": {
                 "def": "Retrieve a list of comments.",
                 "**Required** parameters": {
-                    "part: CommentPartType": [
-                        "Specifies what properties will be returned by the request."
-                    ]
+                    "part: CommentPartType": "Specifies what properties will be returned by the request."
                 },
                 "**Filters** (specify exactly one)": {
-                    "id": [
-                        "The id of the comment that should be retrived."
-                    ],
-                    "parent_id": [
-                        "The ID of the top-level comment whose replies should be retrieved."
-                    ]
+                    "id": "The id of the comment that should be retrived.",
+                    "parent_id": "The ID of the top-level comment whose replies should be retrieved."
                 },
                 "**Optional** parameters": {
-                    "max_results: int": [
-                        "The maximum amount of items that will be returned."
-                    ],
-                    "page_token: str": [
-                        "Identifies a specific page in the result set that should be returned. The `next_page_token` and `prev_page_token` are available in the returned list response for this parameter."
-                    ],
-                    "text_format: Literal['html', 'plain_text']": [
-                        "The format of the returned comment."
-                    ]
+                    "max_results: int": "The maximum amount of items that will be returned.",
+                    "page_token: str": "Identifies a specific page in the result set that should be returned. The `next_page_token` and `prev_page_token` are available in the returned list response for this parameter.",
+                    "text_format: Literal['html', 'plain_text']": "The format of the returned comment."
                 },
+                "return": "CommentListResponse",
                 "ref": "https://developers.google.com/youtube/v3/docs/comments/list"
             },
             "insert": {
                 "def": "Create a reply to a top-level comment. To create a top-level comment, use CommentThread.insert instead.",
                 "**Required** parameters": {
-                    "part: CommentPartType": [
-                        "Identifies the attributes the method will set, and the attributes included in the response."
-                    ],
                     "body: CommentResource": [
-                        "The [`CommentResource`](#commentresource) which specifies the details of the reply.",
+                        "The [`CommentResource`](#commentresource) which specifies the details of the reply.  ",
                         "**Values you are able to set**:",
                         "- `snippet.text_original`",
                         "- `snippet.parent_id`"
-                    ]
+                    ],
+                    "part: CommentPartType": "Identifies the attributes the method will set, and the attributes included in the response."
                 },
                 "return": "CommentResource",
                 "ref": "https://developers.google.com/youtube/v3/docs/comments/insert"
@@ -250,15 +182,13 @@
             "update": {
                 "def": "Modifies a comment.",
                 "**Required** parameters": {
-                    "part: CommentPartType": [
-                        "Identifies the attributes the method will set, and the attributes included in the response."
-                    ],
                     "body: CommentResource": [
-                        "The [`CommentResource`](#commentresource) which specifies the details of the comment.",
+                        "The [`CommentResource`](#commentresource) which specifies the details of the comment.  ",
                         "**Values you are able to set**:",
-                        "- `id`",
+                        "- `id`(Required)",
                         "- `snippet.text_original`"
-                    ]
+                    ],
+                    "part: CommentPartType": "Identifies the attributes the method will set, and the attributes included in the response."
                 },
                 "return": "CommentResource",
                 "ref": "https://developers.google.com/youtube/v3/docs/comments/update"
@@ -266,9 +196,7 @@
             "delete": {
                 "def": "Deletes a comment.",
                 "**Required** parameters": {
-                    "comment_id: str": [
-                        "The ID of the comment that should be deleted."
-                    ]
+                    "comment_id: str": "The ID of the comment that should be deleted."
                 },
                 "ref": "https://developers.google.com/youtube/v3/docs/comments/delete"
             }
@@ -277,59 +205,36 @@
             "list": {
                 "def": "Retrieve a list of comment threads.",
                 "**Required** parameters": {
-                    "part: CommentThreadPartType": [
-                        "Specifies what properties will be returned by the request."
-                    ]
+                    "part: CommentThreadPartType": "Specifies what properties will be returned by the request."
                 },
                 "**Filters** (specify exactly one)": {
-                    "id: str": [
-                        "The ID of the comment."
-                    ],
-                    "channel_id: str": [
-                        "Specifies the API to retrieve all comment threads which contain comments from this channel."
-                    ],
-                    "video_id: str": [
-                        "Specifies the ID of the video whose comments should be retrieved."
-                    ],
-                    "all_threads_related_to_channel_id: str": [
-                        "Specifies the API to return all comment threads associated with the specified channel."
-                    ]
+                    "id: str": "The ID of the comment.",
+                    "channel_id: str": "Specifies the API to retrieve all comment threads which contain comments from this channel.",
+                    "video_id: str": "Specifies the ID of the video whose comments should be retrieved.",
+                    "all_threads_related_to_channel_id: str": "Specifies the API to return all comment threads associated with the specified channel."
                 },
                 "**Optional** parameters": {
-                    "moderation_status: Literal['held_for_review', 'likely_spam', 'published']": [
-                        "Specifies that all returned comments are of the given moderation state."
-                    ],
-                    "order: Literal['time', 'relevance']": [
-                        "Specifies the order the returned comment threads should be in."
-                    ],
-                    "text_format: Literal['html', 'plain_text']": [
-                        "The format of the returned comment."
-                    ],
-                    "max_results: int": [
-                        "The maximum amount of items that will be returned."
-                    ],
-                    "page_token: str": [
-                        "Identifies a specific page in the result set that should be returned. The `next_page_token` and `prev_page_token` are available in the returned list response for this parameter."
-                    ],
-                    "on_behalf_of_content_owner: str": [
-                        "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
-                    ]
+                    "moderation_status: Literal['held_for_review', 'likely_spam', 'published']": "Specifies that all returned comments are of the given moderation state.",
+                    "order: Literal['time', 'relevance']": "Specifies the order the returned comment threads should be in.",
+                    "text_format: Literal['html', 'plain_text']": "The format of the returned comment.",
+                    "max_results: int": "The maximum amount of items that will be returned.",
+                    "page_token: str": "Identifies a specific page in the result set that should be returned. The `next_page_token` and `prev_page_token` are available in the returned list response for this parameter.",
+                    "on_behalf_of_content_owner: str": "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
                 },
+                "return": "CommentThreadListResponse",
                 "ref": "https://developers.google.com/youtube/v3/docs/commentThreads/list"
             },
             "insert": {
                 "def": "Create a new top-level comment.",
                 "**Required** parameters": {
-                    "part: CommentThreadPartType": [
-                        "Identifies the attributes the method will set, and the attributes included in the response."
-                    ],
                     "body: CommentThreadResource": [
-                        "The [`CommentThreadResource`](#commentthreadresource) which specifies the details of the comment.",
+                        "The [`CommentThreadResource`](#commentthreadresource) which specifies the details of the comment.  ",
                         "**Values you are able to set**:",
                         "- `snippet.channel_id`",
                         "- `snippet.video_id`",
                         "- `snippet.top_level_comment.snippet.text_original`"
-                    ]
+                    ],
+                    "part: CommentThreadPartType": "Identifies the attributes the method will set, and the attributes included in the response."
                 },
                 "return": "CommentThreadResource",
                 "ref": "https://developers.google.com/youtube/v3/docs/commentThreads/insert"
@@ -339,19 +244,17 @@
             "list": {
                 "def": "Returns a list of categories that can be associated with YouTube videos.",
                 "**Optional** parameters": {
-                    "id: str|list[str]": [
-                        "The ID of the video category to be retrieved."
-                    ],
-                    "region_code: str": [
-                        "Specifies the API to retrive all video categories in the specified region code."
-                    ]
+                    "id: str|list[str]": "The ID of the video category to be retrieved.",
+                    "region_code: str": "Specifies the API to retrive all video categories in the specified region code."
                 },
+                "return": "VideoCategoryListResponse",
                 "ref": "https://developers.google.com/youtube/v3/docs/videoCategories/list"
             }
         },
         "VideoAbuseReportReason": {
             "list": {
                 "def": "Retrieve a list of reasons that can be used to report abusive videos.",
+                "return": "VideoAbuseReportReasonListResponse",
                 "ref": "https://developers.google.com/youtube/v3/docs/videoAbuseReportReasons/list"
             }
         },
@@ -364,15 +267,9 @@
                     ]
                 },
                 "**Filters** (specify exactly one)": {
-                    "chart: Literal['most_popular']": [
-                        "Identifies the chart that you want to retrieve."
-                    ],
-                    "id: list[str]|str": [
-                        "Specifies the video(s) that should be retrieved."
-                    ],
-                    "my_rating: Literal[\"like\", \"dislike\"]": [
-                        "Specifies that the API should only retrieve videos that the user has disliked/like."
-                    ]
+                    "chart: Literal['most_popular']": "Identifies the chart that you want to retrieve.",
+                    "id: list[str]|str": "Specifies the video(s) that should be retrieved.",
+                    "my_rating: Literal[\"like\", \"dislike\"]": "Specifies that the API should only retrieve videos that the user has disliked/like."
                 },
                 "**Optional** parameters": {
                     "region_code: str": [
@@ -383,32 +280,20 @@
                         "Specifies the video category for which the chart should be retrieved.",
                         "Used in conjunction with the `chart` parameter."
                     ],
-                    "max_height: int": [
-                        "Specifies the maximum height of the embedded player returned in the `player.embed_html` property"
-                    ],
-                    "max_width: int": [
-                        "Specifies the maximum width of the embedded player returned in the `player.embed_html` property"
-                    ],
-                    "max_results: int": [
-                        "The maximum amount of items that will be returned."
-                    ],
-                    "page_token: str": [
-                        "Identifies a specific page in the result set that should be returned. The `next_page_token` and `prev_page_token` are available in the returned list response for this parameter."
-                    ],
-                    "on_behalf_of_content_owner: str": [
-                        "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
-                    ]
+                    "max_height: int": "Specifies the maximum height of the embedded player returned in the `player.embed_html` property",
+                    "max_width: int": "Specifies the maximum width of the embedded player returned in the `player.embed_html` property",
+                    "max_results: int": "The maximum amount of items that will be returned.",
+                    "page_token: str": "Identifies a specific page in the result set that should be returned. The `next_page_token` and `prev_page_token` are available in the returned list response for this parameter.",
+                    "on_behalf_of_content_owner: str": "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
                 },
+                "return": "VideoListResponse",
                 "ref": "https://developers.google.com/youtube/v3/docs/videos/list"
             },
             "insert": {
                 "def": "Upload a video to youtube.",
                 "**Required** parameters": {
-                    "part: VideoPartType": [
-                        "Identifies the attributes the method will set, and the attributes included in the response."
-                    ],
                     "body: VideoResource": [
-                        "The [`VideoResource`](#videoresource) which specifies the details of the comment.",
+                        "The [`VideoResource`](#videoresource) which specifies the details of the comment.  ",
                         "**Values you are able to set**:",
                         "- `snippet.title`",
                         "- `snippet.description`",
@@ -422,17 +307,12 @@
                         "- `status.self_declared_made_for_kids`",
                         "- `recording_details.recording_date`"
                     ],
-                    "media_body: str": [
-                        "The path to the file of the uploaded video."
-                    ]
+                    "part: VideoPartType": "Identifies the attributes the method will set, and the attributes included in the response.",
+                    "media_body: str": "The path to the file of the uploaded video."
                 },
                 "**Optional** parameters": {
-                    "notify_subscribers: bool": [
-                        "Indicates whether YouTube should notify subscribers to the video's channel about the video."
-                    ],
-                    "on_behalf_of_content_owner: str": [
-                        "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
-                    ]
+                    "notify_subscribers: bool": "Indicates whether YouTube should notify subscribers to the video's channel about the video.",
+                    "on_behalf_of_content_owner: str": "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
                 },
                 "return": "VideoResource",
                 "ref": "https://developers.google.com/youtube/v3/docs/videos/insert"
@@ -440,11 +320,8 @@
             "update": {
                 "def": "Updates a video's metadata.",
                 "**Required** parameters": {
-                    "part: VideoPartType": [
-                        "Identifies the attributes the method will set, and the attributes included in the response."
-                    ],
                     "body: VideoResource": [
-                        "The [`VideoResource`](#videoresource) which specifies the details of the video.",
+                        "The [`VideoResource`](#videoresource) which specifies the details of the video.  ",
                         "**Values you are able to set**:",
                         "- `id` (Required)",
                         "- `snippet.title (Required IF updating the `snippet` attribute.)`",
@@ -458,12 +335,11 @@
                         "- `status.publish_at`",
                         "- `status.self_declared_made_for_kids`",
                         "- `recording_details.recording_date`"
-                    ]
+                    ],
+                    "part: VideoPartType": "Identifies the attributes the method will set, and the attributes included in the response."
                 },
                 "**Optional** parameters": {
-                    "on_behalf_of_content_owner: str": [
-                        "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
-                    ]
+                    "on_behalf_of_content_owner: str": "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
                 },
                 "return": "VideoResource",
                 "ref": "https://developers.google.com/youtube/v3/docs/videos/update"
@@ -471,39 +347,28 @@
             "delete": {
                 "def": "Deletes a video.",
                 "**Required** parameters": {
-                    "video_id: str": [
-                        "The ID of the Video that will be deleted."
-                    ]
+                    "video_id: str": "The ID of the Video that will be deleted."
                 },
                 "**Optional** parameters": {
-                    "on_behalf_of_content_owner: str": [
-                        "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
-                    ]
+                    "on_behalf_of_content_owner: str": "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
                 },
                 "ref": "https://developers.google.com/youtube/v3/docs/videos/delete"
             },
             "rate": {
                 "def": "Rate a video.",
                 "**Required** parameters": {
-                    "video_id: str": [
-                        "The ID of the Video to rate."
-                    ],
-                    "rating: Literal['dislike', 'like', 'none']": [
-                        "The rating to give to the video."
-                    ]
+                    "video_id: str": "The ID of the Video to rate.",
+                    "rating: Literal['dislike', 'like', 'none']": "The rating to give to the video."
                 },
                 "ref": "https://developers.google.com/youtube/v3/docs/videos/rate"
             },
             "get_rating": {
                 "def": "Get a video's rating.",
                 "**Required** parameters": {
-                    "video_id: str": [
-                        "The ID of the Video whose rating shall be retrieved."
-                    ],
-                    "on_behalf_of_content_owner: str": [
-                        "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
-                    ]
+                    "video_id: str": "The ID of the Video whose rating shall be retrieved.",
+                    "on_behalf_of_content_owner: str": "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
                 },
+                "return": "VideoGetRatingResponse",
                 "ref": "https://developers.google.com/youtube/v3/docs/videos/getrating"
             }
         },
@@ -511,42 +376,27 @@
             "list": {
                 "def": "Retrieve a channel/list of channel resources.",
                 "**Required** parameters": {
-                    "part: ChannelPartType": [
-                        "Specifies what properties will be returned by the request."
-                    ]
+                    "part: ChannelPartType": "Specifies what properties will be returned by the request."
                 },
                 "**Filters** (specify exactly one)": {
-                    "mine: bool": [
-                        "Specifies that the API should retrieve the channel of the authorised user."
-                    ],
-                    "for_username: str": [
-                        "Specifies the name of the channel that should retrieve."
-                    ],
-                    "id: str|list[str]": [
-                        "The ID of the channel to be retrieved."
-                    ],
-                    "managed_by_me: bool": [
-                        "Specifies that the API should retrieve channels managed by the authenticated user."
-                    ]
+                    "mine: bool": "Specifies that the API should retrieve the channel of the authorised user.",
+                    "for_username: str": "Specifies the name of the channel that should retrieve.",
+                    "id: str|list[str]": "The ID of the channel to be retrieved.",
+                    "managed_by_me: bool": "Specifies that the API should retrieve channels managed by the authenticated user."
                 },
                 "**Optional** parameters": {
-                    "max_results: int": [
-                        "The maximum amount of items that will be returned."
-                    ],
-                    "page_token: str": [
-                        "Identifies a specific page in the result set that should be returned. The `next_page_token` and `prev_page_token` are available in the returned list response for this parameter."
-                    ],
-                    "on_behalf_of_content_owner: str": [
-                        "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
-                    ]
+                    "max_results: int": "The maximum amount of items that will be returned.",
+                    "page_token: str": "Identifies a specific page in the result set that should be returned. The `next_page_token` and `prev_page_token` are available in the returned list response for this parameter.",
+                    "on_behalf_of_content_owner: str": "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
                 },
+                "return": "ChannelListResponse",
                 "ref": "https://developers.google.com/youtube/v3/docs/channels/list"
             },
             "update": {
                 "def": "Updates a channel.",
                 "**Required** parameters": {
                     "body: ChannelResource": [
-                        "The [`ChannelResource`](#channelresource) which specifies the details of the channel.",
+                        "The [`ChannelResource`](#channelresource) which specifies the details of the channel.  ",
                         "**Values you are able to set**:",
                         "- `branding_settings.channel.description`",
                         "- `branding_settings.channel.country`",
@@ -557,14 +407,10 @@
                         "- `branding_settings.channel.unsubscribed_trailer`",
                         "- `status.self_declared_made_for_kids`"
                     ],
-                    "part: ChannelPartType": [
-                        "Identifies the attributes the method will set, and the attributes included in the response."
-                    ]
+                    "part: ChannelPartType": "Identifies the attributes the method will set, and the attributes included in the response."
                 },
                 "**Optional** parameters": {
-                    "on_behalf_of_content_owner: str": [
-                        "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
-                    ]
+                    "on_behalf_of_content_owner: str": "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
                 },
                 "return": "ChannelResource",
                 "ref": "https://developers.google.com/youtube/v3/docs/channels/update"
@@ -574,36 +420,24 @@
             "list": {
                 "def": "Retrieve a list of channel sections.",
                 "**Required** parameters": {
-                    "part: ChannelSectionPartType": [
-                        "Specifies what properties will be returned by the request."
-                    ]
+                    "part: ChannelSectionPartType": "Specifies what properties will be returned by the request."
                 },
                 "**Filters** (specify exactly one)": {
-                    "channel_id: str": [
-                        "Specifies a channel ID whose channel sections will be returned."
-                    ],
-                    "id: str": [
-                        "The ID of the sections that should be retrieved."
-                    ],
-                    "mine: bool": [
-                        "Specifies that the API should retrieve the channel section of the authorised user."
-                    ]
+                    "channel_id: str": "Specifies a channel ID whose channel sections will be returned.",
+                    "id: str": "The ID of the sections that should be retrieved.",
+                    "mine: bool": "Specifies that the API should retrieve the channel section of the authorised user."
                 },
                 "**Optional** parameters": {
-                    "on_behalf_of_content_owner: str": [
-                        "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
-                    ]
+                    "on_behalf_of_content_owner: str": "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
                 },
+                "return": "ChannelSectionListResponse",
                 "ref": "https://developers.google.com/youtube/v3/docs/channelSections/list"
             },
             "insert": {
                 "def": "Adds a channel section to the autheticated user's channel.",
                 "**Required** parameters": {
-                    "part: ChannelSectionPartType": [
-                        "Identifies the attributes the method will set, and the attributes included in the response."
-                    ],
                     "body: ChannelResource": [
-                        "The [`ChannelSectionResource`](#channelsectionresource) which specifies the details of the channel.",
+                        "The [`ChannelSectionResource`](#channelsectionresource) which specifies the details of the channel.  ",
                         "**Values you are able to set**:",
                         "- `id`",
                         "- `snippet.type`",
@@ -611,15 +445,12 @@
                         "- `snippet.position`",
                         "- `content_details.playlists`",
                         "- `content_details.channels`"
-                    ]
+                    ],
+                    "part: ChannelSectionPartType": "Identifies the attributes the method will set, and the attributes included in the response."
                 },
                 "**Optional** parameters": {
-                    "on_behalf_of_content_owner: str": [
-                        "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
-                    ],
-                    "on_behalf_of_content_owner_channel: str": [
-                        "Specifies the YouTube channel ID of the channel to which a video is being added."
-                    ]
+                    "on_behalf_of_content_owner: str": "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value.",
+                    "on_behalf_of_content_owner_channel: str": "Specifies the YouTube channel ID of the channel to which a video is being added."
                 },
                 "return": "ChannelSectionResource",
                 "ref": "https://developers.google.com/youtube/v3/docs/channelSections/insert"
@@ -627,11 +458,8 @@
             "update": {
                 "def": "Updates a channel section.",
                 "**Required** parameters": {
-                    "part: ChannelSectionPartType": [
-                        "Identifies the attributes the method will set, and the attributes included in the response."
-                    ],
                     "body: ChannelResource": [
-                        "The [`ChannelSectionResource`](#channelsectionresource) which specifies the details of the channel.",
+                        "The [`ChannelSectionResource`](#channelsectionresource) which specifies the details of the channel.  ",
                         "**Values you are able to set**:",
                         "- `id`",
                         "- `snippet.type`",
@@ -639,12 +467,11 @@
                         "- `snippet.position`",
                         "- `content_details.playlists`",
                         "- `content_details.channels`"
-                    ]
+                    ],
+                    "part: ChannelSectionPartType": "Identifies the attributes the method will set, and the attributes included in the response."
                 },
                 "**Optional** parameters": {
-                    "on_behalf_of_content_owner: str": [
-                        "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
-                    ]
+                    "on_behalf_of_content_owner: str": "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
                 },
                 "return": "ChannelSectionResource",
                 "ref": "https://developers.google.com/youtube/v3/docs/channelSections/update"
@@ -652,14 +479,10 @@
             "delete": {
                 "def": "Deletes a channel section.",
                 "**Required** parameters": {
-                    "section_id: str": [
-                        "The ID of the channel section that will be deleted."
-                    ]
+                    "section_id: str": "The ID of the channel section that will be deleted."
                 },
                 "**Optional** parameters": {
-                    "on_behalf_of_content_owner: str": [
-                        "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
-                    ]
+                    "on_behalf_of_content_owner: str": "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
                 },
                 "ref": "https://developers.google.com/youtube/v3/docs/channelSections/delete"
             }
@@ -668,54 +491,31 @@
             "list": {
                 "def": "Retrieve subscription resources.",
                 "**Required** parameters": {
-                    "part: SubscriptionPartType": [
-                        "Specifies what properties will be returned by the request."
-                    ]
+                    "part: SubscriptionPartType": "Specifies what properties will be returned by the request."
                 },
                 "**Filters** (specify exactly one)": {
-                    "channel_id: str": [
-                        "Specifies a channel ID whose subscriptions will be returned."
-                    ],
-                    "id: str|list[str]": [
-                        "The ID of the channel to be retrieved."
-                    ],
-                    "mine: bool": [
-                        "Specifies that the API should retrieve the subscriptions of the authorised user."
-                    ],
-                    "my_recent_subscribers: bool": [
-                        "Retrieve a feed of the subscribers of the authenticated user in reverse chronological order."
-                    ],
-                    "my_subscribers: bool": [
-                        "Retrieve a feed of the subscribers of the authenticated user in no particular order"
-                    ]
+                    "channel_id: str": "Specifies a channel ID whose subscriptions will be returned.",
+                    "id: str|list[str]": "The ID of the channel to be retrieved.",
+                    "mine: bool": "Specifies that the API should retrieve the subscriptions of the authorised user.",
+                    "my_recent_subscribers: bool": "Retrieve a feed of the subscribers of the authenticated user in reverse chronological order.",
+                    "my_subscribers: bool": "Retrieve a feed of the subscribers of the authenticated user in no particular order"
                 },
                 "**Optional** parameters": {
-                    "order: Literal['alphabetical', 'relevance', 'unread']": [
-                        "Specifies the method that will be used to sort resources in the response."
-                    ],
-                    "for_channel_id: str": [
-                        "Specifies a list of channel IDs, which the APi will only match to."
-                    ],
-                    "max_results: int": [
-                        "The maximum amount of items that will be returned."
-                    ],
-                    "page_token: str": [
-                        "Identifies a specific page in the result set that should be returned. The `next_page_token` and `prev_page_token` are available in the returned list response for this parameter."
-                    ],
-                    "on_behalf_of_content_owner: str": [
-                        "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
-                    ],
-                    "on_behalf_of_content_owner_channel: str": [
-                        "Specifies the YouTube channel ID of the channel to which a video is being added."
-                    ]
+                    "order: Literal['alphabetical', 'relevance', 'unread']": "Specifies the method that will be used to sort resources in the response.",
+                    "for_channel_id: str": "Specifies a list of channel IDs, which the APi will only match to.",
+                    "max_results: int": "The maximum amount of items that will be returned.",
+                    "page_token: str": "Identifies a specific page in the result set that should be returned. The `next_page_token` and `prev_page_token` are available in the returned list response for this parameter.",
+                    "on_behalf_of_content_owner: str": "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value.",
+                    "on_behalf_of_content_owner_channel: str": "Specifies the YouTube channel ID of the channel to which a video is being added."
                 },
+                "return": "SubscriptionListResponse",
                 "ref": "https://developers.google.com/youtube/v3/docs/subscriptions/list"
             },
             "insert": {
                 "def": "Subscribe to a channel.",
                 "**Required** parameters": {
-                    "channel_id: str": ["Specifies a channel ID to subscribe to."],
-                    "part: SubscriptionPartType": ["Identifies the attributes the method will set, and the attributes included in the response."]
+                    "channel_id: str": "Specifies a channel ID to subscribe to.",
+                    "part: SubscriptionPartType": "Identifies the attributes the method will set, and the attributes included in the response."
                 },
                 "return": "SubscriptionResource",
                 "ref": "https://developers.google.com/youtube/v3/docs/subscriptions/insert"
@@ -723,15 +523,71 @@
             "delete": {
                 "def": "Deletes a subscription.",
                 "**Required** parameters": {
-                    "subscription_id: str": [
-                        "The ID of the subscription that will be deleted."
-                    ]
+                    "subscription_id: str": "The ID of the subscription that will be deleted."
                 },
                 "ref": "https://developers.google.com/youtube/v3/docs/subscriptions/delete"
             }
         },
-        "Search": {},
-        "I18n": {}
+        "Search": {
+            "list": {
+                "def": "Searches something on youtube.",
+                "**Required** parameters": {
+                    "q: str": "The query to search for."
+                },
+                "**Filters** (specify one or zero of these parameters.)": {
+                    "for_content_owner: bool": "Restricts the search to only retrieve videos owned by the content owner identified by the `on_behalf_of_content_owner` parameter.",
+                    "for_developer: bool": "Restricts the search to only retrieve videos uploaded via the developer's application or website.",
+                    "for_mine: bool": "Restricts the search to only retrieve videos owned by the authenticated user.",
+                    "related_to_video_id: bool": "Specifies the ID of a video. The API will restrict the search result to videos related to that video."
+                },
+                "**Optional** parameters": {
+                    "order: Literal['date', 'rating', 'relevance', 'title', 'videoCount', 'viewCount']": "Specifies the order of the resource.",
+                    "safe_search: Literal['none', 'moderate', 'strict']": "Specifies whether the API should retrieve restricted content or not.",
+                    "type: Literal['channel', 'playlist', 'video']": "Specifies what type of resource will be returned.",
+                    "published_after: str": "Restricts the API to only return resources published after the specified time in the parameter.",
+                    "published_before: str": "Restricts the API to only return resources published before the specified time in the parameter.",
+                    "region_code: str": "Specifies to return search results available in the region code.",
+                    "relevance_language: str": "Specifies to return search results that are most relevant to the specified language.",
+                    "location: str": [
+                        "Restricts the search result to resources published in the specified location.",
+                        "Used in conjunction with `location_radius`."
+                    ],
+                    "location_radius: str": "Specifies the area around the point provided by `location` to restrict videos.",
+                    "channel_id: str": "Specifies that the result should only contain resources published by the provided channel.",
+                    "channel_type: Literal['show']": "Restricts the search to a particular type of channel.",
+                    "event_type: Literal['completed', 'live', 'upcoming']": [
+                        "Restricts a search to broadcast events.",
+                        "Set the `type` parameter to `video` when specifying this parameter."
+                    ],
+                    "video_caption: Literal['closedCaption', 'none']": "See the attached reference.",
+                    "video_category_id: str": "See the attached reference.",
+                    "video_definition: Literal['high', 'standard']": "See the attached reference.",
+                    "video_dimension: Literal['2d', '3d']": "See the attached reference.",
+                    "video_duration: Literal['long', 'medium', 'short']": "See the attached reference.",
+                    "video_embeddable: Literal['true']": "See the attached reference.",
+                    "video_license: Literal['creativeCommon', 'youtube']": "See the attached reference.",
+                    "video_syndicated: Literal['true']": "See the attached reference.",
+                    "video_type: Literal['episode', 'movie']": "See the attached reference.",
+                    "max_results: int": "The maximum amount of items that will be returned.",
+                    "page_token: str": "Identifies a specific page in the result set that should be returned. The `next_page_token` and `prev_page_token` are available in the returned list response for this parameter.",
+                    "on_behalf_of_content_owner: str": "Indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value."
+                },
+                "return": "SearchResultListResponse",
+                "ref": "https://developers.google.com/youtube/v3/docs/search/list"
+            }
+        },
+        "I18n": {
+            "list_languages": {
+                "def": "Returns a list of languages that YouTube supports.",
+                "return": "I18nLanguageListResponse",
+                "ref": "https://developers.google.com/youtube/v3/docs/i18nLanguages/list/"
+            },
+            "list_regions": {
+                "def": "Returns a list of content regions that YouTube supports.",
+                "return": "I18nLanguageRegionResponse",
+                "ref": "https://developers.google.com/youtube/v3/docs/i18nRegions/list/"
+            }
+        }
     },
     "resources": {
         "PlaylistResource": {},
@@ -739,13 +595,30 @@
         "ThumbnailResource": {},
         "CommentResource": {},
         "CommentThreadResource": {},
-        "I18nResource": {},
+        "I18nLanguageResource": {},
+        "I18nRegionResource": {},
         "VideoCategoryResource": {},
         "VideoAbuseReportReasonResource": {},
         "VideoResource": {},
         "ChannelResource": {},
         "ChannelSectionResource": {},
         "SearchResult": {},
-        "SubscriptionResource": {}
+        "SubscriptionResource": {},
+
+        "PlaylistListResponse": {},
+        "PlaylistItemListResponse": {},
+        "ThumbnailListResponse": {},
+        "CommentListResponse": {},
+        "CommentThreadListResponse": {},
+        "I18nLanguageListResponse": {},
+        "I18nRegionListResponse": {},
+        "VideoCategoryListResponse": {},
+        "VideoAbuseReportReasonListResponse": {},
+        "VideoListResponse": {},
+        "VideoGetRatingResponse": {},
+        "ChannelListResponse": {},
+        "ChannelSectionListResponse": {},
+        "SearchListResponse": {},
+        "SubscriptionListResponse": {}
     }
 }

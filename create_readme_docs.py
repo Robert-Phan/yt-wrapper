@@ -31,11 +31,14 @@ def substitute_method_docs(matches: list[Match[str]], method_docs: dict[str, dic
                     returned: str = under
                     meth_doc_string.append(f"    **Returns:** [`{under}`](#{returned.lower()})\n\n")
                 else:
-                    params: dict[str, list[str]] = under
+                    params: dict[str, list[str]|str] = under
                     meth_doc_string.append(f'    {part}:\n')
                     for param, param_doc in params.items():
                         meth_doc_string.append(f'    - `{param}`\n\n')
-                        param_doc_str = ''.join([f'        {x}\n' for x in param_doc])
+                        if type(param_doc) == list:
+                            param_doc_str = ''.join([f'        {x}\n' for x in param_doc])
+                        elif type(param_doc) == str:
+                            param_doc_str = f"        {param_doc}\n"
                         meth_doc_string.append(param_doc_str)
                     meth_doc_string.append('\n')
             meth_doc_string.append('\n</details>\n\n')
