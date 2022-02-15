@@ -601,7 +601,7 @@
                 "channel_id: str": "The ID of the channel which published the playlist.",
                 "title: str": "The title of the playlist.",
                 "description: str": "The description of the playlist",
-                "thumbnails: ThumbnailResource": "The thumbnails of the playlist.",
+                "thumbnails: ThumbnailResource": "The thumbnails of the playlist. See [ThumbnailResource](#thumbnailresource).",
                 "channel_title: str": "The title of the channel which published the playlist.",
                 "default_language: str": "The language of the text in the `snippet.title` and `snippet.description` attributes.",
                 "localized": {
@@ -621,7 +621,8 @@
             "player": {
                 "def": "Information about the playlist in an embedded player.",
                 "embed_html: str": "An `<iframe>` tag that embeds a player "
-            }
+            },
+            "ref": "https://developers.google.com/youtube/v3/docs/playlists"
         },
         "PlaylistItemResource": {
             "def": "Represents a video in a playlist.",
@@ -634,7 +635,7 @@
                 "channel_id: str": "The ID of the channel which added the item to the playlist..",
                 "title: str": "The title of the playlist item.",
                 "description: str": "The description of the playlist item.",
-                "thumbnails: ThumbnailResource": "The thumbnails of the playlist item.",
+                "thumbnails: ThumbnailResource": "The thumbnails of the playlist item. See [ThumbnailResource](#thumbnailresource).",
                 "channel_title: str": "The title of the channel which added the video.",
                 "video_owner_channel_title: str": "The title of the channel that the video belonged to.",
                 "video_owner_channel_id: str": "The id of the channel that the video belonged to.",
@@ -655,7 +656,8 @@
             "status": {
                 "def": "Info about the playlist item's privacy status.",
                 "privacy_status: str": "The playlist item's privacy status."
-            }
+            },
+            "ref": "https://developers.google.com/youtube/v3/docs/playlistItems/"
         },
         "ThumbnailResource": {
             "def": "Identifies different thumbnail image sizes associated with a resource.",
@@ -688,7 +690,8 @@
                 "url: str": "The image's URL.",
                 "width: int": "The image's width.",
                 "height: int": "The image's height."
-            }
+            },
+            "ref": "https://developers.google.com/youtube/v3/docs/thumbnails/"
         },
         "CommentResource": {
             "def": "Represents a single Youtube comment.",
@@ -715,7 +718,8 @@
                 "moderation_status: str": "The comment's moderation status.",
                 "published_at: str": "The date and time when the comment was orignally published.",
                 "updated_at: str": "The date and time when the comment was last updated."
-            }
+            },
+            "ref": "https://developers.google.com/youtube/v3/docs/comments"
         },
         "CommentThreadResource": {
             "def": "Represents a Youtube comment thread, consisting of a top-level comment and it's replies.",
@@ -734,7 +738,8 @@
             "replies": {
                 "def": "A container of the comment thread's replies. `replies.comments` represents the list of replies themselves.",
                 "comments: list[CommentResource]": "A list containing the replies. Only a subset of replies will be available in the this list. To get the full amount of replies from a comment thread, use the `comment.list` method."
-            }
+            },
+            "ref": "https://developers.google.com/youtube/v3/docs/commentThreads"
         },
         "I18nLanguageResource": {
             "def": "Identifies a language that Youtube supports.",
@@ -745,7 +750,8 @@
                 "def": "Basic details about the language.",
                 "hl: str": "A BCP-47 code that uniquely identifies a language.",
                 "name: str": "The name of the language."
-            }
+            },
+            "ref": "https://developers.google.com/youtube/v3/docs/i18nLanguages/"
         },
         "I18nRegionResource": {
             "def": "Identifies a region that Youtube supports.",
@@ -756,7 +762,8 @@
                 "def": "Basic details about the region.",
                 "gl: str": "The two-letter ISO country code that identifies a language.",
                 "name: str": "The name of the region."
-            }
+            },
+            "ref": "https://developers.google.com/youtube/v3/docs/i18nRegions/"
         },
         "VideoCategoryResource": {
             "def": "Identifies a category associated with a Youtube video.",
@@ -768,7 +775,8 @@
                 "channel_id: str": "The channel that created the category, which is Youtube itself. The value will be `UCBR8-60-B28hp2BmDPdntcQ`",
                 "title: str": "The title of the category.",
                 "assignable: bool": " Indicates whether videos can be associated with the category."
-            }
+            },
+            "ref": "https://developers.google.com/youtube/v3/docs/videoCategories"
         },
         "VideoAbuseReportReasonResource": {
             "def": "Contains information about a reason that a video could be reported for.",
@@ -783,12 +791,13 @@
                     "id: str": "The ID of the secondary reason.",
                     "label: str": "The localized label text for the reason. "
                 }
-            }
+            },
+            "ref": "https://developers.google.com/youtube/v3/docs/videoAbuseReportReasons/"
         },
         "VideoResource": {
             "def": "Represents a Youtube video.",
             "kind": "youtube#video",
-            "etag": "etag",
+            "etag: str": "The etag of the resource.",
             "id: str": "The ID of the video.",
             "snippet": {
                 "def": "Basic details about the video.",
@@ -796,7 +805,7 @@
                 "channel_id: str": "The ID of the channel that uploaded the video.",
                 "title: str": "The title of the video.",
                 "description: str": "The description of the video",
-                "thumbnails: ThumbnailResource": "The thumbnails of the video.",
+                "thumbnails: ThumbnailResource": "The thumbnails of the video. See [ThumbnailResource](#thumbnailresource).",
                 "channel_title: str": "The title of the video's uploader.",
                 "tags: list[str]": "The tags associated with the video.",
                 "category_id: str": "The ID of the category the video belongs to.",
@@ -826,15 +835,15 @@
             },
             "status": {
                 "def": "Contains information about the video's uploading, processing, and privacy statuses.",
-                "upload_status: str": "The status of the uploaded video.", 
-                "failure_reason: str": "Explains why a video failed to upload. Available when `upload_status` identifies that the video failed to upload.", 
-                "rejection_reason: str": "Explains why the uploaded video got rejected. Available when `upload_status` identifies that the video was rejected.", 
-                "privacy_status: str": "The video's privacy status.", 
+                "upload_status: str": "The status of the uploaded video.",
+                "failure_reason: str": "Explains why a video failed to upload. Available when `upload_status` identifies that the video failed to upload.",
+                "rejection_reason: str": "Explains why the uploaded video got rejected. Available when `upload_status` identifies that the video was rejected.",
+                "privacy_status: str": "The video's privacy status.",
                 "publish_at: str": "The date and time when the video is scheduled to publish.",
                 "license: str": " The video's license.",
-                "embeddable: bool": "Whether the video can be embedded on another website.", 
-                "public_stats_viewable: bool": "Whether the extended statistics on the video's watch page are publicly viewable.", 
-                "made_for_kids: bool": "Whether the video is designated as made for kids.", 
+                "embeddable: bool": "Whether the video can be embedded on another website.",
+                "public_stats_viewable: bool": "Whether the extended statistics on the video's watch page are publicly viewable.",
+                "made_for_kids: bool": "Whether the video is designated as made for kids.",
                 "self_declared_made_for_kids: bool": "Whether the video is designated by the creator as made for kids."
             },
             "statistics": {
@@ -862,29 +871,29 @@
                 "recording_date: str": "When the video was recorded."
             },
             "file_details": {
-                "def":"Contains info about the file that was uploaded to Youtube.",
-                "file_name: str": "The name of the file.", 
-                "file_size: int": "The size of the file in bytes.", 
-                "file_type: str": "The type of the file.", 
-                "container: str": "The container format of the file.", 
-                "duration_ms: int": "The length of the video in milliseconds.",  
-                "bitrate_bps: int": "The video's bitrate in bits per seconds.",  
-                "creation_time: str": "When the video is created, in ISO 8601 format.",  
+                "def": "Contains info about the file that was uploaded to Youtube.",
+                "file_name: str": "The name of the file.",
+                "file_size: int": "The size of the file in bytes.",
+                "file_type: str": "The type of the file.",
+                "container: str": "The container format of the file.",
+                "duration_ms: int": "The length of the video in milliseconds.",
+                "bitrate_bps: int": "The video's bitrate in bits per seconds.",
+                "creation_time: str": "When the video is created, in ISO 8601 format.",
                 "video_streams: list": {
                     "def": "A list of video streams contained in the uploaded video file.",
                     "width_pixels: int": "The encoded video content's width in pixels.",
                     "height_pixels: int": "The encoded video content's height in pixels",
-                    "frame_rate_fps: int": "The video stream's frame rate, in frames per second.", 
-                    "aspect_ratio: int": "The video content's display aspect ratio.", 
-                    "codec: str": "The video codec that the stream uses.", 
-                    "bitrate_bps: int": " The video stream's bitrate, in bits per second.",  
-                    "rotation: str": "The amount that YouTube needs to rotate the original source content to properly display the video.", 
+                    "frame_rate_fps: int": "The video stream's frame rate, in frames per second.",
+                    "aspect_ratio: int": "The video content's display aspect ratio.",
+                    "codec: str": "The video codec that the stream uses.",
+                    "bitrate_bps: int": " The video stream's bitrate, in bits per second.",
+                    "rotation: str": "The amount that YouTube needs to rotate the original source content to properly display the video.",
                     "vendor: str": "A value (usually a four-letter code) that uniquely identifies a video vendor."
                 },
                 "audio_streams: list": {
                     "def": "A list of audio streams contained in the uploaded video file.",
                     "channel_count: int": "The number of audio channels that the stream contains.",
-                    "codec: str": " The audio codec that the stream uses.", 
+                    "codec: str": " The audio codec that the stream uses.",
                     "bitrate_bps: int": " The audio stream's bitrate, in bits per second.",
                     "vendor: str": "A value (usually a four-letter code) that uniquely identifies a video vendor."
                 }
@@ -923,14 +932,169 @@
                 "actual_end_time: str": "The time the broadcast ended.",
                 "scheduled_start_time: str": "The time the broadcast was scheduled to start.",
                 "scheduled_end_time: str": "The time the broadcast was scheduled to end.",
-                "concurrent_viewers: int": "The amount of viewers currently watching the stream.", 
+                "concurrent_viewers: int": "The amount of viewers currently watching the stream.",
                 "active_live_chat_id: str": "The ID of the currently active live chat attached to this video."
-            }
+            },
+            "ref": "https://developers.google.com/youtube/v3/docs/videos"
         },
-        "ChannelResource": {},
-        "ChannelSectionResource": {},
-        "SearchResult": {},
-        "SubscriptionResource": {},
+        "ChannelResource": {
+            "def": "Represents a Youtube channel.",
+            "kind: str": "The kind/type of the resource.",
+            "etag: str": "The etag of the resource.",
+            "id: str": "The ID of the channel.",
+            "snippet": {
+                "def": "Basic details about the channel.",
+                "title: str": "The channel's title.",
+                "description: str": "The channel's description",
+                "custom_url: str": "The channel's custom URL.",
+                "published_at: str": "The date and time that the channel was created, specified in ISO 8601 format.",
+                "thumbnails: ThumbnailResource": "The channel's thumbnail images. See [ThumbnailResource](#thumbnailresource).",
+                "default_language: str": "The language of the text in the `snippet.title` and `snippet.description` attributes.",
+                "country: str": "The country with which the channel is associated.",
+                "localized": {
+                    "def": "Localizations of the title and description of the channel.",
+                    "title: str": "The localized title.",
+                    "description: str": "The localized description."
+                }
+            },
+            "content_details": {
+                "def": "Contains information about a channel's content.",
+                "related_playlists": {
+                    "def": "Identifies playlist associated with a channel.",
+                    "likes: str": "The ID of the playlist that contains the channel's liked videos.",
+                    "favorites: str": "<font color='red'>Deprecated.</font>",
+                    "uploads: str": "Contains the channel's uploaded videos."
+                }
+            },
+            "statistics": {
+                "def": "Contains channel statistics.",
+                "view_count: int": "The amount of views the channel has.",
+                "subscriber_count: int": "The number of subscribers the channel has.",
+                "hidden_subscriber_count: bool": "Indicates whether the channel's subscriber count is publicly visible.",
+                "video_count: int": "The amount of public videos the channel has."
+            },
+            "topic_details": {
+                "def": "Contains information about topics associated with the channel.",
+                "topic_ids: list[str]": " A list of topic IDs associated with the channel.",
+                "topic_categories: list[str]": " A list of Wikipedia URLs that describe the channel's content."
+            },
+            "status": {
+                "def": "Contains information about the channel's privacy status.",
+                "privacy_status: str": " Privacy status of the channel.",
+                "is_linked: bool": "Indicates whether the channel data identifies a user that is already linked to either a YouTube username or a Google+ account.",
+                "long_uploads_status: str": "Indentifies whether the channel is able to upload videos longer than 15 minutes.",
+                "made_for_kids: bool": "The current \"made for kids\" status of the channel.",
+                "self_declared_made_for_kids: bool": "The self-declared \"made for kids\" status of the channel."
+            },
+            "branding_settings": {
+                "def": "Contains information about the branding of the channel.",
+                "channel": {
+                    "title: str": "The channel's title.",
+                    "description: str": "The channel's description.",
+                    "keywords: str": "Keywords associated with your channel.",
+                    "tracking_analytics_account_id: str": " The ID for a [Google Analytics account](http://www.google.com/analytics/index.html) that you want to use to track and measure traffic to your channel.",
+                    "moderate_comments: bool": "Determines whether user-submitted comments left on the channel page need to be approved by the channel owner to be publicly visible.",
+                    "unsubscribed_trailer: str": "The video that should play in the featured video module in the channel page's browse view for unsubscribed viewers.",
+                    "default_language: str": "The language of the text in the `snippet.title` and `snippet.description` attributes.",
+                    "country: str": "The country with which the channel is associated."
+                },
+                "watch": {
+                    "def": "Contains branding properties of the watch pages for the channel's videos. __Note__: <font color='red'>This attribute and it's children have been deprecated.</font>",
+                    "text_color: str": "The text color for the video watch page's branded area.",
+                    "background_color: str": "The background color for the video watch page's branded area.",
+                    "featured_playlist_id: str": "<font color='red'>Deprecated.</font>"
+                }
+            },
+            "audit_details": {
+                "def": "Encapsulates channel data that a multichannel network (MCN) would evaluate while determining whether to accept or reject a particular channel.",
+                "overall_good_standing: bool": "Indicates whether there are any issues with the channel.",
+                "community_guidelines_good_standing: bool": " Indicates whether the channel respects YouTube's community guidelines.",
+                "copyright_strikes_good_standing: bool": " Indicates whether the channel has any copyright strikes.",
+                "conten_id_claims_good_standing: bool": " Indicates whether the channel has any unresolved claims."
+            },
+            "content_owner_details": {
+                "def": "Contains channel data relevant for YouTube Partners linked with the channel.",
+                "content_owner: str": " The ID of the content owner linked to the channel.",
+                "time_linked: str": " The date and time of when the channel was linked to the content owner, specified in ISO 8601 format."
+            },
+            "ref": "https://developers.google.com/youtube/v3/docs/channels"
+        },
+        "ChannelSectionResource": {
+            "def": "Represents a channel section, which is a set of resources that the channel has chosen to feature.",
+            "kind: str": "The kind/type of the resource.",
+            "etag: str": "The etag of the resource.",
+            "id: str": "The ID of the channel section.",
+            "snippet": {
+                "def": "Basic details about the channel section.",
+                "type: str": "The type of the channel section.",
+                "channel_id: str": "The ID of the the channel which published the channel section.",
+                "title: str": "The section's title, only available on `multiplePlaylists` and `multipleChannels` type of channel section.",
+                "position: int": "unsigned integer"
+            },
+            "content_details": {
+                "def": "Contains details about the contents of the channel section.",
+                "playlists: list[str]": "A list of playlist IDs featured in the channel section. Available if the type of the section is `multiplePlaylists` or `singlePlaylist`.",
+                "channels: list[str]": "A list of channel IDs featured in the channel section. Available if the type of the section is `multipleChannels`."
+            },
+            "ref": "https://developers.google.com/youtube/v3/docs/channelSections"
+        },
+        "SearchResult": {
+            "def": "Represents a video, channel, or playlist returned from a search API request.",
+            "kind: str": "The kind/type of the resource.",
+            "etag: str": "The etag of the resource.",
+            "id": {
+                "def": "Contains the unique ID of the search result.",
+                "kind: str": "The type of the search result.",
+                "video_id: str": "If `id.type` is `youtube#video`, then this attribute is available, and identifies the ID of the video of the search result.",
+                "channel_id: str": "If `id.type` is `youtube#channel`, then this attribute is available, and identifies the ID of the channel of the search result.",
+                "playlist_id: str": "If `id.type` is `youtube#playlist`, then this attribute is available, and identifies the ID of the playlist of the search result."
+            },
+            "snippet": {
+                "def": "Basic details about the search result.",
+                "published_at: str": "The date and time the search result was created, specified in ISO 8601 format.",
+                "channel_id: str": "The ID of the channel that published the resource.",
+                "title: str": "The title of the search result.",
+                "description: str": "The description of the search result.",
+                "thumbnails: ThumbnailResource": "The thumbnails of the search result. See [ThumbnailResource](#thumbnailresource).",
+                "channel_title: str": "The title of the channel that published the resource.",
+                "live_broadcast_content: str": "An indication of whether a video or channel resource has live broadcast content."
+            },
+            "ref": "https://developers.google.com/youtube/v3/docs/search"
+        },
+        "SubscriptionResource": {
+            "def": "Represents a youtube subscription.",
+            "kind: str": "The kind/type of the resource.",
+            "etag: str": "The etag of the resource.",
+            "id: str": "The ID of the subscription.",
+            "snippet": {
+                "def": "Basic details about the subscription.",
+                "published_at: str": "The date and time the subscrioption was created, specified in ISO 8601 format.",
+                "channel_title: str": "The title of the channel that the subscription belongs to.",
+                "title: str": "The subscription's title.",
+                "description: str": "The subscription's details.",
+                "resource_id": {
+                    "def": "Contains info about the channel that the user subscribed to.",
+                    "kind: str": "The kind/type of the resource.",
+                    "channel_id: str": "The ID of the channel the user subscribed to."
+                },
+                "channel_id: str": "The ID of the subscriber's channel.",
+                "thumbnails: ThumbnailResource": "The thumbnails associated with the subscription. See [ThumbnailResource](#thumbnailresource).",
+                "content_details": {
+                    "def": "Contains basic statistics about the subscription.",
+                    "total_item_count: int": "The approximate number of items that the subscription points to.",
+                    "new_item_count: int": "The number of new items in the subscription since its content was last read.",
+                    "activity_type: str": " The type of activity this subscription is for (only uploads, everything)."
+                },
+                "subscriber_snippet": {
+                    "def": "Contains basic details about the subscriber.",
+                    "title: str": "The title of the subscriber's channel.",
+                    "description: str": "The description of the subscriber's channel",
+                    "channel_id: str": "The ID of the subscriber's channel",
+                    "thumbnails: ThumbnailResource": "Thumbnail images for the subscriber's channel. See [ThumbnailResource](#thumbnailresource)."
+                }
+            },
+            "ref": "https://developers.google.com/youtube/v3/docs/subscriptions"
+        },
         "PlaylistListResponse": {},
         "PlaylistItemListResponse": {},
         "ThumbnailListResponse": {},

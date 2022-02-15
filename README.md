@@ -1195,7 +1195,7 @@ Represents a Youtube playlist.
             The description of the playlist
         - `thumbnails: ThumbnailResource`
     
-            The thumbnails of the playlist.
+            The thumbnails of the playlist. See [ThumbnailResource](#thumbnailresource).
         - `channel_title: str`
     
             The title of the channel which published the playlist.
@@ -1229,6 +1229,8 @@ Represents a Youtube playlist.
         - `embed_html: str`
     
             An `<iframe>` tag that embeds a player 
+    
+    [Reference](https://developers.google.com/youtube/v3/docs/playlists)
 </details>
 <!--r-end PlaylistResource -->
 
@@ -1263,7 +1265,7 @@ Represents a video in a playlist.
             The description of the playlist item.
         - `thumbnails: ThumbnailResource`
     
-            The thumbnails of the playlist item.
+            The thumbnails of the playlist item. See [ThumbnailResource](#thumbnailresource).
         - `channel_title: str`
     
             The title of the channel which added the video.
@@ -1306,6 +1308,8 @@ Represents a video in a playlist.
         - `privacy_status: str`
     
             The playlist item's privacy status.
+    
+    [Reference](https://developers.google.com/youtube/v3/docs/playlistItems/)
 </details>
 <!--r-end PlaylistItemResource -->
 
@@ -1374,6 +1378,8 @@ Identifies different thumbnail image sizes associated with a resource.
         - `height: int`
     
             The image's height.
+    
+    [Reference](https://developers.google.com/youtube/v3/docs/thumbnails/)
 </details>
 <!--r-end ThumbnailResource -->
 
@@ -1442,6 +1448,8 @@ Represents a single Youtube comment.
         - `updated_at: str`
     
             The date and time when the comment was last updated.
+    
+    [Reference](https://developers.google.com/youtube/v3/docs/comments)
 </details>
 <!--r-end CommentResource -->
 
@@ -1486,6 +1494,8 @@ Represents a Youtube comment thread, consisting of a top-level comment and it's 
         - `comments: list[CommentResource]`
     
             A list containing the replies. Only a subset of replies will be available in the this list. To get the full amount of replies from a comment thread, use the `comment.list` method.
+    
+    [Reference](https://developers.google.com/youtube/v3/docs/commentThreads)
 </details>
 <!--r-end CommentThreadResource -->
 
@@ -1512,6 +1522,8 @@ Identifies a language that Youtube supports.
         - `name: str`
     
             The name of the language.
+    
+    [Reference](https://developers.google.com/youtube/v3/docs/i18nLanguages/)
 </details>
 <!--r-end I18nLanguageResource -->
 
@@ -1538,6 +1550,8 @@ Identifies a region that Youtube supports.
         - `name: str`
     
             The name of the region.
+    
+    [Reference](https://developers.google.com/youtube/v3/docs/i18nRegions/)
 </details>
 <!--r-end I18nRegionResource -->
 
@@ -1567,6 +1581,8 @@ Identifies a category associated with a Youtube video.
         - `assignable: bool`
     
              Indicates whether videos can be associated with the category.
+    
+    [Reference](https://developers.google.com/youtube/v3/docs/videoCategories)
 </details>
 <!--r-end VideoCategoryResource -->
 
@@ -1599,6 +1615,8 @@ Contains information about a reason that a video could be reported for.
             - `label: str`
     
                 The localized label text for the reason. 
+    
+    [Reference](https://developers.google.com/youtube/v3/docs/videoAbuseReportReasons/)
 </details>
 <!--r-end VideoAbuseReportReasonResource -->
 
@@ -1610,9 +1628,9 @@ Represents a Youtube video.
     - `kind`
     
         youtube#video
-    - `etag`
+    - `etag: str`
     
-        etag
+        The etag of the resource.
     - `id: str`
     
         The ID of the video.
@@ -1633,7 +1651,7 @@ Represents a Youtube video.
             The description of the video
         - `thumbnails: ThumbnailResource`
     
-            The thumbnails of the video.
+            The thumbnails of the video. See [ThumbnailResource](#thumbnailresource).
         - `channel_title: str`
     
             The title of the video's uploader.
@@ -1922,38 +1940,355 @@ Represents a Youtube video.
         - `active_live_chat_id: str`
     
             The ID of the currently active live chat attached to this video.
+    
+    [Reference](https://developers.google.com/youtube/v3/docs/videos)
 </details>
 <!--r-end VideoResource -->
 
 <!--r-start ChannelResource -->
 #### `ChannelResource`
-
+Represents a Youtube channel.
 - <details><summary><code>ChannelResource</code></summary>
-
+    
+    - `kind: str`
+    
+        The kind/type of the resource.
+    - `etag: str`
+    
+        The etag of the resource.
+    - `id: str`
+    
+        The ID of the channel.
+    - `snippet`
+    
+        Basic details about the channel.
+        - `title: str`
+    
+            The channel's title.
+        - `description: str`
+    
+            The channel's description
+        - `custom_url: str`
+    
+            The channel's custom URL.
+        - `published_at: str`
+    
+            The date and time that the channel was created, specified in ISO 8601 format.
+        - `thumbnails: ThumbnailResource`
+    
+            The channel's thumbnail images. See [ThumbnailResource](#thumbnailresource).
+        - `default_language: str`
+    
+            The language of the text in the `snippet.title` and `snippet.description` attributes.
+        - `country: str`
+    
+            The country with which the channel is associated.
+        - `localized`
+    
+            Localizations of the title and description of the channel.
+            - `title: str`
+    
+                The localized title.
+            - `description: str`
+    
+                The localized description.
+    - `content_details`
+    
+        Contains information about a channel's content.
+        - `related_playlists`
+    
+            Identifies playlist associated with a channel.
+            - `likes: str`
+    
+                The ID of the playlist that contains the channel's liked videos.
+            - `favorites: str`
+    
+                <font color='red'>Deprecated.</font>
+            - `uploads: str`
+    
+                Contains the channel's uploaded videos.
+    - `statistics`
+    
+        Contains channel statistics.
+        - `view_count: int`
+    
+            The amount of views the channel has.
+        - `subscriber_count: int`
+    
+            The number of subscribers the channel has.
+        - `hidden_subscriber_count: bool`
+    
+            Indicates whether the channel's subscriber count is publicly visible.
+        - `video_count: int`
+    
+            The amount of public videos the channel has.
+    - `topic_details`
+    
+        Contains information about topics associated with the channel.
+        - `topic_ids: list[str]`
+    
+             A list of topic IDs associated with the channel.
+        - `topic_categories: list[str]`
+    
+             A list of Wikipedia URLs that describe the channel's content.
+    - `status`
+    
+        Contains information about the channel's privacy status.
+        - `privacy_status: str`
+    
+             Privacy status of the channel.
+        - `is_linked: bool`
+    
+            Indicates whether the channel data identifies a user that is already linked to either a YouTube username or a Google+ account.
+        - `long_uploads_status: str`
+    
+            Indentifies whether the channel is able to upload videos longer than 15 minutes.
+        - `made_for_kids: bool`
+    
+            The current "made for kids" status of the channel.
+        - `self_declared_made_for_kids: bool`
+    
+            The self-declared "made for kids" status of the channel.
+    - `branding_settings`
+    
+        Contains information about the branding of the channel.
+        - `channel`
+            - `title: str`
+    
+                The channel's title.
+            - `description: str`
+    
+                The channel's description.
+            - `keywords: str`
+    
+                Keywords associated with your channel.
+            - `tracking_analytics_account_id: str`
+    
+                 The ID for a [Google Analytics account](http://www.google.com/analytics/index.html) that you want to use to track and measure traffic to your channel.
+            - `moderate_comments: bool`
+    
+                Determines whether user-submitted comments left on the channel page need to be approved by the channel owner to be publicly visible.
+            - `unsubscribed_trailer: str`
+    
+                The video that should play in the featured video module in the channel page's browse view for unsubscribed viewers.
+            - `default_language: str`
+    
+                The language of the text in the `snippet.title` and `snippet.description` attributes.
+            - `country: str`
+    
+                The country with which the channel is associated.
+        - `watch`
+    
+            Contains branding properties of the watch pages for the channel's videos. __Note__: <font color='red'>This attribute and it's children have been deprecated.</font>
+            - `text_color: str`
+    
+                The text color for the video watch page's branded area.
+            - `background_color: str`
+    
+                The background color for the video watch page's branded area.
+            - `featured_playlist_id: str`
+    
+                <font color='red'>Deprecated.</font>
+    - `audit_details`
+    
+        Encapsulates channel data that a multichannel network (MCN) would evaluate while determining whether to accept or reject a particular channel.
+        - `overall_good_standing: bool`
+    
+            Indicates whether there are any issues with the channel.
+        - `community_guidelines_good_standing: bool`
+    
+             Indicates whether the channel respects YouTube's community guidelines.
+        - `copyright_strikes_good_standing: bool`
+    
+             Indicates whether the channel has any copyright strikes.
+        - `conten_id_claims_good_standing: bool`
+    
+             Indicates whether the channel has any unresolved claims.
+    - `content_owner_details`
+    
+        Contains channel data relevant for YouTube Partners linked with the channel.
+        - `content_owner: str`
+    
+             The ID of the content owner linked to the channel.
+        - `time_linked: str`
+    
+             The date and time of when the channel was linked to the content owner, specified in ISO 8601 format.
+    
+    [Reference](https://developers.google.com/youtube/v3/docs/channels)
 </details>
 <!--r-end ChannelResource -->
 
 <!--r-start ChannelSectionResource -->
 #### `ChannelSectionResource`
-
+Represents a channel section, which is a set of resources that the channel has chosen to feature.
 - <details><summary><code>ChannelSectionResource</code></summary>
-
+    
+    - `kind: str`
+    
+        The kind/type of the resource.
+    - `etag: str`
+    
+        The etag of the resource.
+    - `id: str`
+    
+        The ID of the channel section.
+    - `snippet`
+    
+        Basic details about the channel section.
+        - `type: str`
+    
+            The type of the channel section.
+        - `channel_id: str`
+    
+            The ID of the the channel which published the channel section.
+        - `title: str`
+    
+            The section's title, only available on `multiplePlaylists` and `multipleChannels` type of channel section.
+        - `position: int`
+    
+            unsigned integer
+    - `content_details`
+    
+        Contains details about the contents of the channel section.
+        - `playlists: list[str]`
+    
+            A list of playlist IDs featured in the channel section. Available if the type of the section is `multiplePlaylists` or `singlePlaylist`.
+        - `channels: list[str]`
+    
+            A list of channel IDs featured in the channel section. Available if the type of the section is `multipleChannels`.
+    
+    [Reference](https://developers.google.com/youtube/v3/docs/channelSections)
 </details>
 <!--r-end ChannelSectionResource -->
 
 <!--r-start SearchResult -->
 #### `SearchResult`
-
+Represents a video, channel, or playlist returned from a search API request.
 - <details><summary><code>SearchResult</code></summary>
-
+    
+    - `kind: str`
+    
+        The kind/type of the resource.
+    - `etag: str`
+    
+        The etag of the resource.
+    - `id`
+    
+        Contains the unique ID of the search result.
+        - `kind: str`
+    
+            The type of the search result.
+        - `video_id: str`
+    
+            If `id.type` is `youtube#video`, then this attribute is available, and identifies the ID of the video of the search result.
+        - `channel_id: str`
+    
+            If `id.type` is `youtube#channel`, then this attribute is available, and identifies the ID of the channel of the search result.
+        - `playlist_id: str`
+    
+            If `id.type` is `youtube#playlist`, then this attribute is available, and identifies the ID of the playlist of the search result.
+    - `snippet`
+    
+        Basic details about the search result.
+        - `published_at: str`
+    
+            The date and time the search result was created, specified in ISO 8601 format.
+        - `channel_id: str`
+    
+            The ID of the channel that published the resource.
+        - `title: str`
+    
+            The title of the search result.
+        - `description: str`
+    
+            The description of the search result.
+        - `thumbnails: ThumbnailResource`
+    
+            The thumbnails of the search result. See [ThumbnailResource](#thumbnailresource).
+        - `channel_title: str`
+    
+            The title of the channel that published the resource.
+        - `live_broadcast_content: str`
+    
+            An indication of whether a video or channel resource has live broadcast content.
+    
+    [Reference](https://developers.google.com/youtube/v3/docs/search)
 </details>
 <!--r-end SearchResult -->
 
 <!--r-start SubscriptionResource -->
 #### `SubscriptionResource`
-
+Represents a youtube subscription.
 - <details><summary><code>SubscriptionResource</code></summary>
-
+    
+    - `kind: str`
+    
+        The kind/type of the resource.
+    - `etag: str`
+    
+        The etag of the resource.
+    - `id: str`
+    
+        The ID of the subscription.
+    - `snippet`
+    
+        Basic details about the subscription.
+        - `published_at: str`
+    
+            The date and time the subscrioption was created, specified in ISO 8601 format.
+        - `channel_title: str`
+    
+            The title of the channel that the subscription belongs to.
+        - `title: str`
+    
+            The subscription's title.
+        - `description: str`
+    
+            The subscription's details.
+        - `resource_id`
+    
+            Contains info about the channel that the user subscribed to.
+            - `kind: str`
+    
+                The kind/type of the resource.
+            - `channel_id: str`
+    
+                The ID of the channel the user subscribed to.
+        - `channel_id: str`
+    
+            The ID of the subscriber's channel.
+        - `thumbnails: ThumbnailResource`
+    
+            The thumbnails associated with the subscription. See [ThumbnailResource](#thumbnailresource).
+        - `content_details`
+    
+            Contains basic statistics about the subscription.
+            - `total_item_count: int`
+    
+                The approximate number of items that the subscription points to.
+            - `new_item_count: int`
+    
+                The number of new items in the subscription since its content was last read.
+            - `activity_type: str`
+    
+                 The type of activity this subscription is for (only uploads, everything).
+        - `subscriber_snippet`
+    
+            Contains basic details about the subscriber.
+            - `title: str`
+    
+                The title of the subscriber's channel.
+            - `description: str`
+    
+                The description of the subscriber's channel
+            - `channel_id: str`
+    
+                The ID of the subscriber's channel
+            - `thumbnails: ThumbnailResource`
+    
+                Thumbnail images for the subscriber's channel. See [ThumbnailResource](#thumbnailresource).
+    
+    [Reference](https://developers.google.com/youtube/v3/docs/subscriptions)
 </details>
 <!--r-end SubscriptionResource -->
 

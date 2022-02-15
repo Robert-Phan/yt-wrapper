@@ -65,6 +65,9 @@ def substitute_resource_docs(matches: list[Match[str]], resource_docs: dict[str,
             if key == 'def':
                 res.append("")
                 res.append("    "*indent + value)
+            elif key == 'ref':
+                res.append("")
+                res.append("    "*indent + f"[Reference]({value})")
             else:
                 res.append(f"{'    '*indent}- `{key}`")
                 if type(value) == str:
