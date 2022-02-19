@@ -79,6 +79,7 @@ def substitute_resource_docs(matches: list[Match[str]], resource_docs: dict[str,
         return res
 
     resources: list[str] = [x.group(1) for x in matches]
+    print(resources)
     for resource in resources:    
         resource_doc_list  = resource_dict_to_docs(resource_docs[resource])
         definition = resource_doc_list.pop(1) if resource_doc_list else ""

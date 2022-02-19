@@ -37,6 +37,9 @@
     - [`ChannelSectionResource`](#channelsectionresource)
     - [`SearchResult`](#searchresult)
     - [`SubscriptionResource`](#subscriptionresource)
+  - [Responses](#responses)
+    - [`Response`](#response)
+    - [`LongResponse`](#longresponse)
     - [`PlaylistListResponse`](#playlistlistresponse)
     - [`PlaylistItemListResponse`](#playlistitemlistresponse)
     - [`ThumbnailListResponse`](#thumbnaillistresponse)
@@ -2292,114 +2295,189 @@ Represents a youtube subscription.
 </details>
 <!--r-end SubscriptionResource -->
 
+### Responses
+Responses are wrappers around resources, providing information about the response as a whole. They usually come in the form of a `ListResponse`, which is returned from the `list` methods of the API, although there are other methods that also provides a response. All responses contains an ID, etag, and the `items` attribute, which contains (part of) the result set of what you were trying to retrieve.
+
+<!--r-start Response -->
+#### `Response`
+A template for responses.
+- <details><summary><code>Response</code></summary>
+    
+    - `kind: str`
+    
+        The kind/type of the resource.
+    - `etag: str`
+    
+        The etag of the resource.
+    - `items: list`
+    
+        The list containing the result set.
+</details>
+<!--r-end Response -->  
+
+Most methods that return a response can return a result set bigger than what can be contained in a single response. For example, `PlaylistItem.list` can only have 50 results in a single response, but the number of playlist items in a playlist is much higher. So, a response usually contains "page tokens", which you can pass back in the method, and request the next part/page of the result set.
+
+<!--r-start LongResponse -->
+#### `LongResponse`
+A template for long-form responses, with information about pages.
+- <details><summary><code>LongResponse</code></summary>
+    
+    - `kind: str`
+    
+        The kind/type of the resource.
+    - `etag: str`
+    
+        The etag of the resource.
+    - `next_page_token: str`
+    
+        The token which identifies the next page in the result set.
+    - `prev_page_token: str`
+    
+        The token which identifies the previous page in the result set.
+    - `page_info: str`
+    
+        Encapsulates paging information for the result set.
+        - `total_results: int`
+    
+            The total number of results in the result set.
+        - `results_per_page: int`
+    
+            The number of results returned in this page.
+    - `items: list`
+    
+        The list containing the result set available in this page.
+</details>
+<!--r-end LongResponse -->  
+
 <!--r-start PlaylistListResponse -->
 #### `PlaylistListResponse`
-
+A wrapper for PlaylistResource, returned from the `list` method. The structure of the response is modeled after [this](#longresponse).
 - <details><summary><code>PlaylistListResponse</code></summary>
-
+    
 </details>
 <!--r-end PlaylistListResponse -->  
 
 <!--r-start PlaylistItemListResponse -->
 #### `PlaylistItemListResponse`
-
+A wrapper for PlaylistItemResource, returned from the `list` method. The structure of the response is modeled after [this](#longresponse).
 - <details><summary><code>PlaylistItemListResponse</code></summary>
-
+    
 </details>
 <!--r-end PlaylistItemListResponse -->  
 
 <!--r-start ThumbnailListResponse -->
 #### `ThumbnailListResponse`
-
+A wrapper for ThumbnailResource, returned from the `list` method. The structure of the response is modeled after [this](#response).
 - <details><summary><code>ThumbnailListResponse</code></summary>
-
+    
 </details>
 <!--r-end ThumbnailListResponse -->  
 
 <!--r-start CommentListResponse -->
 #### `CommentListResponse`
-
+A wrapper for CommentResource, returned from the `list` method. The structure of the response is modeled after [this](#longresponse).
 - <details><summary><code>CommentListResponse</code></summary>
-
+    
 </details>
 <!--r-end CommentListResponse -->  
 
 <!--r-start CommentThreadListResponse -->
 #### `CommentThreadListResponse`
-
+A wrapper for CommentThreadResource, returned from the `list` method. The structure of the response is modeled after [this](#longresponse).
 - <details><summary><code>CommentThreadListResponse</code></summary>
-
+    
 </details>
 <!--r-end CommentThreadListResponse -->  
 
 <!--r-start I18nLanguageListResponse -->
 #### `I18nLanguageListResponse`
-
+A wrapper for I18nLanguageResource, returned from the `list` method. The structure of the response is modeled after [this](#response).
 - <details><summary><code>I18nLanguageListResponse</code></summary>
-
+    
 </details>
 <!--r-end I18nLanguageListResponse -->  
 
 <!--r-start I18nRegionListResponse -->
 #### `I18nRegionListResponse`
-
+A wrapper for I18nRegionResource, returned from the `list` method. The structure of the response is modeled after [this](#response).
 - <details><summary><code>I18nRegionListResponse</code></summary>
-
+    
 </details>
 <!--r-end I18nRegionListResponse -->  
 
 <!--r-start VideoCategoryListResponse -->
 #### `VideoCategoryListResponse`
-
+A wrapper for VideoCategoryResource, returned from the `list` method. The structure of the response is modeled after [this](#longresponse).
 - <details><summary><code>VideoCategoryListResponse</code></summary>
-
+    
 </details>
 <!--r-end VideoCategoryListResponse -->  
 
 <!--r-start VideoAbuseReportReasonListResponse -->
 #### `VideoAbuseReportReasonListResponse`
-
+A wrapper for VideoAbuseReportReasonResource, returned from the `list` method. The structure of the response is modeled after [this](#response).
 - <details><summary><code>VideoAbuseReportReasonListResponse</code></summary>
-
+    
 </details>
 <!--r-end VideoAbuseReportReasonListResponse -->  
 
 <!--r-start VideoListResponse -->
 #### `VideoListResponse`
-
+A wrapper for VideoResource, returned from the `list` method. The structure of the response is modeled after [this](#longresponse).
 - <details><summary><code>VideoListResponse</code></summary>
-
+    
 </details>
-<!--r-end VideoListResponse -->  
+<!--r-end VideoListResponse -->
+
+<!--r-start VideoGetRatingResponse -->
+#### `VideoGetRatingResponse`
+The response returned from the `Video.get_rating` method. The structure of the response is modeled after [this](#response). The `items` attribute contains a list of unique objects described below.
+- <details><summary><code>VideoGetRatingResponse</code></summary>
+    
+    - `items: list`
+    
+        The list containing the result set.
+        - `video_id: str`
+    
+            The ID of the video.
+        - `rating: str`
+    
+            The user's rating given to that video.
+Valid values include `dislike`, `like`, `none`, and `unspecified`.
+</details>
+<!--r-end VideoGetRatingResponse -->
 
 <!--r-start ChannelListResponse -->
 #### `ChannelListResponse`
-
+A wrapper for ChannelResource, returned from the `list` method. The structure of the response is modeled after [this](#longresponse).
 - <details><summary><code>ChannelListResponse</code></summary>
-
+    
 </details>
 <!--r-end ChannelListResponse -->  
 
 <!--r-start ChannelSectionListResponse -->
 #### `ChannelSectionListResponse`
-
+A wrapper for ChannelSectionResource, returned from the `list` method. The structure of the response is modeled after [this](#response).
 - <details><summary><code>ChannelSectionListResponse</code></summary>
-
+    
 </details>
 <!--r-end ChannelSectionListResponse -->  
 
 <!--r-start SearchListResponse -->
 #### `SearchListResponse`
-
+A wrapper for SearchResultResource, returned from the `list` method. The structure of the response is modeled after [this](#longresponse). Note that `SearchListResponse` also includes a `region_code` attribute.
 - <details><summary><code>SearchListResponse</code></summary>
-
+    
+    - `region_code`
+    
+        The region code that was used for the search query.
 </details>
 <!--r-end SearchListResponse -->  
 
 <!--r-start SubscriptionListResponse -->
 #### `SubscriptionListResponse`
-
+A wrapper for SubscriptionResource, returned from the `list` method. The structure of the response is modeled after [this](#longresponse).
 - <details><summary><code>SubscriptionListResponse</code></summary>
-
+    
 </details>
 <!--r-end SubscriptionListResponse -->  

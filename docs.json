@@ -1095,20 +1095,75 @@
             },
             "ref": "https://developers.google.com/youtube/v3/docs/subscriptions"
         },
-        "PlaylistListResponse": {},
-        "PlaylistItemListResponse": {},
-        "ThumbnailListResponse": {},
-        "CommentListResponse": {},
-        "CommentThreadListResponse": {},
-        "I18nLanguageListResponse": {},
-        "I18nRegionListResponse": {},
-        "VideoCategoryListResponse": {},
-        "VideoAbuseReportReasonListResponse": {},
-        "VideoListResponse": {},
-        "VideoGetRatingResponse": {},
-        "ChannelListResponse": {},
-        "ChannelSectionListResponse": {},
-        "SearchListResponse": {},
-        "SubscriptionListResponse": {}
+        "Response": {
+            "def": "A template for responses.",
+            "kind: str": "The kind/type of the resource.",
+            "etag: str": "The etag of the resource.",
+            "items: list": "The list containing the result set."
+        },
+        "LongResponse": {
+            "def": "A template for long-form responses, with information about pages.",
+            "kind: str": "The kind/type of the resource.",
+            "etag: str": "The etag of the resource.",
+            "next_page_token: str": "The token which identifies the next page in the result set.",
+            "prev_page_token: str": "The token which identifies the previous page in the result set.",
+            "page_info: str": {
+                "def": "Encapsulates paging information for the result set.",
+                "total_results: int": "The total number of results in the result set.",
+                "results_per_page: int": "The number of results returned in this page."
+            },
+            "items: list": "The list containing the result set available in this page."
+        },
+        "PlaylistListResponse": {
+            "def": "A wrapper for PlaylistResource, returned from the `list` method. The structure of the response is modeled after [this](#longresponse)."
+        },
+        "PlaylistItemListResponse": {
+            "def": "A wrapper for PlaylistItemResource, returned from the `list` method. The structure of the response is modeled after [this](#longresponse)."
+        },
+        "ThumbnailListResponse": {
+            "def": "A wrapper for ThumbnailResource, returned from the `list` method. The structure of the response is modeled after [this](#response)."
+        },
+        "CommentListResponse": {
+            "def": "A wrapper for CommentResource, returned from the `list` method. The structure of the response is modeled after [this](#longresponse)."
+        },
+        "CommentThreadListResponse": {
+            "def": "A wrapper for CommentThreadResource, returned from the `list` method. The structure of the response is modeled after [this](#longresponse)."
+        },
+        "I18nLanguageListResponse": {
+            "def": "A wrapper for I18nLanguageResource, returned from the `list` method. The structure of the response is modeled after [this](#response)."
+        },
+        "I18nRegionListResponse": {
+            "def": "A wrapper for I18nRegionResource, returned from the `list` method. The structure of the response is modeled after [this](#response)."
+        },
+        "VideoCategoryListResponse": {
+            "def": "A wrapper for VideoCategoryResource, returned from the `list` method. The structure of the response is modeled after [this](#longresponse)."
+        },
+        "VideoAbuseReportReasonListResponse": {
+            "def": "A wrapper for VideoAbuseReportReasonResource, returned from the `list` method. The structure of the response is modeled after [this](#response)."
+        },
+        "VideoListResponse": {
+            "def": "A wrapper for VideoResource, returned from the `list` method. The structure of the response is modeled after [this](#longresponse)."
+        },
+        "VideoGetRatingResponse": {
+            "def": "The response returned from the `Video.get_rating` method. The structure of the response is modeled after [this](#response). The `items` attribute contains a list of unique objects described below.",
+            "items: list": {
+                "def": "The list containing the result set.",
+                "video_id: str": "The ID of the video.",
+                "rating: str": "The user's rating given to that video.\nValid values include `dislike`, `like`, `none`, and `unspecified`."
+            }
+        },
+        "ChannelListResponse": {
+            "def": "A wrapper for ChannelResource, returned from the `list` method. The structure of the response is modeled after [this](#longresponse)."
+        },
+        "ChannelSectionListResponse": {
+            "def": "A wrapper for ChannelSectionResource, returned from the `list` method. The structure of the response is modeled after [this](#response)."
+        },
+        "SearchListResponse": {
+            "def": "A wrapper for SearchResultResource, returned from the `list` method. The structure of the response is modeled after [this](#longresponse). Note that `SearchListResponse` also includes a `region_code` attribute.",
+            "region_code": "The region code that was used for the search query."
+        },
+        "SubscriptionListResponse": {
+            "def": "A wrapper for SubscriptionResource, returned from the `list` method. The structure of the response is modeled after [this](#longresponse)."
+        }
     }
 }
